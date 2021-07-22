@@ -1,0 +1,32 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .icon {
+    @apply p-2 h-8 w-8 bg-gray-200 rounded-full text-gray-700 cursor-pointer hover:bg-gray-300;
+  }
+  .input-icon {
+    @apply flex items-center space-x-1 hover:bg-gray-200 flex-grow justify-center p-2 cursor-pointer hover:text-blue-500;
+  }
+}
+.sidebar > div {
+  height: calc(100vh - 3rem);
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0);
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #888;
+}
