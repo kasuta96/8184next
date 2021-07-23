@@ -39,7 +39,7 @@ model Session {
 model User {
   id            String    @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?
   emailVerified DateTime?
   image         String?
   accounts      Account[]
@@ -47,7 +47,7 @@ model User {
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   password      String?   @db.VarChar(255)
-  articles      Articles[]
+  articles      Article[]
   profile       Profile?
   status        Int       @default(0)
 }
@@ -63,18 +63,19 @@ model VerificationRequest {
 }
 
 
-model Articles {
+model Article {
   id          Int      @default(autoincrement()) @id
-  title       String   @db.VarChar(255)
+  title       String
+  slug        String?  @db.VarChar(255)
   content     Json
   published   Boolean  @default(false)
   status      Int      @default(0)
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
   cateId      Int?
-  description String?  @db.VarChar(255)
-  thumbnail   String?  @db.VarChar(255)
-  tags        String?  @db.VarChar(255)
+  description String?
+  thumbnail   String?
+  tags        String?
   point       Int      @default(0)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt

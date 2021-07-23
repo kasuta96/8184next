@@ -42,7 +42,6 @@ CREATE TABLE `User` (
     `password` VARCHAR(255),
     `status` INTEGER NOT NULL DEFAULT 0,
 
-    UNIQUE INDEX `User.email_unique`(`email`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -61,17 +60,18 @@ CREATE TABLE `VerificationRequest` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
-CREATE TABLE `Articles` (
+CREATE TABLE `Article` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `title` VARCHAR(255) NOT NULL,
+    `title` VARCHAR(191) NOT NULL,
+    `slug` VARCHAR(255),
     `content` JSON NOT NULL,
     `published` BOOLEAN NOT NULL DEFAULT false,
     `status` INTEGER NOT NULL DEFAULT 0,
     `authorId` VARCHAR(191) NOT NULL,
     `cateId` INTEGER,
-    `description` VARCHAR(255),
-    `thumbnail` VARCHAR(255),
-    `tags` VARCHAR(255),
+    `description` VARCHAR(191),
+    `thumbnail` VARCHAR(191),
+    `tags` VARCHAR(191),
     `point` INTEGER NOT NULL DEFAULT 0,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
@@ -97,7 +97,7 @@ ALTER TABLE `Account` ADD FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELE
 ALTER TABLE `Session` ADD FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE `Articles` ADD FOREIGN KEY (`authorId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `Article` ADD FOREIGN KEY (`authorId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Profile` ADD FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE CASCADE ON UPDATE CASCADE;

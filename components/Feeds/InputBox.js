@@ -3,7 +3,7 @@ import Image from "next/image";
 import { PhotographIcon } from "@heroicons/react/outline";
 import { db, storage } from "../../firebase";
 import { useRef, useState } from "react";
-import firebase from 'firebase';
+import firebase from 'firebase/app';
 
 function InputBox() {
   const [session] = useSession();
