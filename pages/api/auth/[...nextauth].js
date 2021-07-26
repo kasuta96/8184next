@@ -1,15 +1,28 @@
-import NextAuth from "next-auth"
-import Providers from "next-auth/providers"
-import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import { PrismaClient } from "@prisma/client"
-
-const prisma = new PrismaClient()
+import NextAuth from "next-auth";
+import Providers from "next-auth/providers";
+import Adapters from "next-auth/adapters";
+import prisma from '../../../lib/db'
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
+
+    Providers.Facebook({
+      clientId: process.env.FACEBOOK_ID,
+      clientSecret: process.env.FACEBOOK_SECRET,
+    }),
+    Providers.GitHub({
+      clientId: process.env.GITHUB_ID,
+      clientSecret: process.env.GITHUB_SECRET,
+      // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+      scope: "read:user"
+    }),
+    Providers.Google({
+      clientId: process.env.GOOGLE_ID,
+      clientSecret: process.env.GOOGLE_SECRET,
+    }),
     // Providers.Email({
     //   server: process.env.EMAIL_SERVER,
     //   from: process.env.EMAIL_FROM,
@@ -27,36 +40,10 @@ export default NextAuth({
     // }),
     // Temporarily removing the Apple provider from the demo site as the
     // callback URL for it needs updating due to Vercel changing domains
-
-    Providers.Facebook({
-      clientId: process.env.FACEBOOK_ID,
-      clientSecret: process.env.FACEBOOK_SECRET,
-    }),
-    // Providers.GitHub({
-    //   clientId: process.env.GITHUB_ID,
-    //   clientSecret: process.env.GITHUB_SECRET,
-    //   // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-    //   scope: "read:user"
-    // }),
-    Providers.Google({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
-    }),
   ],
 
-  adapter: PrismaAdapter(prisma),
-  // Database optional. MySQL, Maria DB, Postgres and MongoDB are supported.
-  // https://next-auth.js.org/configuration/databases
-  //
-  // Notes:
-  // * You must install an appropriate node_module for your database
-  // * The Email provider requires a database (OAuth providers do not)
-  // database: process.env.DATABASE_URL,
-
-  // The secret should be set to a reasonably long random string.
-  // It is used to sign cookies and to sign and encrypt JSON Web Tokens, unless
-  // a separate secret is defined explicitly for encrypting the JWT.
-  // secret: process.env.SECRET,
+  adapter: Adapters.Prisma.Adapter({ prisma }),
+  secret: process.env.SECRET,
 
   session: {
     // Use JSON Web Tokens for session instead of database sessions.
@@ -93,7 +80,7 @@ export default NextAuth({
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    // signIn: '/auth/signin',  // Displays signin buttons
+    signIn: '/auth/signin',  // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page

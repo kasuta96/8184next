@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import Feed from '../components/Feeds/Feed';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
+import Layout from '../components/Layout';
 
 export default function Home() {
   // const [session, loading] = useSession()
@@ -10,17 +9,11 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>FB</title>
+        <title>8184FB</title>
       </Head>
-      <Header />
-      <main className="relative md:flex bg-gray-100">
-
-        <Sidebar />
+      <Layout>
         <Feed />
-
-        {/* Widgets */}
-
-      </main>
+      </Layout>
     </>
   )
 }

@@ -8,8 +8,9 @@ import {
   ShoppingCartIcon,
   ViewGridIcon,
 } from "@heroicons/react/outline";
-import HeaderIcon from "./layouts/HeaderIcon";
-import ProfileDd from "./Dropdowns/Profile";
+import HeaderIcon from "./HeaderIcon";
+import ProfileDd from "../Dropdowns/Profile";
+import CreateDd from "../Dropdowns/Create";
 
 function SidebarToggle() {
   document.querySelector(".sidebar").classList.toggle("-translate-x-full");
@@ -44,9 +45,10 @@ function Header() {
 
       {/* right */}
       <div className="flex items-center space-x-2 justify-end">
-        {/* <ViewGridIcon className="icon" /> */}
-        <BellIcon className="icon" />
-        {/* <ChevronDownIcon className="icon inline-flex md:hidden" /> */}
+        <CreateDd />
+        {/* <ViewGridIcon className="circle-icon" /> */}
+        <BellIcon className="circle-icon" />
+        {/* <ChevronDownIcon className="circle-icon inline-flex md:hidden" /> */}
         <ProfileDd />
       </div>
     </div>

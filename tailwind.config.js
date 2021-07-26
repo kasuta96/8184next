@@ -6,7 +6,7 @@ module.exports = {
     extend: {},
   },
   variants: {
-    extend: {},
+    // extend: {},
     margin: ['responsive', 'hover'],
     padding: ['responsive', 'hover'],
   },

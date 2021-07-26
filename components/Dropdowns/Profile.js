@@ -25,7 +25,7 @@ function Profile() {
       {({ open }) => (
         <>
           <div>
-            <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hover:ring-2 hover:ring-offset-2 hover:ring-blue-500">
               <span className="sr-only">Open user menu</span>
               <Image
                 className="rounded-full"

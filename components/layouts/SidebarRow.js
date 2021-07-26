@@ -1,9 +1,9 @@
 import Image from "next/image";
 
-function SidebarRow({ src, Icon, title }) {
+function SidebarRow({ src, Icon, title, link }) {
   return (
     <a
-      href="#"
+      href={link}
       className="flex items-center p-2 space-x-2 hover:bg-gray-200 rounded-md"
     >
       {src && (

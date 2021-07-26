@@ -3,11 +3,21 @@
 @tailwind utilities;
 
 @layer components {
-  .icon {
+  .circle-icon {
     @apply p-2 h-8 w-8 bg-gray-200 rounded-full text-gray-700 cursor-pointer hover:bg-gray-300;
   }
   .input-icon {
     @apply flex items-center space-x-1 hover:bg-gray-200 flex-grow justify-center p-2 cursor-pointer hover:text-blue-500;
+  }
+  .icon {
+    width: 14px;
+    height: 14px;
+  }
+  .btn-primary {
+    @apply px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:outline-none hover:bg-blue-500 focus:bg-blue-500
+  }
+  .btn-black {
+    @apply px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform rounded-md hover:outline-none bg-gray-700 hover:bg-gray-600 focus:bg-gray-600
   }
 }
 .sidebar > div {
