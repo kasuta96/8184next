@@ -69,7 +69,7 @@ export const EditorContainer = ({ editorRef, children, data, options }) => {
 
   return (
     <React.Fragment>
-      {!children && <div className="py-2 text-gray-700 bg-white dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 rounded-xl focus:outline-none" id="editor-js"></div>}
+      {!children && <div className="py-2 px-4 text-gray-700 bg-white dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 rounded-xl focus:outline-none" id="editor-js"></div>}
       {children}
     </React.Fragment>
   );

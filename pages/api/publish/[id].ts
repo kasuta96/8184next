@@ -3,10 +3,10 @@ import prisma from '../../../lib/db'
 
 // PUT /api/publish/:id
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const postId = req.query.id;
-  const post = await prisma.post.update({
-    where: { id: Number(postId) },
+  const articleId = req.query.id;
+  const article = await prisma.article.update({
+    where: { id: Number(articleId) },
     data: { published: true },
   });
-  res.json(post);
+  res.json(article);
 }

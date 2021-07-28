@@ -12,7 +12,6 @@ function classNames(...classes) {
 
 function Profile() {
   const [ session, loading ] = useSession()
-  // console.log('session', session);
   if (!session) return (
     <button onClick={() => signIn()}>Sign in</button>
   );

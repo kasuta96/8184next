@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
-import Adapters from "next-auth/adapters";
+import { PrismaAdapter } from "@next-auth/prisma-adapter"
 import prisma from '../../../lib/db'
 
 // For more information on each option (and a full list of options) go to
@@ -13,12 +13,12 @@ export default NextAuth({
       clientId: process.env.FACEBOOK_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
     }),
-    Providers.GitHub({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
-      // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
-      scope: "read:user"
-    }),
+    // Providers.GitHub({
+    //   clientId: process.env.GITHUB_ID,
+    //   clientSecret: process.env.GITHUB_SECRET,
+    //   // https://docs.github.com/en/developers/apps/building-oauth-apps/scopes-for-oauth-apps
+    //   scope: "read:user"
+    // }),
     Providers.Google({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
@@ -42,7 +42,7 @@ export default NextAuth({
     // callback URL for it needs updating due to Vercel changing domains
   ],
 
-  adapter: Adapters.Prisma.Adapter({ prisma }),
+  adapter: PrismaAdapter(prisma),
   secret: process.env.SECRET,
 
   session: {
@@ -91,6 +91,22 @@ export default NextAuth({
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
+    // async signIn(user, account, profile) {
+    //   const isAllowedToSignIn = true
+    //   if (isAllowedToSignIn) {
+    //     return true
+    //   } else {
+    //     // Return false to display a default error message
+    //     return false
+    //     // Or you can return a URL to redirect to:
+    //     // return '/unauthorized'
+    //   }
+    // }
+    session: async (session, user) => {
+      console.log(user);
+      session.id = user.sub;
+      return Promise.resolve(session);
+    },
     // async signIn(user, account, profile) { return true },
     // async redirect(url, baseUrl) { return baseUrl },
     // async session(session, user) { return session },
