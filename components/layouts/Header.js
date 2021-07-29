@@ -38,9 +38,9 @@ function Header() {
 
       {/* center */}
       <div className="flex justify-center flex-grow">
-        <HeaderIcon active Icon={HomeIcon} />
+        {/* <HeaderIcon active Icon={HomeIcon} />
         <HeaderIcon Icon={NewspaperIcon} />
-        <HeaderIcon Icon={ShoppingCartIcon} />
+        <HeaderIcon Icon={ShoppingCartIcon} /> */}
       </div>
 
       {/* right */}

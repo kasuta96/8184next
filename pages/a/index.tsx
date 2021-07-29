@@ -5,28 +5,10 @@ import ArticleCard, { ArticleProps } from "../../components/Article/ArticleCard"
 import prisma from '../../lib/db'
 
 export const getStaticProps: GetStaticProps = async () => {
-  const articles = await prisma.article.findMany({
-    where: {
-      status: 0
-    },
-    orderBy: {
-      id: 'desc',
-    },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      description: true,
-      thumbnail: true,
-      tags: true,
-      author: {
-        select: {
-          name: true,
-          id: true
-        },
-      },
-    },
-  });
+
+  const res = await fetch(process.env.NEXTAUTH_URL+'/api/article/get-articles')
+  const articles = await res.json()
+
   return {
     props: { articles },
   };
@@ -39,11 +21,9 @@ type Props = {
 const Articles: React.FC<Props> = (props) => {
   return (
     <Layout>
-        <div>
+        <div className="space-y-12 py-10 max-w-4xl mx-auto">
           {props.articles.map((article) => (
-            <div key={article.id} className="" >
-              <ArticleCard article={article} />
-            </div>
+            <ArticleCard key={article.id} article={article} />
           ))}
         </div>
     </Layout>

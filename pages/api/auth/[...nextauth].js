@@ -103,7 +103,6 @@ export default NextAuth({
     //   }
     // }
     session: async (session, user) => {
-      console.log(user);
       session.id = user.sub;
       return Promise.resolve(session);
     },

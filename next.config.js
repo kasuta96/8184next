@@ -5,7 +5,9 @@ module.exports = {
       "platform-lookaside.fbsbx.com",
       "firebasestorage.googleapis.com",
       "lh3.googleusercontent.com",
-      "avatars.githubusercontent.com"
+      "avatars.githubusercontent.com",
+      "images.unsplash.com",
+      "i.picsum.photos"
     ]
   }
 }

@@ -1,6 +1,5 @@
 import React from "react";
 import Router from "next/router";
-import ReactMarkdown from "react-markdown";
 
 export type ArticleProps = {
   id: number;
@@ -15,21 +14,23 @@ export type ArticleProps = {
   thumbnail: string;
   tags: string;
   published: boolean;
+  createdAt: Date;
 };
 
-const Article: React.FC<{ article: ArticleProps }> = ({ article }) => {
+const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
   const authorName = article.author ? article.author.name : "Unknown author";
   return (
     <>
       <h2>{article.title}</h2>
       <small>By {authorName}</small>
-      <ReactMarkdown children={article.content} />
+      <p>{JSON.stringify(article.content)}</p>
       <p>slug: {article.slug}</p>
       <p>description: {article.description}</p>
       <p>thumbnail: {article.thumbnail}</p>
       <p>tags: {article.tags}</p>
+      <p>date: {JSON.stringify(article.createdAt)}</p>
     </>
   );
 };
 
-export default Article;
+export default ArticlePage;

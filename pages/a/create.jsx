@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import Router from "next/router";
 import dynamic from 'next/dynamic'
-import { useSaveCallback, useLoadData, options, useSetData, useClearDataCallback } from '../../components/Editor';
+import { options, useClearDataCallback } from '../../components/Editor';
 import { useSession } from 'next-auth/client'
 import AccessDenied from "../../components/Error/AccessDenied"
 

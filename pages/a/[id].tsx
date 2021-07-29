@@ -1,9 +1,9 @@
-import React from "react";
-import { GetServerSideProps } from "next";
+import React from "react"
+import { GetServerSideProps } from "next"
 import ReactMarkdown from "react-markdown";
-import Layout from "../../components/Layout";
-import Router from "next/router";
-import { ArticleProps } from "../../components/Article/Article";
+import Layout from "../../components/Layout"
+import Router from "next/router"
+import ArticlePage, { ArticleProps } from "../../components/Article/Article"
 import prisma from '../../lib/db'
 import { useSession } from "next-auth/client";
 
@@ -26,10 +26,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
         },
       },
       content:true,
-      published:true
+      published:true,
+      createdAt: true
     },
 
   });
+  // console.log(article.createdAt);
+  
   return {
     props: article,
   };
@@ -64,9 +67,7 @@ const Article: React.FC<ArticleProps> = (props) => {
   return (
     <Layout>
       <div>
-        <h2>{title}</h2>
-        <p>By {props?.author?.name || "Unknown author"}</p>
-        <ReactMarkdown children={props.content} />
+        <ArticlePage article={props} />
         {!props.published && userHasValidSession && articleBelongsToUser && (
           <button onClick={() => publishArticle(props.id)}>Publish</button>
         )}

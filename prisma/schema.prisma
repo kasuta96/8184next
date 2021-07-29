@@ -74,7 +74,7 @@ model Article {
   author      User     @relation(fields: [authorId], references: [id])
   authorId    String
   cateId      Int?
-  description String?
+  description String?  @db.Text
   thumbnail   String?  @db.VarChar(255)
   tags        String?  @db.VarChar(255)
   point       Int      @default(0)

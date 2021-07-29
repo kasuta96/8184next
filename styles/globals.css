@@ -19,10 +19,33 @@
   .btn-black {
     @apply px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform rounded-md hover:outline-none bg-gray-700 hover:bg-gray-600 focus:bg-gray-600
   }
+
+  /* articles card */
+
 }
 .sidebar > div {
   height: calc(100vh - 3rem);
 }
+.custom-img {
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
+}
+.unset-img {
+  width: 100%;
+}
+.unset-img > div {
+  position: unset !important;
+}
+.line-3 {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 3;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
