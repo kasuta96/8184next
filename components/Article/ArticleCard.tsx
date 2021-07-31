@@ -25,7 +25,21 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
 
     <div className="sm:flex">
       <div className="sm:flex-shrink-0 px-4 py-2">
-        <img className="object-cover rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72" src={article.thumbnail || "https://picsum.photos/300/200?blur=3&random=" + article.id} alt={article.title} />
+        {/* <img className="object-cover rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72" src={article.thumbnail || "https://picsum.photos/300/200?blur=3&random=" + article.id} alt={article.title} loading="lazy" /> */}
+        <div className="rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72">
+
+          <div className="relative w-full h-full">
+            <Image
+              className="rounded-lg"
+              src={article.thumbnail || "https://picsum.photos/200/300?blur=3&random=" + article.id}
+              alt={article.title}
+              layout="fill"
+              loading="lazy"
+              objectFit="cover"
+            />
+          </div>
+
+        </div>
       </div>
       <div className="px-4">
         {/* <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div> */}
@@ -34,7 +48,7 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
           className="block mt-1 text-lg leading-tight font-medium text-black hover:underline cursor-pointer"
         >{article.title}</div>
         <p className="mt-2 text-gray-500 line-3">{article.description}</p>
-        <div className="mt-4">
+        <div className="mt-2">
           <div className="flex items-center">
             <div className="flex items-center">
               {article.author.image &&
@@ -48,7 +62,7 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
               }
               <div className="mx-2 font-semibold text-gray-700 dark:text-gray-200">{article.author.name}</div>
             </div>
-            <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">{formatDaysAgo(article.createdAt)}</span>
+            <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">{formatDaysAgo(article.createdAt, 'vi')}</span>
           </div>
         </div>
       </div>

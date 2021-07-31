@@ -7,7 +7,8 @@ module.exports = {
       "lh3.googleusercontent.com",
       "avatars.githubusercontent.com",
       "images.unsplash.com",
-      "i.picsum.photos"
+      "i.picsum.photos",
+      "picsum.photos"
     ]
   }
 }

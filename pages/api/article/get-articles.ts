@@ -9,7 +9,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     take: 10,
     where: {
       status: 0,
-      published: true
+      // published: true
     },
     orderBy: {
       id: 'desc',

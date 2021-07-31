@@ -1,6 +1,5 @@
 import React from "react"
 import { GetServerSideProps } from "next"
-import ReactMarkdown from "react-markdown";
 import Layout from "../../components/Layout"
 import Router from "next/router"
 import ArticlePage, { ArticleProps } from "../../components/Article/Article"
