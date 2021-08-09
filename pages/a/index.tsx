@@ -1,14 +1,15 @@
 import React from "react";
-// import { useRouter } from 'next/router'
 import Layout from "../../components/Layout";
 import ArticleCard, { ArticleProps } from "../../components/Article/ArticleCard";
 // import { NextApiRequest, NextApiResponse } from 'next'
+const { URL, URLSearchParams } = require('url');
 
 export async function getServerSideProps(context: { query: any; }) {
-  
-  console.log(context.query);
 
-  const res = await fetch(process.env.NEXTAUTH_URL + '/api/article/get-articles')
+  const fetchUrl = new URL(process.env.NEXTAUTH_URL + '/api/article/get-articles');
+  fetchUrl.search = new URLSearchParams(context.query).toString();
+  
+  const res = await fetch(fetchUrl)
   const articles = await res.json()
 
   if (!articles) {

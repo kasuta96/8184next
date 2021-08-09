@@ -3,7 +3,7 @@ import BlocksRender from './BlocksRender';
 import PropTypes from 'prop-types';
 
 const ArticleContent = ({ data }) => (
-  <section className="py-10">
+  <section className="my-10">
     <BlocksRender data={data} />
 
   </section>

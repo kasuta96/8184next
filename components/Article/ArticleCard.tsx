@@ -20,6 +20,7 @@ export type ArticleProps = {
 };
 
 const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
+  
   return (
 
     <div className="sm:flex">
@@ -46,9 +47,9 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
           <div className="flex items-center">
             <div className="flex items-center">
 
-              <Avatar image={article.author.image} name={article.author.name} />
+              <Avatar image={article.author?.image} name={article.author?.name} />
               
-              <div className="mx-2 font-semibold text-gray-700 dark:text-gray-200">{article.author.name}</div>
+              <div className="mx-2 font-semibold text-gray-700 dark:text-gray-200">{article.author?.name || "Unknown"}</div>
             </div>
             <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">{formatDaysAgo(article.createdAt, 'vi')}</span>
           </div>

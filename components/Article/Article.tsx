@@ -1,9 +1,9 @@
 import React from "react"
-import Router from "next/router"
 import Thumbnail from "../Image/Thumbnail"
 import Avatar from "../Image/Avatar"
 import { formatDaysAgo } from "../../lib/formatDaysAgo"
 import ArticleContent from "./ArticleContent"
+import Tags from "./Tags"
 
 export type ArticleProps = {
   id: number;
@@ -50,8 +50,11 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
       </div>
 
       <ArticleContent data={article.content} />
-      {/* <p>{JSON.stringify(article.content)}</p> */}
-      <p>tags: {article.tags}</p>
+
+      {article.tags
+        &&
+        <Tags tags={article.tags} />
+      }
     </div>
   );
 };
