@@ -1,5 +1,6 @@
 import { useSession, signIn } from "next-auth/client";
 import Image from "next/image";
+import Avatar from '../Image/Avatar'
 import { PhotographIcon } from "@heroicons/react/outline";
 import { db, storage } from "../../firebase";
 import { useRef, useState } from "react";
@@ -76,13 +77,7 @@ function InputBox() {
   return (
     <form className="bg-white rounded-2xl shadow-md p-3 space-y-2">
       <div className="flex space-x-4 items-center">
-        <Image
-          className="rounded-full"
-          src={(typeof session.user.image === 'undefined') ? "../public/default-avatar.jpg" : session.user.image}
-          width={40}
-          height={40}
-          layout="fixed"
-        />
+        <Avatar image={session.user.image} size={40}/>
         <div className="flex flex-1">
           <input
             className="flex-grow px-5 rounded-full h-12 bg-gray-100 hover:bg-gray-200 cursor-pointer focus:outline-none w-max"

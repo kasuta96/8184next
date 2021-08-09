@@ -21,6 +21,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
       author: {
         select: {
           name: true,
+          image: true,
           id: true
         },
       },
@@ -30,7 +31,6 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     },
 
   });
-  // console.log(article.createdAt);
   
   return {
     props: article,
@@ -57,7 +57,7 @@ const Article: React.FC<ArticleProps> = (props) => {
     return <div>Authenticating ...</div>;
   }
   const userHasValidSession = Boolean(session);
-  const articleBelongsToUser = session?.user?.email === props.author?.email;
+  const articleBelongsToUser = session?.id === props.author?.id;
   let title = props.title;
   if (!props.published) {
     title = `${title} (Draft)`;
@@ -65,7 +65,7 @@ const Article: React.FC<ArticleProps> = (props) => {
 
   return (
     <Layout>
-      <div>
+      <div className="w-full max-w-4xl mx-auto">
         <ArticlePage article={props} />
         {!props.published && userHasValidSession && articleBelongsToUser && (
           <button onClick={() => publishArticle(props.id)}>Publish</button>

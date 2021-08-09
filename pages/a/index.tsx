@@ -1,8 +1,8 @@
 import React from "react";
-import { useRouter } from 'next/router'
+// import { useRouter } from 'next/router'
 import Layout from "../../components/Layout";
 import ArticleCard, { ArticleProps } from "../../components/Article/ArticleCard";
-import { NextApiRequest, NextApiResponse } from 'next'
+// import { NextApiRequest, NextApiResponse } from 'next'
 
 export async function getServerSideProps(context: { query: any; }) {
   
@@ -29,7 +29,7 @@ type Props = {
 const Articles: React.FC<Props> = (props) => {
   return (
     <Layout>
-      <div className="space-y-8 py-10 max-w-4xl mx-auto">
+      <div className="space-y-8 py-10 w-full max-w-4xl mx-auto">
         {props.articles.map((article) => (
           <ArticleCard key={article.id} article={article} />
         ))}

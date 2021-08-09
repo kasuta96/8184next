@@ -1,9 +1,8 @@
-import React from "react";
-import Router from "next/router";
-// import ReactMarkdown from "react-markdown";
-import Link from "next/link";
-import Image from "next/image";
+import React from "react"
+import Router from "next/router"
 import { formatDaysAgo } from "../../lib/formatDaysAgo"
+import Avatar from "../Image/Avatar"
+import Thumbnail from "../Image/Thumbnail"
 
 export type ArticleProps = {
   id: number;
@@ -28,16 +27,11 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
         {/* <img className="object-cover rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72" src={article.thumbnail || "https://picsum.photos/300/200?blur=3&random=" + article.id} alt={article.title} loading="lazy" /> */}
         <div className="rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72">
 
-          <div className="relative w-full h-full">
-            <Image
-              className="rounded-lg"
-              src={article.thumbnail || "https://picsum.photos/200/300?blur=3&random=" + article.id}
-              alt={article.title}
-              layout="fill"
-              loading="lazy"
-              objectFit="cover"
-            />
-          </div>
+          <Thumbnail
+            id={article.id}
+            image={article.thumbnail}
+            title={article.title}
+          />
 
         </div>
       </div>
@@ -51,15 +45,9 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <div className="mt-2">
           <div className="flex items-center">
             <div className="flex items-center">
-              {article.author.image &&
-                <Image
-                  className="object-cover h-10 rounded-full"
-                  src={article.author.image}
-                  alt="avatar"
-                  width={40}
-                  height={40}
-                />
-              }
+
+              <Avatar image={article.author.image} name={article.author.name} />
+              
               <div className="mx-2 font-semibold text-gray-700 dark:text-gray-200">{article.author.name}</div>
             </div>
             <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">{formatDaysAgo(article.createdAt, 'vi')}</span>

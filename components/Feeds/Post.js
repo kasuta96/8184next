@@ -1,18 +1,13 @@
 import Image from "next/image";
 import {  ChatIcon, ShareIcon, ThumbUpIcon } from "@heroicons/react/outline"
+import Avatar from "../Image/Avatar";
 
 function Post({ name, content, email, avatar, imageUrl, timestamp }) {
   return (
     <div className="flex flex-col">
       <div className="p-5 bg-white mt-5 rounded-t-2xl shadow-sm">
         <div className="flex items-center space-x-2">
-          <img
-            className="rounded-full"
-            src={avatar}
-            width={40}
-            height={40}
-            alt=""
-          />
+          <Avatar image={avatar} size={40}/>
           <div>
             <p className="font-medium">{name}</p>
               <p className="text-xs text-gray-400">

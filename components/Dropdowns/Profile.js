@@ -1,8 +1,7 @@
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
-import {  } from '@heroicons/react/outline'
 import { signIn, signOut, useSession } from 'next-auth/client'
-import Image from 'next/image'
+import Avatar from '../Image/Avatar'
 
 const profile = ['Your Profile', 'Settings']
 
@@ -26,13 +25,7 @@ function Profile() {
           <div>
             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hover:ring-2 hover:ring-offset-2 hover:ring-blue-500">
               <span className="sr-only">Open user menu</span>
-              <Image
-                className="rounded-full"
-                src={session.user.image}
-                width="30"
-                height="30"
-                layout="fixed"
-              />
+              <Avatar image={session.user.image} size={30}/>
             </Menu.Button>
           </div>
           <Transition

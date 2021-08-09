@@ -8,7 +8,7 @@ import {
   ShoppingCartIcon,
   ViewGridIcon,
 } from "@heroicons/react/outline";
-import HeaderIcon from "./HeaderIcon";
+// import HeaderIcon from "./HeaderIcon";
 import ProfileDd from "../Dropdowns/Profile";
 import CreateDd from "../Dropdowns/Create";
 
