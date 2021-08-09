@@ -1,16 +1,18 @@
 import {
   BellIcon,
-  ChevronDownIcon,
-  HomeIcon,
   MenuIcon,
-  NewspaperIcon,
   SearchIcon,
-  ShoppingCartIcon,
-  ViewGridIcon,
-} from "@heroicons/react/outline";
-// import HeaderIcon from "./HeaderIcon";
-import ProfileDd from "../Dropdowns/Profile";
-import CreateDd from "../Dropdowns/Create";
+  // ChevronDownIcon,
+  // HomeIcon,
+  // NewspaperIcon,
+  // ShoppingCartIcon,
+  // ViewGridIcon,
+} from "@heroicons/react/outline"
+// import HeaderIcon from "./HeaderIcon"
+import ProfileDd from "../Dropdowns/Profile"
+import CreateDd from "../Dropdowns/Create"
+import SearchForm from "./SearchForm"
+// import Router from "next/router"
 
 function SidebarToggle() {
   document.querySelector(".sidebar").classList.toggle("-translate-x-full");
@@ -26,14 +28,18 @@ function Header() {
           className="h-6 mr-2 md:hidden"
           onClick={() => SidebarToggle()}
         />
-        <div className="flex items-center rounded-full bg-gray-100 p-1">
-          <SearchIcon className="h-5 text-gray-600" />
-          <input
-            className="w-24 md:w-48 items-center mx-2 bg-transparent outline-none"
-            type="text"
-            placeholder="Search"
-          />
-        </div>
+        <SearchForm />
+        {/* <form onSubmit={() => Router.push("/a")}>
+          <div className="flex items-center rounded-full bg-gray-100 p-1">
+            <input
+              className="w-24 md:w-48 items-center ml-2 bg-transparent outline-none"
+              type="text"
+              name="kw"
+              placeholder="Search"
+            />
+            <button className="px-2" type="submit"><SearchIcon className="h-5 text-gray-600" /></button>
+          </div>
+        </form> */}
       </div>
 
       {/* center */}
