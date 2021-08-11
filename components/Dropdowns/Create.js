@@ -1,7 +1,7 @@
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { PlusIcon, NewspaperIcon, DocumentTextIcon, QuestionMarkCircleIcon } from '@heroicons/react/outline'
-import SidebarRow from "../layouts/SidebarRow"
+import { useRouter } from 'next/router'
 
 const creates = [
   {
@@ -26,6 +26,8 @@ function classNames(...classes) {
 }
 
 function Create() {
+
+  const router = useRouter()
 
   return (
     <div >
@@ -56,16 +58,16 @@ function Create() {
                 {creates.map((item) => (
                   <Menu.Item key={item.name}>
                     {({ active }) => (
-                      <a
-                        href={item.link}
+                      <button
+                        onClick={() => router.push(item.link)}
                         className={classNames(
                           active ? 'bg-gray-100' : '',
-                          'flex px-4 py-2 text-sm text-gray-700'
+                          'flex px-4 py-2 text-sm text-gray-700 cursor-pointer'
                         )}
                       >
                         {item.icon && <item.icon className="h-6 w-6 mr-2" />}
                         {item.name}
-                      </a>
+                      </button>
                     )}
                   </Menu.Item>
                 ))}
