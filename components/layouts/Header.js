@@ -12,11 +12,8 @@ import {
 import ProfileDd from "../Dropdowns/Profile"
 import CreateDd from "../Dropdowns/Create"
 import SearchForm from "./SearchForm"
+import { SidebarToggle } from './SidebarToogle'
 // import Router from "next/router"
-
-function SidebarToggle() {
-  document.querySelector(".sidebar").classList.toggle("-translate-x-full");
-}
 
 function Header() {
   return (
@@ -26,7 +23,7 @@ function Header() {
         {/* logo */}
         <MenuIcon
           className="h-6 mr-2 md:hidden"
-          onClick={() => SidebarToggle()}
+          onClick={SidebarToggle}
         />
         <SearchForm />
         {/* <form onSubmit={() => Router.push("/a")}>

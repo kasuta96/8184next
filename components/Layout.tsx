@@ -9,12 +9,23 @@ type Props = {
 const Layout: React.FC<Props> = (props) => (
   <>
     <Header />
-      <main className="relative md:flex bg-gray-100">
+    {/* <main className="relative md:flex bg-gray-100"> */}
+    <div className="w-full max-w-8xl mx-auto">
+      <div className="md:flex">
+
         <Sidebar />
 
-        {props.children}
-        
-      </main>
+        <div id="content-wrapper" className="min-w-0 w-full flex-auto md:static md:max-h-full md:overflow-visible">
+          <div className="w-full flex">
+
+            {props.children}
+
+          </div>
+        </div>
+
+
+      </div>
+    </div>
   </>
 );
 
