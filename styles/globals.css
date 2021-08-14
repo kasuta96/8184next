@@ -58,7 +58,7 @@
 
 }
 
-.sidebar > div {
+#sidebar > div {
   height: calc(100vh - 3rem);
 }
 .line-3 {
@@ -81,6 +81,10 @@
   height: 30px;
   border-radius: 5px;
 }
+.cdx-notifies {
+  z-index: 50 !important;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;

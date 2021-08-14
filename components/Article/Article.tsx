@@ -4,6 +4,7 @@ import Avatar from "../Image/Avatar"
 import { formatDaysAgo } from "../../lib/formatDaysAgo"
 import ArticleContent from "./ArticleContent"
 import Tags from "./Tags"
+import ArticleReact from "../../components/Reaction/Article"
 
 export type ArticleProps = {
   id: number;
@@ -20,17 +21,22 @@ export type ArticleProps = {
   tags: string;
   published: boolean;
   createdAt: Date;
+  status: string;
 };
 
 const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
-  const authorName = article.author ? article.author.name : "Unknown author";
+  let authorName = article.author ? article.author.name : "Unknown author";
+  let title = article.title;
+  if (!article.published) {
+    title = `${title} (Draft)`;
+  }
 
   return (
     <div className="px-3">
       <div className="rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
         <Thumbnail image={article.thumbnail} />
       </div>
-      <h4 className="pt-4">{article.title}</h4>
+      <h4 className="pt-4">{title}</h4>
 
       <div className="flex items-center mt-4">
         <a href={"/user/" + article.author.id} className="block relative">
@@ -55,6 +61,11 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         &&
         <Tags tags={article.tags} />
       }
+
+      <ArticleReact authorId={article.author.id} articleId={article.id} />
+
+      <p>id: {article.id}</p>
+
     </div>
   );
 };

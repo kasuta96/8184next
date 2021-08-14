@@ -19,7 +19,7 @@ const CodeOutput = ({ data, style, classNames, config }) => {
   };
   if (!config || typeof config !== 'object') config = {};
   if (!classNames || typeof classNames !== 'string') classNames = {
-    container: 'bg-gray-300 p-5 my-8 rounded text-sm border-l-4 border-gray-700 overflow-auto',
+    container: 'bg-gray-300 p-5 my-8 rounded text-sm border-l-4 border-gray-700 overflow-x-auto',
     code: ''
   };
 
@@ -30,9 +30,11 @@ const CodeOutput = ({ data, style, classNames, config }) => {
 
   if (!content) return '';
   return (
-    <pre style={ style.container } className={ classNames.container }>
-      <code style={ style.code } className={ classNames.code }>{ ReactHtmlParser(content) }</code>
-    </pre>
+    <div style={style.container} className={classNames.container}>
+      <pre>
+        <code style={style.code} className={classNames.code}>{ReactHtmlParser(content)}</code>
+      </pre>
+    </div>
   );
 
 };

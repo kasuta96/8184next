@@ -10,5 +10,8 @@ module.exports = {
       "i.picsum.photos",
       "picsum.photos"
     ]
-  }
+  },
+  env: {
+    HOST: 'http://localhost:3000',
+  },
 }

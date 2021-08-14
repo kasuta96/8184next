@@ -1,10 +1,10 @@
 import { useSession, signIn } from "next-auth/client";
-import Image from "next/image";
+// import Image from "next/image";
 import Avatar from '../Image/Avatar'
 import { PhotographIcon } from "@heroicons/react/outline";
 import { db, storage } from "../../firebase";
 import { useRef, useState } from "react";
-import firebase from 'firebase/app';
+// import firebase from 'firebase/app';
 
 function InputBox() {
   const [session] = useSession();
@@ -23,6 +23,7 @@ function InputBox() {
       timestamp: firebase.firestore.FieldValue.serverTimestamp()
     }).then(doc => {
       if (postImage) {
+        console.log(postImage);
         const uploadTask = storage.ref(`posts/${doc.id}`).putString(postImage, 'data_url');
         removeImage();
         uploadTask.on(

@@ -35,7 +35,7 @@ const Create = () => {
       const content = await editor.save();
       // const content = JSON.stringify(editorData)
       const body = { title, content };
-      await fetch(`http://localhost:3000/api/article`, {
+      await fetch(`${process.env.NEXTAUTH_URL}/api/article`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
