@@ -11,6 +11,7 @@ import ReactHtmlParser from 'react-html-parser';
 //#endregion
 
 const ImageOutput = ({ data }) => {
+
   if (!data || (!data.url && !data.file?.url)) return 'nothing';
 
   let classNames = 'my-8 simple-image text-center';
@@ -18,12 +19,12 @@ const ImageOutput = ({ data }) => {
 
   if (data.withBorder) classNames += ' withBorder';
   if (data.withBackground) classNames += ' withBackground';
-  if (data.fullWidth) classNames += ' fullWidth';
+  if (data.stretched) classNames += ' stretched';
 
   return (
-    <figure className={ classNames }>
-      <img src={ url } alt={ data.caption || '' } />
-      { data.caption && <figcaption className="text-gray-500 text-sm mt-4">{ ReactHtmlParser(data.caption) }</figcaption> }
+    <figure className={classNames}>
+      <img src={url} alt={data.caption || ''} />
+      {data.caption && <figcaption className="text-gray-500 text-sm mt-4">{ReactHtmlParser(data.caption)}</figcaption>}
     </figure>
   );
 };

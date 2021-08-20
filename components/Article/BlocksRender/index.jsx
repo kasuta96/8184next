@@ -45,6 +45,7 @@ const Output = ({ data, style, classNames, config, renderers }) => {
         return <Renderer key={i} data={block.data} style={style.paragraph || {}} config={config.paragraph || {}}
           classNames={classNames.paragraph || {}} />;
       case 'image':
+      case 'simpleimage':
         Renderer = renderers.image || ImageOutput;
         return <Renderer key={i} data={block.data} />;
       case 'embed':

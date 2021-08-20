@@ -15,7 +15,7 @@ const Layout: React.FC<Props> = (props) => (
 
         <Sidebar />
 
-        <div id="content-wrapper" className="min-w-0 w-full flex-auto md:static md:max-h-full md:overflow-visible">
+        <div id="content-wrapper" className="min-w-0 w-full flex-auto md:static md:max-h-full md:overflow-visible bg-gray-100">
           <div className="w-full flex">
 
             {props.children}

@@ -49,7 +49,7 @@
   .withBackground {
     @apply bg-gray-200 p-2 rounded-lg
   }
-  .fullWidth img {
+  .stretched img {
     @apply max-h-full
   }
   .withBorder img {

@@ -4,7 +4,7 @@ import Avatar from '../Image/Avatar'
 import { PhotographIcon } from "@heroicons/react/outline";
 import { db, storage } from "../../firebase";
 import { useRef, useState } from "react";
-// import firebase from 'firebase/app';
+import firebase from 'firebase/app';
 
 function InputBox() {
   const [session] = useSession();

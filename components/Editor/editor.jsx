@@ -32,7 +32,7 @@ export const useEditor = (toolsList, { data, editorRef }, options = {}) => {
       */
       data: data || {},
 
-      initialBlock: 'paragraph',
+      defaultBlock: 'paragraph',
 
       // Override editor options
       ...editorOptions,
