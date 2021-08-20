@@ -21,6 +21,7 @@ import ChecklistOutput from './renderers/checklist/index.jsx';
 import TableOutput from './renderers/table/index.jsx';
 import DelimiterOutput from './renderers/delimiter/index.jsx';
 import CodeOutput from './renderers/code/index.jsx';
+import TransOutput from './renderers/trans'
 //#endregion
 
 const Output = ({ data, style, classNames, config, renderers }) => {
@@ -67,6 +68,9 @@ const Output = ({ data, style, classNames, config, renderers }) => {
       case 'delimiter':
         Renderer = renderers.delimiter || DelimiterOutput;
         return <Renderer key={i} style={style.delimiter || {}} config={config.delimiter || {}} classNames={classNames.delimiter || {}} />;
+      case 'trans':
+        Renderer = renderers.trans || TransOutput;
+        return <Renderer key={i} count={i} data={block.data} />;
 
       default: return '';
     }
@@ -74,5 +78,5 @@ const Output = ({ data, style, classNames, config, renderers }) => {
 };
 
 export {
-  HeaderOutput, ParagraphOutput, ImageOutput, EmbedOutput, TableOutput, CodeOutput, ListOutput, QuoteOutput, DelimiterOutput, Output as default
+  HeaderOutput, ParagraphOutput, ImageOutput, EmbedOutput, TableOutput, CodeOutput, ListOutput, QuoteOutput, DelimiterOutput, TransOutput, Output as default
 };
