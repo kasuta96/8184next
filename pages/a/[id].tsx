@@ -1,53 +1,25 @@
 import React from "react"
 import { GetServerSideProps } from "next"
-import ErrorPage from 'next/error'
 import Layout from "../../components/Layout"
 import ArticlePage, { ArticleProps } from "../../components/Article/Article"
-import prisma from '../../lib/db'
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const article = await prisma.article.findUnique({
-    where: {
-      id: Number(params?.id) || -1,
-    },
-    select: {
-      id: true,
-      title: true,
-      slug: true,
-      description: true,
-      thumbnail: true,
-      tags: true,
-      author: {
-        select: {
-          name: true,
-          image: true,
-          id: true
-        },
-      },
-      content:true,
-      published:true,
-      createdAt: true
-    },
 
-  });
-  if (article) {
+  const res = await fetch(process.env.HOST + '/api/article/' + params?.id)
+  const article = await res.json()
+
+  if (article?.status) {
     return {
-      props: article,
+      props: article.body,
     };
   } else {
     return {
-      props: {
-        status: '404'
-      }
+      notFound: true,
     }
   }
 };
 
 const Article: React.FC<ArticleProps> = (props) => {
-
-  if (props?.status == '404') {
-    return <ErrorPage statusCode={404} />
-  }
 
   return (
     <Layout>

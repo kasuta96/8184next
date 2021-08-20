@@ -1,5 +1,5 @@
 import { useCallback, useState, useEffect } from "react";
-import initialData from './data.json';
+// import initialData from './data.json';
 
 export const dataKey = 'editorData';
 
@@ -50,8 +50,36 @@ export const useClearDataCallback = (editor) => {
   }, [editor])
 }
 
-// load saved data
+// load saved data from db
 export const useLoadData = () => {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  // Mimic async data load
+  useEffect(() => {
+    setLoading(true);
+    async () => {
+      console.group('EDITOR load data');
+
+      const res = await fetch(process.env.HOST + '/api/article/23')
+      const article = await res.json()
+    
+      if (article.status) {
+        const parsed = JSON.parse(article.body);
+        setData(parsed);
+      } else {
+        console.info('No saved data');
+      }
+      console.groupEnd();
+      setLoading(false);
+    }
+  }, []);
+
+  return { data, loading };
+};
+
+// load saved data from localStorage
+export const useLoadLocalData = () => {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
 

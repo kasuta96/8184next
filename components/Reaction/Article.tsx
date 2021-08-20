@@ -11,14 +11,18 @@ const Article = ({ authorId, articleId }) => {
   //   });
   //   await router.push("/a")
   // }
-  
+
   async function deleteArticle(id: number): Promise<void> {
 
-    await fetch( process.env.HOST + `/api/article/${id}`, {
+    const res = await fetch(process.env.HOST + `/api/article/${id}`, {
       method: "DELETE",
     });
-    
-    await router.push("/a")
+    const data = await res.json()
+    if (data?.status == 'success') {
+      await router.push("/a")
+    } else {
+      console.log(data);
+    }
   }
 
   const [session, loading] = useSession();

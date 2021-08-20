@@ -31,8 +31,8 @@ function Create() {
 
   return (
     <div >
-      
-    {/* Create dropdown */}
+
+      {/* Create dropdown */}
       <Menu as="div" className="relative">
         {({ open }) => (
           <>
@@ -58,16 +58,18 @@ function Create() {
                 {creates.map((item) => (
                   <Menu.Item key={item.name}>
                     {({ active }) => (
-                      <button
+                      <div
                         onClick={() => router.push(item.link)}
                         className={classNames(
                           active ? 'bg-gray-100' : '',
-                          'flex px-4 py-2 text-sm text-gray-700 cursor-pointer'
+                          'block px-4 py-2 text-sm text-gray-700 cursor-pointer'
                         )}
                       >
-                        {item.icon && <item.icon className="h-6 w-6 mr-2" />}
-                        {item.name}
-                      </button>
+                        <div className="flex">
+                          {item.icon && <item.icon className="h-6 w-6 mr-2" />}
+                          {item.name}
+                        </div>
+                      </div>
                     )}
                   </Menu.Item>
                 ))}

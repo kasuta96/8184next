@@ -3,7 +3,6 @@ import prisma from '../../../lib/db'
 
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
 
-  console.log('params', req.query);
   const kw = req?.query?.kw?.toString() || '';
 
   const articles = await prisma.article.findMany({

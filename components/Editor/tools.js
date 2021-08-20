@@ -11,7 +11,8 @@ import Quote from '@editorjs/quote'
 import Marker from '@editorjs/marker'
 import InlineCode from '@editorjs/inline-code'
 import Table from 'editorjs-table'
-// import Trans from './custom/trans'
+import SimpleImage from './custom/simpleImage'
+import Trans from './custom/trans'
 
 import { storage } from '../../firebase'
 
@@ -50,6 +51,7 @@ export const tools = {
   checklist: CheckList,
   delimiter: Delimiter,
   inlineCode: InlineCode,
+  simpleImage: SimpleImage,
   image: {
     class: Image,
     config: {
@@ -91,15 +93,14 @@ export const tools = {
         }
       }
     }
-  }
-
-  // trans: {
-  //   class: Trans,
-  //   inlineToolbar: true,
-  //   config: {
-  //     originalPlaceholder: 'Enter a original',
-  //     translationPlaceholder: 'Enter a translation',
-  //   },
-  // },
+  },
+  trans: {
+    class: Trans,
+    inlineToolbar: true,
+    config: {
+      originalPlaceholder: 'Enter a original',
+      translationPlaceholder: 'Enter a translation',
+    },
+  },
 
 }

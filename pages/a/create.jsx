@@ -2,9 +2,36 @@ import React, { useState, useEffect } from "react";
 import Layout from "../../components/Layout";
 import Router from "next/router";
 import dynamic from 'next/dynamic'
-import { options, useClearDataCallback } from '../../components/Editor';
+import { options, useClearDataCallback, useSetData, useLoadData } from '../../components/Editor';
 import { useSession } from 'next-auth/client'
 import AccessDenied from "../../components/Error/AccessDenied"
+
+// get data if has id query
+export const getServerSideProps = async ({ query }) => {
+
+  if (query.id) {
+    const res = await fetch(process.env.HOST + '/api/article/' + query.id)
+    const article = await res.json()
+  
+    if (article?.status) {
+      return {
+        props: article,
+      };
+    } else {
+      return {
+        notFound: true,
+      }
+    }
+  }
+  else {
+    return {
+      props: {
+        status: false
+      }
+    }
+  }
+
+};
 
 // CSR
 const Editor = dynamic(
@@ -12,18 +39,25 @@ const Editor = dynamic(
   { ssr: false }
 );
 
+const Create = (props) => {
 
-const Create = () => {
-  const [ session ] = useSession();
-
-  const [title, setTitle] = useState("");
+  const [session] = useSession();
+  const [title, setTitle] = useState(props?.body?.title || "");
   const [editor, setEditor] = useState(null);
+
+  if (props?.status) {
+    useSetData(editor, props.body.content);
+  }
+
   // save handler
   // const onSave = useSaveCallback(title, editor);
-  // load data
-  // const { data, loading } = useLoadData();
+
+  // load data 
+  // const {data, loading} = useLoadData()
+
   // set saved data
   // useSetData(editor, data);
+  
   // clear data callback
   const clearData = useClearDataCallback(editor);
 
@@ -35,7 +69,7 @@ const Create = () => {
       const content = await editor.save();
       // const content = JSON.stringify(editorData)
       const body = { title, content };
-      await fetch(`${process.env.NEXTAUTH_URL}/api/article`, {
+      await fetch(process.env.HOST + `/api/article`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
