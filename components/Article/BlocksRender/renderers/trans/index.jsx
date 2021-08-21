@@ -10,7 +10,7 @@ import React from 'react'
 import ReactHtmlParser from 'react-html-parser'
 //#endregion
 
-const TransOutput = ({ data, key, count }) => {
+const TransOutput = ({ data, count }) => {
   if (!data || typeof data !== 'object') return ''
 
   let original = null
@@ -22,11 +22,9 @@ const TransOutput = ({ data, key, count }) => {
   if (data.option && typeof data.option === 'string') option = data.option
 
   const Tag = ({ data }) => {
-    if (option == 'header') {
-      return <h4 className="font-bold">{ReactHtmlParser(data)}</h4>
-    } else {
-      return <p className="">{ReactHtmlParser(data)}</p>
-    }
+    return option == 'header'
+      ? <h4 className="font-bold">{ReactHtmlParser(data)}</h4>
+      : <p className="">{ReactHtmlParser(data)}</p>
   }
 
   const Tabs = ({ id = "", original, translation }) => {
@@ -34,7 +32,8 @@ const TransOutput = ({ data, key, count }) => {
     return (
       <div
         className={
-          "my-6 px-5 py-3 shadow rounded block cursor-pointer " +
+          "my-6 px-5 py-3 shadow rounded block cursor-pointer "
+          +
           (openTrans == true
             ? "text-white bg-gray-600"
             : "text-gray-800 bg-gray-50"
