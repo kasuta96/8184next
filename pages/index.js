@@ -1,29 +1,12 @@
-import Head from 'next/head';
-import Feed from '../components/Feeds/Feed';
-import Layout from '../components/Layout';
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
 
-export default function Home() {
-  // const [session, loading] = useSession()
-  // if (!session) return <Login />;
+export default function Page() {
+  const router = useRouter()
 
-  return (
-    <>
-      <Head>
-        <title>8184FB</title>
-      </Head>
-      <Layout>
-        <Feed />
-      </Layout>
-    </>
-  )
+  useEffect(() => {
+    router.push('/a')
+  }, [])
+
+  return <p>Redirecting...</p>
 }
-
-// export async function getServerSideProgs(context) {
-//   // Get user
-//   const session = await getSession(context);
-//   return {
-//     progs: {
-//       session
-//     }
-//   }
-// }
