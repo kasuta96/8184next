@@ -17,7 +17,7 @@
     "@headlessui/react": "^1.2.0",
     "@heroicons/react": "^1.0.1",
     "@next-auth/prisma-adapter": "^0.5.3",
-    "@prisma/client": "^2.27.0",
+    "@prisma/client": "^2.30.0",
     "@types/react-html-parser": "^2.0.2",
     "editorjs-blocks-react-renderer": "^1.1.1",
     "firebase": "^8.9.1",
@@ -58,7 +58,7 @@
     "editorjs-table": "^1.4.10",
     "now": "^18.0.0",
     "postcss": "^8.3.0",
-    "prisma": "^2.27.0",
+    "prisma": "^2.30.0",
     "tailwindcss": "^2.1.4",
     "ts-node": "^10.1.0",
     "typescript": "^4.3.5"

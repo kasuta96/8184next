@@ -38,19 +38,22 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  password      String?   @db.VarChar(255)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
+  password      String?    @db.VarChar(255)
   articles      Article[]
   profile       Profile?
-  status        Int       @default(0)
+  status        Int        @default(0)
+  Vote          Vote[]
+  Comment       Comment[]
+  Reaction      Reaction[]
 }
 
 model VerificationRequest {
@@ -64,28 +67,84 @@ model VerificationRequest {
   @@unique([identifier, token])
 }
 
-model Article {
-  id          Int      @id @default(autoincrement())
-  title       String
-  slug        String?
-  content     Json
-  published   Boolean  @default(false)
-  status      Int      @default(0)
-  author      User     @relation(fields: [authorId], references: [id])
-  authorId    String
-  cateId      Int?
-  description String?  @db.Text
-  thumbnail   String?  @db.VarChar(255)
-  tags        String?  @db.VarChar(255)
-  point       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model Profile {
   id       Int    @id @default(autoincrement())
   info     Json
   settings Json
   user     User   @relation(fields: [userId], references: [id])
   userId   String @unique
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  keywords    Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Article     Article[]
+}
+
+model Article {
+  id          Int        @id @default(autoincrement())
+  title       String
+  slug        String?
+  content     Json
+  published   Boolean    @default(false)
+  status      Int        @default(0)
+  author      User       @relation(fields: [authorId], references: [id])
+  authorId    String
+  category    Category?  @relation(fields: [categoryId], references: [id])
+  categoryId  Int?
+  description String?    @db.Text
+  thumbnail   String?    @db.VarChar(255)
+  tags        String?    @db.VarChar(255)
+  point       Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  Vote        Vote[]
+  Comment     Comment[]
+  Reaction    Reaction[]
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  article   Article  @relation(fields: [articleId], references: [id])
+  articleId Int
+  level     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  articleId Int
+  article   Article   @relation(fields: [articleId], references: [id])
+  content   String
+  parentId  Int?
+  parent    Comment?  @relation(fields: [parentId], references: [id])
+  status    Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Comment   Comment[] @relation("CommentToComment")
+}
+
+model Reaction_type {
+  id   Int    @id @default(autoincrement())
+  name String
+  icon String
+  data Json?
+}
+
+model Reaction {
+  id        Int     @id @default(autoincrement())
+  userId    String
+  user      User    @relation(fields: [userId], references: [id])
+  commentId Int
+  comment   Article @relation(fields: [commentId], references: [id])
+  type      Int
 }
