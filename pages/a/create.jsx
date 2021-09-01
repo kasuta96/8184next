@@ -1,18 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Layout from "../../components/Layout";
 import Router from "next/router";
-import dynamic from 'next/dynamic'
-import { options, useClearDataCallback, useSetData, useLoadData } from '../../components/Editor';
-import { useSession } from 'next-auth/client'
-import AccessDenied from "../../components/Error/AccessDenied"
+import dynamic from "next/dynamic";
+import {
+  options,
+  useClearDataCallback,
+  useSetData,
+} from "../../components/Editor";
+import { useSession } from "next-auth/client";
+import AccessDenied from "../../components/Error/AccessDenied";
 
 // get data if has id query
 export const getServerSideProps = async ({ query }) => {
-
   if (query.id) {
-    const res = await fetch(process.env.HOST + '/api/article/' + query.id)
-    const article = await res.json()
-  
+    const res = await fetch(process.env.HOST + "/api/article/" + query.id);
+    const article = await res.json();
+
     if (article?.status) {
       return {
         props: article,
@@ -20,27 +23,25 @@ export const getServerSideProps = async ({ query }) => {
     } else {
       return {
         notFound: true,
-      }
+      };
     }
-  }
-  else {
+  } else {
     return {
       props: {
-        status: false
-      }
-    }
+        status: false,
+      },
+    };
   }
-
 };
 
 // CSR
 const Editor = dynamic(
-  () => import('../../components/Editor/editor').then(mod => mod.EditorContainer),
+  () =>
+    import("../../components/Editor/editor").then((mod) => mod.EditorContainer),
   { ssr: false }
 );
 
 const Create = (props) => {
-
   const [session] = useSession();
   const [title, setTitle] = useState(props?.body?.title || "");
   const [editor, setEditor] = useState(null);
@@ -52,12 +53,12 @@ const Create = (props) => {
   // save handler
   // const onSave = useSaveCallback(title, editor);
 
-  // load data 
+  // load data
   // const {data, loading} = useLoadData()
 
   // set saved data
   // useSetData(editor, data);
-  
+
   // clear data callback
   const clearData = useClearDataCallback(editor);
 
@@ -86,16 +87,14 @@ const Create = (props) => {
       <Layout>
         <AccessDenied />
       </Layout>
-    )
+    );
   }
   return (
     <Layout>
       <section className="flex-grow min-h-screen p-5 mx-auto">
         <div className="lg:max-w-3xl mx-auto">
-
-          <form onSubmit={submitData} >
+          <form onSubmit={submitData}>
             <div className="items-center md:flex md:space-x-4">
-
               <div className="w-full">
                 <input
                   className="block w-full px-4 py-2 text-gray-700 bg-white dark:bg-gray-800 dark:text-gray-300 rounded-xl focus:outline-none"
@@ -114,15 +113,12 @@ const Create = (props) => {
                 placeholder="Something"
               />
             </div> */}
-
             </div>
 
             <div className="w-full mt-4">
-
               <div className="editorContainer">
                 <Editor reInit editorRef={setEditor} options={options} />
               </div>
-
             </div>
 
             <div className="flex justify-center mt-6 space-x-2">
@@ -132,10 +128,16 @@ const Create = (props) => {
                 value="Create"
                 className="btn-primary disabled:bg-gray-300 cursor-pointer"
               />
-              <a className="btn-black" href="#" onClick={() => Router.push("/a")}>
+              <a
+                className="btn-black"
+                href="#"
+                onClick={() => Router.push("/a")}
+              >
                 Cancel
               </a>
-              <a className="btn-black" href="#" onClick={clearData}>Clear</a>
+              <a className="btn-black" href="#" onClick={clearData}>
+                Clear
+              </a>
             </div>
           </form>
         </div>

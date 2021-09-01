@@ -14,7 +14,7 @@ import Table from 'editorjs-table'
 import SimpleImage from './custom/simpleImage'
 import Trans from './custom/trans'
 
-import { storage } from '../../firebase'
+import { storage } from '../../lib/firebase'
 
 export const tools = {
   header: {
