@@ -1,7 +1,7 @@
 // Editor options
 export const options = {
   placeholder: "Enter for new paragraph",
-  autofocus: true,
+  // autofocus: true,
   minHeight: 100,
 
   /**

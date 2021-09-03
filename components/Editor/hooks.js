@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 export const dataKey = "editorData";
 
@@ -22,7 +22,7 @@ export const useSaveCallback = (editor) => {
 export const useSetData = (editor, data) => {
   useEffect(() => {
     console.log("setdata");
-    if (!editor || !data) {
+    if (!editor || !data || data.blocks.length == 0) {
       return;
     }
 
@@ -53,63 +53,35 @@ export const useClearDataCallback = (editor) => {
   );
 };
 
-// load saved data from db
-export const useLoadData = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-
-  // Mimic async data load
-  useEffect(() => {
-    setLoading(true);
-    async () => {
-      console.group("EDITOR load data");
-
-      const res = await fetch(process.env.HOST + "/api/article/23");
-      const article = await res.json();
-
-      if (article.status) {
-        const parsed = JSON.parse(article.body);
-        setData(parsed);
-      } else {
-        console.info("No saved data");
-      }
-      console.groupEnd();
-      setLoading(false);
-    };
-  }, []);
-
-  return { data, loading };
-};
-
 // load saved data from localStorage
-export const useLoadLocalData = () => {
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
+// export const useLoadLocalData = () => {
+//   const [data, setData] = useState(null);
+//   const [loading, setLoading] = useState(false);
 
-  // Mimic async data load
-  useEffect(() => {
-    setLoading(true);
-    const id = setTimeout(() => {
-      console.group("EDITOR load data");
-      const saved = localStorage.getItem(dataKey);
-      if (saved) {
-        const parsed = JSON.parse(saved);
-        setData(parsed);
-        console.dir(parsed);
-      } else {
-        console.info("No saved data");
-        // console.dir(initialData);
-        // setData(initialData);
-      }
-      console.groupEnd();
-      setLoading(false);
-    }, 200);
+//   // Mimic async data load
+//   useEffect(() => {
+//     setLoading(true);
+//     const id = setTimeout(() => {
+//       console.group("EDITOR load data");
+//       const saved = localStorage.getItem(dataKey);
+//       if (saved) {
+//         const parsed = JSON.parse(saved);
+//         setData(parsed);
+//         console.dir(parsed);
+//       } else {
+//         console.info("No saved data");
+//         // console.dir(initialData);
+//         // setData(initialData);
+//       }
+//       console.groupEnd();
+//       setLoading(false);
+//     }, 200);
 
-    return () => {
-      setLoading(false);
-      clearTimeout(id);
-    };
-  }, []);
+//     return () => {
+//       setLoading(false);
+//       clearTimeout(id);
+//     };
+//   }, []);
 
-  return { data, loading };
-};
+//   return { data, loading };
+// };

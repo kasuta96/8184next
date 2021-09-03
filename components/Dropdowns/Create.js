@@ -1,37 +1,40 @@
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
-import { PlusIcon, NewspaperIcon, DocumentTextIcon, QuestionMarkCircleIcon } from '@heroicons/react/outline'
-import { useRouter } from 'next/router'
+import { Fragment } from "react";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  PlusIcon,
+  NewspaperIcon,
+  DocumentTextIcon,
+  QuestionMarkCircleIcon,
+} from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 const creates = [
   {
     name: "Article",
     link: "/a/create",
-    icon: NewspaperIcon
+    icon: NewspaperIcon,
   },
   {
     name: "Post",
     link: "#",
-    icon: DocumentTextIcon
+    icon: DocumentTextIcon,
   },
   {
     name: "Question",
     link: "#",
-    icon: QuestionMarkCircleIcon
+    icon: QuestionMarkCircleIcon,
   },
-]
+];
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(' ')
+  return classes.filter(Boolean).join(" ");
 }
 
 function Create() {
-
-  const router = useRouter()
+  const router = useRouter();
 
   return (
-    <div >
-
+    <div>
       {/* Create dropdown */}
       <Menu as="div" className="relative">
         {({ open }) => (
@@ -50,7 +53,6 @@ function Create() {
               leaveFrom="transform opacity-100 scale-100"
               leaveTo="transform opacity-0 scale-95"
             >
-
               <Menu.Items
                 static
                 className="origin-top-right absolute right-0 mt-2 w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
@@ -59,10 +61,12 @@ function Create() {
                   <Menu.Item key={item.name}>
                     {({ active }) => (
                       <div
-                        onClick={() => router.push(item.link)}
+                        onClick={() =>
+                          router.push(item.link, undefined, { shallow: true })
+                        }
                         className={classNames(
-                          active ? 'bg-gray-100' : '',
-                          'block px-4 py-2 text-sm text-gray-700 cursor-pointer'
+                          active ? "bg-gray-100" : "",
+                          "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
                         )}
                       >
                         <div className="flex">
@@ -73,15 +77,13 @@ function Create() {
                     )}
                   </Menu.Item>
                 ))}
-
               </Menu.Items>
             </Transition>
           </>
         )}
       </Menu>
-
     </div>
-  )
+  );
 }
 
-export default Create
+export default Create;
