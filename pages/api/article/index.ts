@@ -41,13 +41,6 @@ export default async function handle(
 
   const contentToSlug = slug(kanjiToRomanji);
 
-  // Check article id
-  const belongsToUser = false;
-  if (id) {
-    const belongsToUser = await checkAuthor(id);
-    console.log("belongsToUser", belongsToUser);
-  }
-
   if (req.method === "POST") {
     const data = {
       title: title,
@@ -73,23 +66,32 @@ export default async function handle(
       status: "success",
       route: "/a/" + result.id,
     });
-  } else if (req.method === "PUT" && belongsToUser) {
-    await prisma.article.update({
-      where: {
-        id: id,
-      },
-      data: {
-        title: title,
-        content: content,
-        slug: contentToSlug,
-        description: description,
-        thumbnail: thumbnail,
-        tags: tags,
-      },
-    });
-    res.json({
-      status: "success",
-      route: "/a/" + id,
-    });
+  } else if (req.method === "PUT") {
+    // Check article belong to user or not
+    const belongsToUser = await checkAuthor(id);
+    if (belongsToUser) {
+      await prisma.article.update({
+        where: {
+          id: id,
+        },
+        data: {
+          title: title,
+          content: content,
+          slug: contentToSlug,
+          description: description,
+          thumbnail: thumbnail,
+          tags: tags,
+        },
+      });
+      res.json({
+        status: "success",
+        route: "/a/" + id,
+      });
+    } else {
+      res.json({
+        status: "error",
+        message: "notAuthor",
+      });
+    }
   }
 }
