@@ -1,10 +1,10 @@
-import React from "react"
-import Thumbnail from "../Image/Thumbnail"
-import Avatar from "../Image/Avatar"
-import { formatDaysAgo } from "../../lib/formatDaysAgo"
-import ArticleContent from "./ArticleContent"
-import Tags from "./Tags"
-import ArticleReact from "../../components/Reaction/Article"
+import React from "react";
+import Thumbnail from "../Image/Thumbnail";
+import Avatar from "../Image/Avatar";
+import { formatDaysAgo } from "../../lib/formatDaysAgo";
+import ArticleContent from "./ArticleContent";
+import Tags from "./Tags";
+import ArticleReact from "../../components/Reaction/Article";
 
 export type ArticleProps = {
   id: number;
@@ -22,6 +22,9 @@ export type ArticleProps = {
   published: boolean;
   createdAt: Date;
   status: string;
+  stickers: {
+    copyright: number;
+  };
 };
 
 const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
@@ -40,15 +43,10 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
 
       <div className="flex items-center mt-4">
         <a href={"/user/" + article.author.id} className="block relative">
-          <Avatar
-            image={article.author.image}
-            name={authorName}
-          />
+          <Avatar image={article.author.image} name={authorName} />
         </a>
         <div className="flex flex-col justify-between ml-4 text-sm">
-          <p className="text-gray-800 dark:text-white">
-            {authorName}
-          </p>
+          <p className="text-gray-800 dark:text-white">{authorName}</p>
           <p className="text-gray-400 dark:text-gray-300">
             {formatDaysAgo(article.createdAt)}
           </p>
@@ -57,15 +55,14 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
 
       <ArticleContent data={article.content} />
 
-      {article.tags
-        &&
-        <Tags tags={article.tags} />
-      }
+      {article.tags && <Tags tags={article.tags} />}
 
       <ArticleReact authorId={article.author.id} articleId={article.id} />
 
-      <p>id: {article.id}</p>
-
+      <p>
+        copyright:{" "}
+        {article.stickers?.copyright ? article.stickers.copyright : "empty"}
+      </p>
     </div>
   );
 };

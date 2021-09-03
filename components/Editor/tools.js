@@ -1,29 +1,29 @@
-import CheckList from '@editorjs/checklist'
-import Code from '@editorjs/code'
-import Delimiter from '@editorjs/delimiter'
-import Embed from '@editorjs/embed'
-import Header from '@editorjs/header';
-import List from '@editorjs/list';
-import Paragraph from '@editorjs/paragraph';
-import Image from '@editorjs/image'
-import Raw from '@editorjs/raw'
-import Quote from '@editorjs/quote'
-import Marker from '@editorjs/marker'
-import InlineCode from '@editorjs/inline-code'
-import Table from 'editorjs-table'
-import SimpleImage from './custom/simpleImage'
-import Trans from './custom/trans'
+import CheckList from "@editorjs/checklist";
+import Code from "@editorjs/code";
+import Delimiter from "@editorjs/delimiter";
+import Embed from "@editorjs/embed";
+import Header from "@editorjs/header";
+import List from "@editorjs/list";
+import Paragraph from "@editorjs/paragraph";
+import Image from "@editorjs/image";
+import Raw from "@editorjs/raw";
+import Quote from "@editorjs/quote";
+import Marker from "@editorjs/marker";
+import InlineCode from "@editorjs/inline-code";
+import Table from "editorjs-table";
+import SimpleImage from "./custom/simpleImage";
+import Trans from "./custom/trans";
 
-import { storage } from '../../lib/firebase'
+import { storage } from "../../lib/firebase";
 
 export const tools = {
   header: {
     class: Header,
-    inlineToolbar: ['link'],
+    inlineToolbar: ["link"],
     config: {
       levels: [2, 3, 4, 5, 6],
-      defaultLevel: 4
-    }
+      defaultLevel: 4,
+    },
   },
   list: {
     class: List,
@@ -31,7 +31,7 @@ export const tools = {
   },
   paragraph: {
     class: Paragraph,
-    inlineToolbar: true
+    inlineToolbar: true,
   },
   embed: Embed,
   table: {
@@ -66,16 +66,17 @@ export const tools = {
          */
         async uploadByFile(file) {
           // your own uploading logic here
-          const filename = file.name
-          const uploadTask = await storage.ref(`images/article/${filename}`).put(file)
-          const imageUrl = await uploadTask.ref.getDownloadURL()
+          const filename = file.name;
+          const uploadTask = await storage
+            .ref(`images/article/${filename}`)
+            .put(file);
+          const imageUrl = await uploadTask.ref.getDownloadURL();
           return {
             success: 1,
             file: {
-              url: imageUrl
-            }
-          }
-
+              url: imageUrl,
+            },
+          };
         },
 
         /**
@@ -88,19 +89,18 @@ export const tools = {
             success: 1,
             file: {
               url: url,
-            }
-          }
-        }
-      }
-    }
+            },
+          };
+        },
+      },
+    },
   },
   trans: {
     class: Trans,
     inlineToolbar: true,
     config: {
-      originalPlaceholder: 'Enter a original',
-      translationPlaceholder: 'Enter a translation',
+      originalPlaceholder: "Enter a original",
+      translationPlaceholder: "Enter a translation",
     },
   },
-
-}
+};

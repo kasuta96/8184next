@@ -1,10 +1,9 @@
 module.exports = {
-  mode: 'jit',
-  purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+  mode: "jit",
+  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {
-    },
+    extend: {},
   },
   variants: {
     extend: {
@@ -13,10 +12,10 @@ module.exports = {
       inset: ["checked"],
       zIndex: ["hover", "active"],
     },
-    margin: ['responsive', 'hover'],
-    padding: ['responsive', 'hover'],
+    margin: ["responsive", "hover"],
+    padding: ["responsive", "hover"],
   },
   plugins: [
     // require('@tailwindcss/forms'),
   ],
-}
+};
