@@ -7,15 +7,59 @@ import Kuroshiro from "kuroshiro";
 // Initialize kuroshiro with an instance of analyzer (You could check the [apidoc](#initanalyzer) for more information):
 // For this example, you should npm install and import the kuromoji analyzer first
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
-// Instantiate
-const kuroshiro = new Kuroshiro();
 
 // POST /api/article
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { id, title, content, description, thumbnail, tags } = req.body;
+  // const { id, title, content, description, thumbnail, tags } = req.body;
+
+  interface Data {
+    id: any;
+    title: string;
+    content: { blocks: any[] };
+    description: string;
+    thumbnail: string;
+    tags: string;
+    slug: string;
+  }
+
+  const handleData = async (data: Data) => {
+    // if hasn't description -> get first paragraph
+    if (!data.description) {
+      const firstP = data.content.blocks.find(
+        (e: { type: string }) => e.type == "paragraph"
+      );
+      data.description = firstP?.data.text || "";
+    }
+
+    // set default thumbnail: first image on content
+    if (!data.thumbnail) {
+      const firstImg = data.content.blocks.find(
+        (e: { type: string }) => e.type == ("image" || "simpleImage")
+      );
+      data.thumbnail = firstImg?.data.url || firstImg?.data.file.url || "";
+    }
+
+    // Slug
+    // Instantiate
+    const kuroshiro = new Kuroshiro();
+    // Initialize
+    // Here uses async/await, you could also use Promise
+    // *error: Kuroshiro has already been initialized -> fix: only initialize if kuroshiro._analyzer not already
+    if (!kuroshiro._analyzer) await kuroshiro.init(new KuromojiAnalyzer());
+
+    const kanjiToRomanji = await kuroshiro.convert(data.title, {
+      to: "romaji",
+    });
+
+    data.slug = slug(kanjiToRomanji);
+
+    // More handle data ...
+
+    return data;
+  };
 
   const session = await getSession({ req });
 
@@ -32,20 +76,14 @@ export default async function handle(
     return article?.authorId === session?.id;
   };
 
-  // Initialize
-  // Here uses async/await, you could also use Promise
-  // *error: Kuroshiro has already been initialized -> fix: only initialize if kuroshiro._analyzer not already
-  if (!kuroshiro._analyzer) await kuroshiro.init(new KuromojiAnalyzer());
-
-  const kanjiToRomanji = await kuroshiro.convert(title, { to: "romaji" });
-
-  const contentToSlug = slug(kanjiToRomanji);
-
   if (req.method === "POST") {
+    const reqData = await handleData(req.body);
+    const { id, title, content, description, thumbnail, tags, slug } = reqData;
+
     const data = {
       title: title,
       content: content,
-      slug: contentToSlug,
+      slug: slug,
       author: { connect: { id: session?.id as string } },
       description: description,
       thumbnail: thumbnail,
@@ -67,17 +105,20 @@ export default async function handle(
       route: "/a/" + result.id,
     });
   } else if (req.method === "PUT") {
+    const reqData = await handleData(req.body);
+    const { id, title, content, description, thumbnail, tags, slug } = reqData;
+
     // Check article belong to user or not
     const belongsToUser = await checkAuthor(id);
     if (belongsToUser) {
       await prisma.article.update({
         where: {
-          id: id,
+          id: Number(id),
         },
         data: {
           title: title,
           content: content,
-          slug: contentToSlug,
+          slug: slug,
           description: description,
           thumbnail: thumbnail,
           tags: tags,
