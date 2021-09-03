@@ -2,9 +2,9 @@ import React from "react";
 import Thumbnail from "../Image/Thumbnail";
 import Avatar from "../Image/Avatar";
 import { formatDaysAgo } from "../../lib/formatDaysAgo";
-import ArticleContent from "./ArticleContent";
 import Tags from "./Tags";
 import ArticleReact from "../../components/Reaction/Article";
+import BlocksRender from "./BlocksRender";
 
 export type ArticleProps = {
   id: number;
@@ -53,7 +53,15 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         </div>
       </div>
 
-      <ArticleContent data={article.content} />
+      <section className="my-10">
+        <BlocksRender
+          data={article.content}
+          style
+          classNames
+          config
+          renderers
+        />
+      </section>
 
       {article.tags && <Tags tags={article.tags} />}
 

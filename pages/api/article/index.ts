@@ -2,10 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/db";
 import { getSession } from "next-auth/client";
 import slug from "slugify";
-
 import Kuroshiro from "kuroshiro";
-// Initialize kuroshiro with an instance of analyzer (You could check the [apidoc](#initanalyzer) for more information):
-// For this example, you should npm install and import the kuromoji analyzer first
 import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji";
 
 // POST /api/article
