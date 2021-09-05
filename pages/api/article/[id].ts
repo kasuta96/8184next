@@ -1,16 +1,16 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-import { getSession } from "next-auth/client";
-import prisma from "../../../lib/db";
+import type { NextApiRequest, NextApiResponse } from "next"
+import { getSession } from "next-auth/client"
+import prisma from "../../../lib/db"
 
 // DELETE /api/article/:id
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const articleId = req.query.id;
+  const articleId = req.query.id
 
   const checkAuthor = async () => {
-    const session = await getSession({ req });
+    const session = await getSession({ req })
     const article = await prisma.article.findUnique({
       where: {
         id: Number(articleId),
@@ -19,26 +19,26 @@ export default async function handle(
         id: true,
         authorId: true,
       },
-    });
-    return article?.authorId === session?.id;
-  };
+    })
+    return article?.authorId === session?.id
+  }
 
   if (req.method === "DELETE") {
-    const belongsToUser = await checkAuthor();
+    const belongsToUser = await checkAuthor()
 
     if (belongsToUser) {
       await prisma.article.delete({
         where: {
           id: Number(articleId),
         },
-      });
-      res.json({
+      })
+      return res.json({
         status: "success",
-      });
+      })
     } else {
-      res.status(203).json({
+      return res.status(203).json({
         status: "notAuthor",
-      });
+      })
     }
   } else if (req.method === "GET") {
     const article = await prisma.article.findUnique({
@@ -64,20 +64,20 @@ export default async function handle(
         published: true,
         createdAt: true,
       },
-    });
+    })
     if (article) {
-      res.json({
+      return res.json({
         status: true,
         body: article,
-      });
+      })
     } else {
-      res.json({
+      return res.json({
         status: false,
-      });
+      })
     }
   } else {
     throw new Error(
       `The HTTP ${req.method} method is not supported at this route.`
-    );
+    )
   }
 }

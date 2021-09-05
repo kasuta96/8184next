@@ -1,11 +1,11 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/db";
+import { NextApiRequest, NextApiResponse } from "next"
+import prisma from "../../../lib/db"
 
 export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const kw = req?.query?.kw?.toString() || "";
+  const kw = req?.query?.kw?.toString() || ""
 
   try {
     const articles = await prisma.article.findMany({
@@ -45,14 +45,14 @@ export default async function handle(
         },
         createdAt: true,
       },
-    });
+    })
 
-    res.json(articles);
+    return res.json(articles)
   } catch (error) {
-    res.status(500).json({
+    return res.status(500).json({
       status: "DBError",
       error: true,
       message: error,
-    });
+    })
   }
 }

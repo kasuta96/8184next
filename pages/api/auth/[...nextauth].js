@@ -1,14 +1,13 @@
-import NextAuth from "next-auth";
-import Providers from "next-auth/providers";
+import NextAuth from "next-auth"
+import Providers from "next-auth/providers"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
-import prisma from '../../../lib/db'
+import prisma from "../../../lib/db"
 
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
   // https://next-auth.js.org/configuration/providers
   providers: [
-
     Providers.Facebook({
       clientId: process.env.FACEBOOK_ID,
       clientSecret: process.env.FACEBOOK_SECRET,
@@ -80,7 +79,7 @@ export default NextAuth({
   // pages is not specified for that route.
   // https://next-auth.js.org/configuration/pages
   pages: {
-    signIn: '/auth/signin',  // Displays signin buttons
+    signIn: "/auth/signin", // Displays signin buttons
     // signOut: '/auth/signout', // Displays form with sign out button
     // error: '/auth/error', // Error code passed in query string as ?error=
     // verifyRequest: '/auth/verify-request', // Used for check email page
@@ -103,8 +102,8 @@ export default NextAuth({
     //   }
     // }
     session: async (session, user) => {
-      session.id = user.sub;
-      return Promise.resolve(session);
+      session.id = user.sub
+      return Promise.resolve(session)
     },
     // async signIn(user, account, profile) { return true },
     // async redirect(url, baseUrl) { return baseUrl },
@@ -118,7 +117,7 @@ export default NextAuth({
 
   // You can set the theme to 'light', 'dark' or use 'auto' to default to the
   // whatever prefers-color-scheme is set to in the browser. Default is 'auto'
-  theme: 'auto',
+  theme: "auto",
 
   // Enable debug messages in the console if you are having problems
   debug: false,
