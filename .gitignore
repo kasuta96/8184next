@@ -37,3 +37,4 @@ yarn-error.log*
 
 # db infomation
 firebase.config.js
+package-lock.json
