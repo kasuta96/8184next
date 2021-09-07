@@ -27,13 +27,16 @@ export default async function handle(
     const belongsToUser = await checkAuthor()
 
     if (belongsToUser) {
-      await prisma.article.delete({
+      await prisma.article.update({
         where: {
           id: Number(articleId),
         },
+        data: {
+          status: 9,
+        },
       })
-      return res.json({
-        status: "success",
+      return res.status(200).json({
+        message: "success",
       })
     } else {
       return res.status(203).json({
@@ -41,9 +44,10 @@ export default async function handle(
       })
     }
   } else if (req.method === "GET") {
-    const article = await prisma.article.findUnique({
+    const article = await prisma.article.findFirst({
       where: {
         id: Number(articleId) || -1,
+        status: 0,
       },
       select: {
         id: true,

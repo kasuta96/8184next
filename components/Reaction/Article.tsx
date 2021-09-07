@@ -19,7 +19,7 @@ const Article = ({ authorId, articleId }) => {
       method: "DELETE",
     })
     const data = await res.json()
-    if (data?.status == "success") {
+    if (res.ok) {
       await router.push("/a")
     } else {
       console.log(data)

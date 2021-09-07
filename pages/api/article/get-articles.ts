@@ -6,13 +6,15 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const kw = req?.query?.kw?.toString() || ""
+  // if has [published=false] request query
+  const published = req?.query?.published == "false" ? false : true
 
   try {
     const articles = await prisma.article.findMany({
       take: 10,
       where: {
         status: 0,
-        // published: true,
+        published: published,
         OR: [
           {
             title: {
@@ -43,6 +45,7 @@ export default async function handle(
             image: true,
           },
         },
+        published: true,
         createdAt: true,
       },
     })

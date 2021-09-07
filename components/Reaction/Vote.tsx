@@ -13,10 +13,11 @@ function Vote({ id }: { id: number }) {
   })
   const [onRating, setOnRating] = useState({
     status: false,
-    text: "Let's Rate for this Article",
+    text: "",
   })
   const [session, loading] = useSession()
 
+  // fetch all votes data
   const fetchVote = async (id: Number) => {
     const res = await fetch(process.env.HOST + `/api/Reaction/Vote?id=${id}`)
     const data = await res.json()
@@ -25,7 +26,7 @@ function Vote({ id }: { id: number }) {
         average: data.average,
         total: data.total,
       })
-      if (data.voted > 0) setRating(data.voted)
+      if (data.voted) setRating(data.voted)
     } else {
       console.log("error", data)
     }
@@ -33,10 +34,11 @@ function Vote({ id }: { id: number }) {
 
   useEffect(() => {
     fetchVote(id)
-  }, [rating])
+  }, [])
 
   const handleRating = async (rate: number) => {
     if (rate == rating) return false
+    setRating(rate)
     setOnRating({
       status: true,
       text: "Loading...",
@@ -50,12 +52,10 @@ function Vote({ id }: { id: number }) {
       }),
     })
     const data = await res.json()
-    const errorCode = res.ok ? false : res.status
-    if (errorCode) {
-      console.log(errorCode)
+    if (res.ok) {
+      fetchVote(id)
     } else {
-      console.log("Rating ok", data)
-      setRating(rate)
+      console.log("rating error", data)
     }
     setOnRating({
       status: false,
@@ -76,7 +76,9 @@ function Vote({ id }: { id: number }) {
           onClick={session && !onRating.status ? handleRating : () => false}
           ratingValue={rating}
           size={30}
-          className="flex items-center"
+          className={
+            (onRating.status ? "animate-pulse " : "") + "flex items-center"
+          }
         />
 
         <span className="text-gray-500 font-semibold flex items-center">

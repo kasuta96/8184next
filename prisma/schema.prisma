@@ -7,13 +7,14 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
 }
 
 model Account {
   id                 String    @id @default(cuid())
   userId             String
-  user               User      @relation(fields: [userId], references: [id])
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   providerType       String
   providerId         String
   providerAccountId  String
@@ -29,7 +30,7 @@ model Account {
 model Session {
   id           String   @id @default(cuid())
   userId       String
-  user         User     @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expires      DateTime
   sessionToken String   @unique
   accessToken  String   @unique
@@ -71,7 +72,7 @@ model Profile {
   id       Int    @id @default(autoincrement())
   info     Json
   settings Json
-  user     User   @relation(fields: [userId], references: [id])
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   String @unique
 }
 
@@ -92,9 +93,9 @@ model Article {
   content     Json
   published   Boolean    @default(false)
   status      Int        @default(0)
-  author      User       @relation(fields: [authorId], references: [id])
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
   authorId    String
-  category    Category?  @relation(fields: [categoryId], references: [id])
+  category    Category?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
   categoryId  Int?
   description String?    @db.Text
   thumbnail   String?    @db.VarChar(255)
@@ -110,9 +111,9 @@ model Article {
 
 model Vote {
   id        Int      @id @default(autoincrement())
-  user      User     @relation(fields: [userId], references: [id])
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    String
-  article   Article  @relation(fields: [articleId], references: [id])
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
   articleId Int
   level     Int
   createdAt DateTime @default(now())
@@ -122,12 +123,12 @@ model Vote {
 model Comment {
   id        Int       @id @default(autoincrement())
   userId    String
-  user      User      @relation(fields: [userId], references: [id])
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   articleId Int
-  article   Article   @relation(fields: [articleId], references: [id])
+  article   Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
   content   String
   parentId  Int?
-  parent    Comment?  @relation(fields: [parentId], references: [id])
+  parent    Comment?  @relation(fields: [parentId], references: [id], onDelete: Cascade)
   status    Int       @default(0)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -135,17 +136,19 @@ model Comment {
 }
 
 model Reaction_type {
-  id   Int    @id @default(autoincrement())
-  name String
-  icon String
-  data Json?
+  id       Int        @id @default(autoincrement())
+  name     String
+  icon     String
+  data     Json?
+  Reaction Reaction[]
 }
 
 model Reaction {
-  id        Int     @id @default(autoincrement())
+  id        Int           @id @default(autoincrement())
   userId    String
-  user      User    @relation(fields: [userId], references: [id])
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   commentId Int
-  comment   Article @relation(fields: [commentId], references: [id])
-  type      Int
+  comment   Article       @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  typeId    Int
+  type      Reaction_type @relation(fields: [typeId], references: [id], onDelete: Restrict)
 }
