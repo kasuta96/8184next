@@ -6,6 +6,7 @@ import { formatDaysAgo } from "../../lib/formatDaysAgo"
 import Tags from "./Tags"
 import ArticleReact from "../../components/Reaction/Article"
 import BlocksRender from "./BlocksRender"
+import Comment from "../Comment"
 
 export type ArticleProps = {
   id: number
@@ -89,6 +90,8 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         )}
 
         <ArticleReact authorId={article.author.id} articleId={article.id} />
+
+        <Comment id={article.id} />
       </div>
     </>
   )

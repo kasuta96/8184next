@@ -34,7 +34,7 @@ const Article = ({ authorId, articleId }) => {
   const articleBelongsToUser = session?.id === authorId
 
   return (
-    <div className="container p-2 my-8">
+    <div className="container mt-8">
       {/* {!props.published && userHasValidSession && articleBelongsToUser && (
         <button onClick={() => publishArticle(props.id)}>Publish</button>
       )} */}

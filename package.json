@@ -31,7 +31,8 @@
     "react-firebase-hooks": "^3.0.4",
     "react-markdown": "^6.0.2",
     "slugify": "^1.6.0",
-    "superjson": "^1.7.4"
+    "superjson": "^1.7.4",
+    "swr": "^1.0.0"
   },
   "devDependencies": {
     "@editorjs/checklist": "^1.1.0",
