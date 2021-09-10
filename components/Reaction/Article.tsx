@@ -31,7 +31,7 @@ const Article = ({ authorId, articleId }) => {
     return <div>Authenticating ...</div>
   }
   const userHasValidSession = Boolean(session)
-  const articleBelongsToUser = session?.id === authorId
+  const articleBelongsToUser = session?.user?.id === authorId
 
   return (
     <div className="container mt-8">

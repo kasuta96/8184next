@@ -70,7 +70,7 @@ export default async function handle(
         authorId: true,
       },
     })
-    return article?.authorId === session?.id
+    return article?.authorId === session?.user?.id
   }
 
   if (req.method === "POST") {
@@ -81,7 +81,7 @@ export default async function handle(
       title: title,
       content: content,
       slug: slug,
-      author: { connect: { id: session?.id as string } },
+      author: { connect: { id: session?.user?.id as string } },
       description: description,
       thumbnail: thumbnail,
       tags: tags,

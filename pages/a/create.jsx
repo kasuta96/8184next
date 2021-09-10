@@ -1,80 +1,78 @@
-import React, { useState, useEffect } from "react";
-import Layout from "../../components/Layout";
-import Router from "next/router";
-import dynamic from "next/dynamic";
+import React, { useState, useEffect } from "react"
+import Layout from "../../components/Layout"
+import Router from "next/router"
+import dynamic from "next/dynamic"
 import {
   options,
   useClearDataCallback,
   useSetData,
-} from "../../components/Editor";
-import { useSession } from "next-auth/client";
-import AccessDenied from "../../components/Error/AccessDenied";
-import { Accordion } from "../../components/Tailwind/Accordion";
+} from "../../components/Editor"
+import { useSession } from "next-auth/client"
+import AccessDenied from "../../components/Error/AccessDenied"
+import { Accordion } from "../../components/Tailwind/Accordion"
 
 // get data if has id query
 export const getServerSideProps = async ({ query }) => {
   if (query.id) {
-    const res = await fetch(process.env.HOST + "/api/article/" + query.id);
-    const article = await res.json();
+    const res = await fetch(process.env.HOST + "/api/article/" + query.id)
+    const article = await res.json()
 
     if (article?.status) {
       return {
         props: article,
-      };
+      }
     } else {
       return {
         notFound: true,
-      };
+      }
     }
   } else {
     return {
       props: {
         status: false,
       },
-    };
+    }
   }
-};
+}
 
 // CSR
 const Editor = dynamic(
   () =>
     import("../../components/Editor/editor").then((mod) => mod.EditorContainer),
   { ssr: false }
-);
+)
 
 const Create = (props) => {
-  const [session] = useSession();
-  const [title, setTitle] = useState(props?.body?.title || "");
-  const [editor, setEditor] = useState(null);
-  const [thumbnail, setThumbnail] = useState(props?.body?.thumbnail || "");
-  const [description, setDescription] = useState(
-    props?.body?.description || ""
-  );
-  const [tags, setTags] = useState(props?.body?.tags || "");
+  const [session] = useSession()
+  const [title, setTitle] = useState(props?.body?.title || "")
+  const [editor, setEditor] = useState(null)
+  const [thumbnail, setThumbnail] = useState(props?.body?.thumbnail || "")
+  const [description, setDescription] = useState(props?.body?.description || "")
+  const [tags, setTags] = useState(props?.body?.tags || "")
   const [submitBtn, setSubmitBtn] = useState({
     disabled: false,
     content: "Create",
-  });
+  })
   const [fetchType, setFetchType] = useState({
     method: "POST",
     url: `${process.env.HOST}/api/article`,
-  });
+  })
 
   if (props?.status) {
-    useSetData(editor, props.body.content);
+    useSetData(editor, props.body.content)
     useEffect(() => {
-      if (props.body.author.id === session?.id) {
-        console.log("edit");
+      if (props.body.author.id === session?.user?.id) {
+        console.log("edit")
         setFetchType({
           method: "PUT",
           url: `${process.env.HOST}/api/article`,
-        });
+        })
         setSubmitBtn({
           disabled: false,
           content: "Update",
-        });
+        })
       }
-    }, [session]);
+    }, [session])
   }
 
   // save handler
@@ -87,42 +85,42 @@ const Create = (props) => {
   // useSetData(editor, data);
 
   // clear data callback
-  const clearData = useClearDataCallback(editor);
+  const clearData = useClearDataCallback(editor)
 
   // const disabled = editor === null || loading;
 
   const submitData = async (e) => {
-    e.preventDefault();
-    let prevSubmitBtn = submitBtn;
+    e.preventDefault()
+    let prevSubmitBtn = submitBtn
     setSubmitBtn({
       disabled: true,
       content: "Loading...",
-    });
+    })
     try {
-      const content = await editor.save();
-      const id = props.body?.id || "";
-      const body = { title, content, description, thumbnail, tags, id };
+      const content = await editor.save()
+      const id = props.body?.id || ""
+      const body = { title, content, description, thumbnail, tags, id }
       const res = await fetch(fetchType.url, {
         method: fetchType.method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
-      });
-      const result = await res.json();
+      })
+      const result = await res.json()
       if (result.route) {
-        Router.push(result.route);
+        Router.push(result.route)
       }
     } catch (error) {
-      console.log(error);
-      setSubmitBtn(prevSubmitBtn);
+      console.log(error)
+      setSubmitBtn(prevSubmitBtn)
     }
-  };
+  }
 
   if (!session) {
     return (
       <Layout>
         <AccessDenied />
       </Layout>
-    );
+    )
   }
   return (
     <Layout>
@@ -239,7 +237,7 @@ const Create = (props) => {
         </div>
       </section>
     </Layout>
-  );
-};
+  )
+}
 
-export default Create;
+export default Create

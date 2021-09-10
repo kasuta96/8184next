@@ -35,7 +35,7 @@ export default async function FetchVote(
 
     // find user was voted or not
     const voted = session
-      ? votes.find((e) => e.userId == session?.id)?.level
+      ? votes.find((e) => e.userId == session?.user?.id)?.level
       : false
 
     return res.status(200).json({

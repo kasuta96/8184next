@@ -40,7 +40,7 @@ export default async function CreateVote(
         level: level,
       },
       create: {
-        user: { connect: { id: session?.id as string } },
+        user: { connect: { id: session?.user?.id as string } },
         article: { connect: { id: id } },
         level: level,
       },

@@ -20,7 +20,7 @@ export default async function handle(
         authorId: true,
       },
     })
-    return article?.authorId === session?.id
+    return article?.authorId === session?.user?.id
   }
 
   if (req.method === "DELETE") {

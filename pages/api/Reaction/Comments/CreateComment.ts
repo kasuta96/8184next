@@ -16,7 +16,7 @@ export default async function CreateComments(
   try {
     const comment = await prisma.comment.create({
       data: {
-        user: { connect: { id: session?.id as string } },
+        user: { connect: { id: session?.user?.id as string } },
         article: { connect: { id: id } },
         content: text,
       },
