@@ -8,7 +8,7 @@ function CommentList({ comments, onDelete, deleting }) {
   return (
     <div className="space-y-6 my-16">
       {comments.map((comment) => {
-        const isAuthor = session && session.id === comment.user.id
+        const isAuthor = session && session.user.id === comment.user.id
 
         return (
           <Card

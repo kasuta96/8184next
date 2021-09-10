@@ -26,7 +26,7 @@ export default async function CreateVote(
     const vote = await prisma.vote.findFirst({
       where: {
         articleId: id,
-        userId: session.id,
+        userId: session.user.id,
       },
       select: {
         id: true,

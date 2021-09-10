@@ -48,15 +48,15 @@ export default NextAuth({
     // Use JSON Web Tokens for session instead of database sessions.
     // This option can be used with or without a database for users/accounts.
     // Note: `jwt` is automatically set to `true` if no database is specified.
-    jwt: true,
+    jwt: false,
 
     // Seconds - How long until an idle session expires and is no longer valid.
-    // maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 7 * 24 * 60 * 60, // 7 days
 
     // Seconds - Throttle how frequently to write to database to extend a session.
     // Use it to limit write operations. Set to 0 to always update the database.
     // Note: This option is ignored if using JSON Web Tokens
-    // updateAge: 24 * 60 * 60, // 24 hours
+    updateAge: 24 * 60 * 60, // 24 hours
   },
 
   // JSON Web tokens are only used for sessions if the `jwt: true` session
@@ -64,13 +64,32 @@ export default NextAuth({
   // https://next-auth.js.org/configuration/options#jwt
   jwt: {
     // A secret to use for key generation (you should set this explicitly)
-    // secret: 'INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw',
-    // Set to true to use encryption (default: false)
+    // secret: "INp8IvdIyeMcoGAgFGoA61DdBglwwSqnXJZkgz8PSnw",
+    // You can generate a signing key using `jose newkey -s 512 -t oct -a HS512`
+    // This gives you direct knowledge of the key used to sign the token so you can use it
+    // to authenticate indirectly (eg. to a database driver)
+    // signingKey: {
+    //   kty: "oct",
+    //   kid: "u0XsIAu3vh0KV3_ZoH1PEF7MffJpiYnwJTpKwo1Aup8",
+    //   alg: "HS512",
+    //   k: "voaA2lFjXE5zaQTCHJmvvpNfIYJkUuTQIxUYpeZNY3c",
+    // },
+    // If you chose something other than the default algorithm for the signingKey (HS512)
+    // you also need to configure the algorithm
+    // verificationOptions: {
+    //   algorithms: ["HS256"],
+    // },
+    // Set to true to use encryption. Defaults to false (signing only).
     // encryption: true,
+    // encryptionKey: "",
+    // decryptionKey: encryptionKey,
+    // decryptionOptions: {
+    //   algorithms: ["A256GCM"],
+    // },
     // You can define your own encode/decode functions for signing and encryption
     // if you want to override the default behaviour.
-    // encode: async ({ secret, token, maxAge }) => {},
-    // decode: async ({ secret, token, maxAge }) => {},
+    // async encode({ secret, token, maxAge }) {},
+    // async decode({ secret, token, maxAge }) {},
   },
 
   // You can define custom pages to override the built-in ones. These will be regular Next.js pages
@@ -90,25 +109,18 @@ export default NextAuth({
   // when an action is performed.
   // https://next-auth.js.org/configuration/callbacks
   callbacks: {
-    // async signIn(user, account, profile) {
-    //   const isAllowedToSignIn = true
-    //   if (isAllowedToSignIn) {
-    //     return true
-    //   } else {
-    //     // Return false to display a default error message
-    //     return false
-    //     // Or you can return a URL to redirect to:
-    //     // return '/unauthorized'
-    //   }
-    // }
-    session: async (session, user) => {
-      session.id = user.sub
-      return Promise.resolve(session)
-    },
     // async signIn(user, account, profile) { return true },
     // async redirect(url, baseUrl) { return baseUrl },
-    // async session(session, user) { return session },
-    // async jwt(token, user, account, profile, isNewUser) { return token }
+    async session(session, user) {
+      session.user = user
+      return session
+    },
+    // async jwt(token, user, account, profile, isNewUser) {
+    //   if (account) {
+    //     token.accessToken = account.accessToken
+    //   }
+    //   return token
+    // },
   },
 
   // Events are useful for logging

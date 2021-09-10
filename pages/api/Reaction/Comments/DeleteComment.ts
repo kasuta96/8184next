@@ -15,7 +15,7 @@ export default async function DeleteComments(
   }
 
   try {
-    const isAuthor = session.id === comment.user.id
+    const isAuthor = session.user.id === comment.user.id
 
     if (!isAuthor) {
       return res.status(400).json({ message: "Need authorization." })
