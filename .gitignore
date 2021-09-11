@@ -14,6 +14,7 @@
 
 # production
 /build
+/prisma/migrations
 
 # misc
 .DS_Store
@@ -35,4 +36,5 @@ yarn-error.log*
 .vercel
 
 # db infomation
-firebase.js
+firebase.config.js
+package-lock.json

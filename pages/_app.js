@@ -1,10 +1,33 @@
-import '../styles/globals.css';
-import { Provider } from 'next-auth/client';
-// import { Amplify } from "aws-amplify";
-// import awsExports from "../src/aws-exports";
-// Amplify.configure({ ...awsExports, ssr: true });
+import "../styles/globals.css"
+import { Provider } from "next-auth/client"
+import NProgress from "nprogress"
+import { useRouter } from "next/router"
+import { useEffect } from "react"
+import { ThemeProvider } from "next-themes"
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter()
+
+  useEffect(() => {
+    const handleStart = (url) => {
+      console.log(`Loading: ${url}`)
+      NProgress.start()
+    }
+    const handleStop = () => {
+      NProgress.done()
+    }
+
+    router.events.on("routeChangeStart", handleStart)
+    router.events.on("routeChangeComplete", handleStop)
+    router.events.on("routeChangeError", handleStop)
+
+    return () => {
+      router.events.off("routeChangeStart", handleStart)
+      router.events.off("routeChangeComplete", handleStop)
+      router.events.off("routeChangeError", handleStop)
+    }
+  }, [router])
+
   return (
     <Provider
       // Provider options are not required but can be useful in situations where
@@ -22,10 +45,13 @@ function MyApp({ Component, pageProps }) {
         //
         // Note: If a session has expired when keep alive is triggered, all open
         // windows / tabs will be updated to reflect the user is signed out.
-        keepAlive: 0
+        keepAlive: 0,
       }}
-      session={pageProps.session}>
-      <Component {...pageProps} />
+      session={pageProps.session}
+    >
+      <ThemeProvider attribute="class" defaultTheme="system">
+        <Component {...pageProps} />
+      </ThemeProvider>
     </Provider>
   )
 }

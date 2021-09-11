@@ -1,24 +1,16 @@
-import Image from "next/image";
+import Avatar from "../Image/Avatar"
 
-function SidebarRow({ src, Icon, title }) {
+function SidebarRow({ image, Icon, title, onClick, avatar }) {
   return (
-    <a
-      href="#"
-      className="flex items-center p-2 space-x-2 hover:bg-gray-200 rounded-md"
+    <div
+      onClick={onClick ? () => onClick() : undefined}
+      className="flex items-center p-2 space-x-2 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md cursor-pointer"
     >
-      {src && (
-        <Image
-          className="rounded-full"
-          src={src}
-          width={30}
-          height={30}
-          layout="fixed"
-        />
-      )}
+      {avatar && <Avatar image={image} size={30} />}
       {Icon && <Icon className="h-6 w-6" />}
       <p className="">{title}</p>
-    </a>
-  );
+    </div>
+  )
 }
 
-export default SidebarRow;
+export default SidebarRow

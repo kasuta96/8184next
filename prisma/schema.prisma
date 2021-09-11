@@ -7,13 +7,14 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
 }
 
 model Account {
   id                 String    @id @default(cuid())
   userId             String
-  user               User      @relation(fields: [userId], references: [id])
+  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   providerType       String
   providerId         String
   providerAccountId  String
@@ -22,13 +23,14 @@ model Account {
   accessTokenExpires DateTime?
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
+
   @@unique([providerId, providerAccountId])
 }
 
 model Session {
   id           String   @id @default(cuid())
   userId       String
-  user         User     @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expires      DateTime
   sessionToken String   @unique
   accessToken  String   @unique
@@ -37,19 +39,28 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
+  profile       Profile?
+  status        Int        @default(0)
+  role          Role       @default(USER)
+  createdAt     DateTime   @default(now())
+  updatedAt     DateTime   @updatedAt
   accounts      Account[]
   sessions      Session[]
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  password      String?   @db.VarChar(255)
-  articles      Articles[]
-  profile       Profile?
-  status        Int       @default(0)
+  articles      Article[]
+  Vote          Vote[]
+  Comment       Comment[]
+  Reaction      Reaction[]
+}
+
+enum Role {
+  USER
+  MOD
+  ADMIN
 }
 
 model VerificationRequest {
@@ -59,31 +70,90 @@ model VerificationRequest {
   expires    DateTime
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
+
   @@unique([identifier, token])
 }
 
-
-model Articles {
-  id          Int      @default(autoincrement()) @id
-  title       String   @db.VarChar(255)
-  content     Json
-  published   Boolean  @default(false)
-  status      Int      @default(0)
-  author      User     @relation(fields: [authorId], references: [id])
-  authorId    String
-  cateId      Int?
-  description String?  @db.VarChar(255)
-  thumbnail   String?  @db.VarChar(255)
-  tags        String?  @db.VarChar(255)
-  point       Int      @default(0)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-}
-
 model Profile {
-  id       Int     @default(autoincrement()) @id
+  id       Int    @id @default(autoincrement())
   info     Json
   settings Json
-  user     User    @relation(fields: [userId], references: [id])
-  userId   String  @unique
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String @unique
+}
+
+model Article {
+  id          Int        @id @default(autoincrement())
+  title       String
+  slug        String?
+  content     Json
+  published   Boolean    @default(false)
+  status      Int        @default(0)
+  author      User       @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId    String
+  description String?    @db.Text
+  thumbnail   String?    @db.VarChar(255)
+  tags        String?    @db.VarChar(255)
+  point       Int        @default(0)
+  stickers    Json?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  category    Category[] @relation(references: [id])
+  vote        Vote[]
+  comment     Comment[]
+  reaction    Reaction[]
+}
+
+model Category {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  keywords    Json?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  article     Article[] @relation(references: [id])
+}
+
+model Vote {
+  id        Int      @id @default(autoincrement())
+  user      User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId Int
+  level     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id        Int       @id @default(autoincrement())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  articleId Int
+  article   Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  content   String
+  parentId  Int?
+  parent    Comment?  @relation(fields: [parentId], references: [id], onDelete: Cascade)
+  status    Int       @default(0)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  comment   Comment[] @relation("CommentToComment")
+}
+
+model Reaction_type {
+  id       Int        @id @default(autoincrement())
+  name     String
+  icon     String
+  data     Json?
+  reaction Reaction[]
+}
+
+model Reaction {
+  id        Int           @id @default(autoincrement())
+  userId    String
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  commentId Int
+  comment   Article       @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  typeId    Int
+  type      Reaction_type @relation(fields: [typeId], references: [id], onDelete: Restrict)
 }
