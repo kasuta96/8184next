@@ -22,6 +22,7 @@ function Comment(id: { id: any }) {
         setText={setText}
         sending={sending}
       />
+      <hr />
       {!error ? (
         comments ? (
           <CommentList

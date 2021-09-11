@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import EditorJS from "@editorjs/editorjs";
-import { tools } from "./tools";
+import React, { useEffect, useState } from "react"
+import EditorJS from "@editorjs/editorjs"
+import { tools } from "./tools"
 
 /**
  *
@@ -9,13 +9,13 @@ import { tools } from "./tools";
  * @param {EditorJS.EditorConfig} options
  */
 export const useEditor = (toolsList, { data, editorRef }, options = {}) => {
-  const [editorInstance, setEditor] = useState(null);
+  const [editorInstance, setEditor] = useState(null)
   const {
     data: ignoreData,
     tools: ignoreTools,
     holder: ignoreHolder,
     ...editorOptions
-  } = options;
+  } = options
 
   // initialize
   useEffect(() => {
@@ -41,47 +41,47 @@ export const useEditor = (toolsList, { data, editorRef }, options = {}) => {
 
       // Override editor options
       ...editorOptions,
-    });
+    })
 
-    setEditor(editor);
+    setEditor(editor)
 
     // cleanup
     return () => {
       editor.isReady
         .then(() => {
-          editor.destroy();
-          setEditor(null);
+          editor.destroy()
+          setEditor(null)
         })
-        .catch((e) => console.error("ERROR editor cleanup", e));
-    };
-  }, [toolsList]);
+        .catch((e) => console.error("ERROR editor cleanup", e))
+    }
+  }, [toolsList])
 
   // set reference
   useEffect(() => {
     if (!editorInstance) {
-      return;
+      return
     }
     // Send instance to the parent
     if (editorRef) {
-      editorRef(editorInstance);
+      editorRef(editorInstance)
     }
-  }, [editorInstance, editorRef]);
+  }, [editorInstance, editorRef])
 
-  return { editor: editorInstance };
-};
+  return { editor: editorInstance }
+}
 
 export const EditorContainer = ({ editorRef, children, data, options }) => {
-  useEditor(tools, { data, editorRef }, options);
+  useEditor(tools, { data, editorRef }, options)
 
   return (
     <React.Fragment>
       {!children && (
         <div
-          className="py-2 px-4 text-gray-700 bg-white dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 rounded-xl focus:outline-none"
+          className="py-2 px-4 text-700 bg-50 dark:border-gray-600 rounded-xl focus:outline-none"
           id="editor-js"
         ></div>
       )}
       {children}
     </React.Fragment>
-  );
-};
+  )
+}

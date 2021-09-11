@@ -7,7 +7,7 @@ function CommentForm({ text, setText, onSubmit, sending }) {
   return (
     <form onSubmit={onSubmit}>
       <textarea
-        className="flex w-full p-3 rounded-xl resize-y bg-gray-200 text-gray-900 placeholder-gray-500 hover:bg-gray-200 cursor-pointer focus:outline-none"
+        className="flex w-full p-3 rounded-xl resize-y bg-200 text-900 placeholder-gray-400 cursor-pointer focus:outline-none"
         rows={2}
         placeholder={
           session
@@ -19,10 +19,10 @@ function CommentForm({ text, setText, onSubmit, sending }) {
         disabled={!session}
       />
 
-      <div className="mt-4">
+      <div className="mt-4 mb-8">
         {session && (
           <button
-            className="flex items-center py-2 px-4 rounded bg-blue-600 text-white disabled:opacity-70 hover:bg-blue-700"
+            className="btn bg-blue-600 text-white"
             disabled={!text || sending}
           >
             Send {sending && <Spin className="ml-3" />}

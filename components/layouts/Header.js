@@ -1,7 +1,9 @@
 import {
   BellIcon,
   MenuIcon,
+  MoonIcon,
   SearchIcon,
+  SunIcon,
   // ChevronDownIcon,
   // HomeIcon,
   // NewspaperIcon,
@@ -12,31 +14,27 @@ import {
 import ProfileDd from "../Dropdowns/Profile"
 import CreateDd from "../Dropdowns/Create"
 import SearchForm from "./SearchForm"
-import { SidebarToggle } from './SidebarToogle'
+import { SidebarToggle } from "./SidebarToogle"
 // import Router from "next/router"
+import { useTheme } from "next-themes"
+import { useState, useEffect } from "react"
 
 function Header() {
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
+
+  // When mounted on client, now we can show the UI
+  useEffect(() => setMounted(true), [])
+
+  if (!mounted) return null
+
   return (
-    <div className="sticky top-0 z-50 bg-white flex items-center space-x-2 p-2 lg:px-5 shadow-md">
+    <div className="sticky top-0 z-50 flex items-center space-x-2 p-2 lg:px-5 shadow-md bg-white dark:bg-gray-900">
       {/* left */}
       <div className="flex items-center">
         {/* logo */}
-        <MenuIcon
-          className="h-6 mr-2 md:hidden"
-          onClick={SidebarToggle}
-        />
+        <MenuIcon className="h-6 mr-2 md:hidden" onClick={SidebarToggle} />
         <SearchForm />
-        {/* <form onSubmit={() => Router.push("/a")}>
-          <div className="flex items-center rounded-full bg-gray-100 p-1">
-            <input
-              className="w-24 md:w-48 items-center ml-2 bg-transparent outline-none"
-              type="text"
-              name="kw"
-              placeholder="Search"
-            />
-            <button className="px-2" type="submit"><SearchIcon className="h-5 text-gray-600" /></button>
-          </div>
-        </form> */}
       </div>
 
       {/* center */}
@@ -48,6 +46,16 @@ function Header() {
 
       {/* right */}
       <div className="flex items-center space-x-2 justify-end">
+        <button
+          className="p-1 rounded"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          {theme == "dark" ? (
+            <SunIcon className="w-6 h-6" />
+          ) : (
+            <MoonIcon className="w-6 h-6" />
+          )}
+        </button>
         <CreateDd />
         {/* <ViewGridIcon className="circle-icon" /> */}
         <BellIcon className="circle-icon" />
@@ -55,7 +63,7 @@ function Header() {
         <ProfileDd />
       </div>
     </div>
-  );
+  )
 }
 
-export default Header;
+export default Header

@@ -1,30 +1,32 @@
-import React from "react";
-import Router from "next/router";
-import { formatDaysAgo } from "../../lib/formatDaysAgo";
-import Avatar from "../Image/Avatar";
-import Thumbnail from "../Image/Thumbnail";
+import React from "react"
+import Router from "next/router"
+import { formatDaysAgo } from "../../lib/formatDaysAgo"
+import Avatar from "../Image/Avatar"
+import Thumbnail from "../Image/Thumbnail"
 
 export type ArticleProps = {
-  id: number;
-  title: string;
+  id: number
+  title: string
   author: {
-    name: string;
-    id: number;
-    image: string;
-  } | null;
-  slug: string;
-  description: string;
-  thumbnail: string;
-  tags: string;
-  createdAt: Date;
-};
+    name: string
+    id: number
+    image: string
+  } | null
+  slug: string
+  description: string
+  thumbnail: string
+  tags: string
+  createdAt: Date
+}
 
 const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
   return (
-    <div className="sm:flex">
-      <div className="sm:flex-shrink-0 px-4 py-2">
-        {/* <img className="object-cover rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72" src={article.thumbnail || "https://picsum.photos/300/200?blur=3&random=" + article.id} alt={article.title} loading="lazy" /> */}
-        <div className="rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72">
+    <div className="sm:flex rounded-lg">
+      <div className="sm:flex-shrink-0 p-2 mr-4">
+        <div
+          onClick={() => Router.push("/a/[id]", `/a/${article.id}`)}
+          className="rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72 cursor-pointer"
+        >
           <Thumbnail
             id={article.id}
             image={article.thumbnail}
@@ -32,15 +34,15 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
           />
         </div>
       </div>
-      <div className="px-4">
+      <div className="p-2">
         {/* <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div> */}
         <div
           onClick={() => Router.push("/a/[id]", `/a/${article.id}`)}
-          className="block mt-1 text-lg leading-tight font-medium text-black hover:underline cursor-pointer"
+          className="block mt-1 text-lg leading-tight font-semibold hover:underline cursor-pointer"
         >
           {article.title}
         </div>
-        <p className="mt-2 text-gray-500 line-3">{article.description}</p>
+        <p className="mt-2 text-500 line-3">{article.description}</p>
         <div className="mt-2">
           <div className="flex items-center">
             <div className="flex items-center">
@@ -60,7 +62,7 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default ArticleCard;
+export default ArticleCard

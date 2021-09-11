@@ -6,7 +6,7 @@ function CommentList({ comments, onDelete, deleting }) {
   const [session, loading] = useSession()
 
   return (
-    <div className="space-y-6 my-16">
+    <div className="space-y-6 my-8">
       {comments.map((comment) => {
         const isAuthor = session && session.user.id === comment.user.id
 

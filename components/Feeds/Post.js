@@ -1,24 +1,20 @@
-import Image from "next/image";
-import {  ChatIcon, ShareIcon, ThumbUpIcon } from "@heroicons/react/outline"
-import Avatar from "../Image/Avatar";
+import Image from "next/image"
+import { ChatIcon, ShareIcon, ThumbUpIcon } from "@heroicons/react/outline"
+import Avatar from "../Image/Avatar"
 
-function Post({ name, content, email, avatar, imageUrl, timestamp }) {
+function Post({ name, content, avatar, imageUrl, timestamp }) {
   return (
     <div className="flex flex-col">
-      <div className="p-5 bg-white mt-5 rounded-t-2xl shadow-sm">
+      <div className="p-5 bg-50 mt-5 rounded-t-2xl shadow-sm">
         <div className="flex items-center space-x-2">
-          <Avatar image={avatar} size={40}/>
+          <Avatar image={avatar} size={40} />
           <div>
             <p className="font-medium">{name}</p>
-              <p className="text-xs text-gray-400">
-            {timestamp ? (
-              new Date(timestamp?.toDate()).toLocaleDateString()
-            ): (
-              'Loading...'
-            )
-
-            }
-              </p>
+            <p className="text-xs text-400">
+              {timestamp
+                ? new Date(timestamp?.toDate()).toLocaleDateString()
+                : "Loading..."}
+            </p>
           </div>
         </div>
 
@@ -26,17 +22,12 @@ function Post({ name, content, email, avatar, imageUrl, timestamp }) {
       </div>
 
       {imageUrl && (
-        <div className="relative h-56 md:h-96 bg-white">
-          <Image
-            src={imageUrl}
-            alt=""
-            objectFit="cover"
-            layout="fill"
-          />
+        <div className="relative h-56 md:h-96 bg-50">
+          <Image src={imageUrl} alt="" objectFit="cover" layout="fill" />
         </div>
       )}
 
-      <div className="flex justify-between items-center text-gray-400 border-t rounded-b-2xl bg-white shadow-md">
+      <div className="flex justify-between items-center text-500 border-t dark:border-gray-700 rounded-b-2xl bg-50 shadow-md">
         <div className="input-icon rounded-bl-2xl">
           <ThumbUpIcon className="h-4" />
           <p className="text-xs sm:text-base">Like</p>

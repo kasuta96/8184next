@@ -1,12 +1,12 @@
-import { Fragment } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { Fragment } from "react"
+import { Menu, Transition } from "@headlessui/react"
 import {
   PlusIcon,
   NewspaperIcon,
   DocumentTextIcon,
   QuestionMarkCircleIcon,
-} from "@heroicons/react/outline";
-import { useRouter } from "next/router";
+} from "@heroicons/react/outline"
+import { useRouter } from "next/router"
 
 const creates = [
   {
@@ -24,14 +24,14 @@ const creates = [
     link: "#",
     icon: QuestionMarkCircleIcon,
   },
-];
+]
 
 function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
+  return classes.filter(Boolean).join(" ")
 }
 
 function Create() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <div>
@@ -55,7 +55,7 @@ function Create() {
             >
               <Menu.Items
                 static
-                className="origin-top-right absolute right-0 mt-2 w-max rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+                className="origin-top-right absolute right-0 mt-2 w-max rounded-md shadow-lg bg-200 ring-1 ring-black ring-opacity-5 focus:outline-none"
               >
                 {creates.map((item) => (
                   <Menu.Item key={item.name}>
@@ -65,8 +65,8 @@ function Create() {
                           router.push(item.link, undefined, { shallow: true })
                         }
                         className={classNames(
-                          active ? "bg-gray-100" : "",
-                          "block px-4 py-2 text-sm text-gray-700 cursor-pointer"
+                          active ? "bg-300" : "",
+                          "block px-4 py-2 text-sm text-800 cursor-pointer"
                         )}
                       >
                         <div className="flex">
@@ -83,7 +83,7 @@ function Create() {
         )}
       </Menu>
     </div>
-  );
+  )
 }
 
-export default Create;
+export default Create

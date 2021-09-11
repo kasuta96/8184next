@@ -12,7 +12,7 @@ const Tags: React.FC<{ tags: String }> = ({ tags }) => {
           <div
             key={index}
             onClick={() => Router.push(`/a?kw=${tag}`)}
-            className="text-sm mr-2 py-1.5 px-4 text-gray-600 bg-blue-100 hover:bg-blue-200 rounded-2xl cursor-pointer"
+            className="text-sm mr-2 py-1.5 px-4 bg-blue-200 text-gray-600 hover:bg-blue-300 rounded-2xl cursor-pointer"
           >
             # {tag}
           </div>

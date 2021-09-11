@@ -28,10 +28,10 @@ function Card({
         <div className="flex-none">
           <Avatar image={user.image} size={40} name={user.name} />
         </div>
-        <div className="flex-grow ml-4 rounded-xl bg-white dark:bg-gray-800 shadow">
+        <div className="flex-grow ml-4 rounded-xl bg-200 shadow">
           {onDelete && (
             <button
-              className={`float-right p-2 rounded-xl text-gray-400 hover:text-red-500 hover:bg-gray-100`}
+              className={`float-right p-2 rounded-xl text-600 hover:text-red-500 hover:bg-100`}
               onClick={() => {
                 onDelete()
                 setLoading(true)

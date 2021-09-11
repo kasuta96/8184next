@@ -9,7 +9,7 @@ import {
 } from "../../components/Editor"
 import { useSession } from "next-auth/client"
 import AccessDenied from "../../components/Error/AccessDenied"
-import { Accordion } from "../../components/Tailwind/Accordion"
+import More from "../../components/Article/Create/More"
 
 // get data if has id query
 export const getServerSideProps = async ({ query }) => {
@@ -130,7 +130,7 @@ const Create = (props) => {
             <div className="items-center md:flex md:space-x-4">
               <div className="w-full">
                 <input
-                  className="block w-full px-4 py-2 text-gray-700 bg-white dark:bg-gray-800 dark:text-gray-300 rounded-xl focus:outline-none"
+                  className="block w-full px-4 py-2 text-800 bg-200 rounded-xl focus:outline-none"
                   autoFocus
                   onChange={(e) => setTitle(e.target.value)}
                   placeholder="Title"
@@ -153,66 +153,15 @@ const Create = (props) => {
                 <Editor reInit editorRef={setEditor} options={options} />
               </div>
             </div>
-            <div className="mt-6">
-              <Accordion
-                title={<p className="text-lg">More option</p>}
-                content={
-                  <>
-                    <div className="w-full mb-3">
-                      <label
-                        className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-                        htmlFor="description"
-                      >
-                        Description
-                      </label>
-                      <textarea
-                        className="block w-full py-2 px-4 bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300 placeholder-gray-400 rounded-xl text-base focus:outline-none"
-                        placeholder="Enter your description"
-                        name="description"
-                        rows="5"
-                        cols="40"
-                        type="text"
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                      ></textarea>
-                    </div>
-                    <div className="w-full mb-3">
-                      <label
-                        className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-                        htmlFor="thumbnail"
-                      >
-                        Thumbnail
-                      </label>
-                      <input
-                        className="block w-full py-2 px-4 bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300 placeholder-gray-400 rounded-xl text-base focus:outline-none"
-                        placeholder="Enter image URL"
-                        name="thumbnail"
-                        onChange={(e) => setThumbnail(e.target.value)}
-                        value={thumbnail}
-                      />
-                    </div>
-                    <div className="w-full mb-3">
-                      <label
-                        className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200"
-                        htmlFor="tags"
-                      >
-                        Tags
-                        <span className="text-muted">
-                          (separate by comma ',')
-                        </span>
-                      </label>
-                      <input
-                        className="block w-full py-2 px-4 bg-white text-gray-700 dark:bg-gray-800 dark:text-gray-300 placeholder-gray-400 rounded-xl text-base focus:outline-none"
-                        placeholder="Enter keywords"
-                        name="tags"
-                        onChange={(e) => setTags(e.target.value)}
-                        value={tags}
-                      />
-                    </div>
-                  </>
-                }
-              />
-            </div>
+
+            <More
+              description={description}
+              setDescription={setDescription}
+              thumbnail={thumbnail}
+              setThumbnail={setThumbnail}
+              tags={tags}
+              setTags={setTags}
+            />
 
             <div className="flex justify-center mt-6 space-x-2">
               <button
