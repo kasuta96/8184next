@@ -12,20 +12,8 @@ import ReactHtmlParser from "react-html-parser"
 
 const validListStyles = ["ordered", "unordered"]
 
-const ListOutput = ({ data, style, classNames, config }) => {
+const ListOutput = ({ data }) => {
   if (!data) return ""
-  if (!style || typeof style !== "object") style = {}
-  if (!config || typeof config !== "object") config = {}
-  if (
-    !classNames ||
-    typeof classNames !== "object" ||
-    Object.keys(classNames).length < 1
-  )
-    classNames = {
-      container: "text-gray-600 my-8 mr-4 ml-4 md:ml-8",
-      item: "ml-2",
-    }
-
   let content = [],
     listType = "ordered"
 
@@ -38,25 +26,19 @@ const ListOutput = ({ data, style, classNames, config }) => {
       content = data.items.map((item, index) => (
         <li key={index} className="relative">
           <div className="h-full w-6 absolute inset-0 flex justify-center -ml-6">
-            <div className="h-full w-1 bg-gray-200 pointer-events-none"></div>
+            <div className="h-full w-1 bg-300 pointer-events-none"></div>
           </div>
           <div className="w-6 h-6 rounded-full inline-flex items-center justify-center bg-indigo-500 text-white relative text-sm -ml-6">
             {listType == "ordered" ? index + 1 : ""}
           </div>
-          <p style={style.item} className={classNames.item}>
-            {ReactHtmlParser(item)}
-          </p>
+          <p className="ml-2">{ReactHtmlParser(item)}</p>
         </li>
       ))
   }
 
   if (content.length <= 0) return ""
 
-  return (
-    <ul style={style.container} className={classNames.container}>
-      {content}
-    </ul>
-  )
+  return <ul className="my-8 mr-4 ml-4 md:ml-8">{content}</ul>
 }
 
 export default ListOutput
