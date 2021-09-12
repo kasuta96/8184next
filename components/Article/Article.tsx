@@ -57,7 +57,8 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <div className="rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
           <Thumbnail image={article.thumbnail} />
         </div>
-        <h3 className="font-bold pt-4">{title}</h3>
+
+        <h2 className="font-bold pt-4">{title}</h2>
 
         <div className="flex items-center mt-4">
           <a href={"/user/" + article.author.id} className="block relative">
@@ -74,13 +75,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         </div>
 
         <section className="mt-10 mb-20">
-          <BlocksRender
-            data={article.content}
-            style
-            classNames
-            config
-            renderers
-          />
+          <BlocksRender data={article.content} />
         </section>
 
         {article.tags && <Tags tags={article.tags} />}

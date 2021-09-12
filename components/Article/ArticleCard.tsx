@@ -3,6 +3,8 @@ import Router from "next/router"
 import { formatDaysAgo } from "../../lib/formatDaysAgo"
 import Avatar from "../Image/Avatar"
 import Thumbnail from "../Image/Thumbnail"
+import { DotsHorizontalIcon } from "@heroicons/react/outline"
+import Dropdown from "../Dropdowns/Dropdown"
 
 export type ArticleProps = {
   id: number
@@ -34,7 +36,7 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
           />
         </div>
       </div>
-      <div className="p-2">
+      <div className="p-2 w-full">
         {/* <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div> */}
         <div
           onClick={() => Router.push("/a/[id]", `/a/${article.id}`)}
@@ -45,19 +47,65 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <p className="mt-2 text-500 line-3">{article.description}</p>
         <div className="mt-2">
           <div className="flex items-center">
-            <div className="flex items-center">
+            <div className="flex-none">
               <Avatar
                 image={article.author?.image}
                 name={article.author?.name}
               />
-
-              <div className="mx-2 font-semibold text-gray-700 dark:text-gray-200">
-                {article.author?.name || "Unknown"}
-              </div>
             </div>
-            <span className="mx-1 text-xs text-gray-600 dark:text-gray-300">
+
+            <div className="mx-2 font-semibold text-gray-700 dark:text-gray-200">
+              {article.author?.name || "Unknown"}
+            </div>
+            <span className="flex-none mx-1 text-xs text-gray-600 dark:text-gray-300">
               {formatDaysAgo(article.createdAt)}
             </span>
+            <div className="ml-auto flex-none">
+              <Dropdown
+                btn={
+                  <DotsHorizontalIcon className="ml-auto circle-icon flex-none bg-100" />
+                }
+                menu={[
+                  {
+                    name: "Delete",
+                  },
+                  {
+                    name: "Edit",
+                  },
+                  {
+                    name: "Push",
+                    onClick: () => {
+                      console.log("dd click")
+                    },
+                  },
+                ]}
+              />
+            </div>
+            {/* <Dropdown
+              btn={
+                <DotsHorizontalIcon className="ml-auto circle-icon flex-none" />
+              }
+              menu={[
+                {
+                  name: "Delete",
+                  onClick: () => {
+                    console.log("dd click")
+                  },
+                },
+                {
+                  name: "Edit",
+                  onClick: () => {
+                    console.log("dd click")
+                  },
+                },
+                {
+                  name: "Push",
+                  onClick: () => {
+                    console.log("dd click")
+                  },
+                },
+              ]}
+            /> */}
           </div>
         </div>
       </div>

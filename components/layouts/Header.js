@@ -2,24 +2,27 @@ import {
   BellIcon,
   MenuIcon,
   MoonIcon,
-  SearchIcon,
   SunIcon,
+  PlusIcon,
+  NewspaperIcon,
+  DocumentTextIcon,
+  QuestionMarkCircleIcon,
   // ChevronDownIcon,
   // HomeIcon,
-  // NewspaperIcon,
   // ShoppingCartIcon,
   // ViewGridIcon,
 } from "@heroicons/react/outline"
-// import HeaderIcon from "./HeaderIcon"
 import ProfileDd from "../Dropdowns/Profile"
-import CreateDd from "../Dropdowns/Create"
 import SearchForm from "./SearchForm"
 import { SidebarToggle } from "./SidebarToogle"
-// import Router from "next/router"
 import { useTheme } from "next-themes"
 import { useState, useEffect } from "react"
+import Dropdown from "../Dropdowns/Dropdown"
+import { useRouter } from "next/router"
 
 function Header() {
+  const router = useRouter()
+
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
 
@@ -56,10 +59,27 @@ function Header() {
             <MoonIcon className="w-6 h-6" />
           )}
         </button>
-        <CreateDd />
-        {/* <ViewGridIcon className="circle-icon" /> */}
+        {/* <CreateDd /> */}
+        <Dropdown
+          btn={<PlusIcon className="circle-icon" />}
+          menu={[
+            {
+              name: "Article",
+              icon: <NewspaperIcon className="h-6 w-6 mr-2" />,
+              onClick: () =>
+                router.push("/a/create", undefined, { shallow: true }),
+            },
+            {
+              name: "Post",
+              icon: <DocumentTextIcon className="h-6 w-6 mr-2" />,
+            },
+            {
+              name: "Question",
+              icon: <QuestionMarkCircleIcon className="h-6 w-6 mr-2" />,
+            },
+          ]}
+        />
         <BellIcon className="circle-icon" />
-        {/* <ChevronDownIcon className="circle-icon inline-flex md:hidden" /> */}
         <ProfileDd />
       </div>
     </div>

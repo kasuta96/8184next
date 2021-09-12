@@ -152,6 +152,11 @@ const Create = (props) => {
               <div className="editorContainer">
                 <Editor reInit editorRef={setEditor} options={options} />
               </div>
+              <div className="text-right text-600">
+                <button className="btn-text" onClick={clearData}>
+                  Clear
+                </button>
+              </div>
             </div>
 
             <More
@@ -167,20 +172,16 @@ const Create = (props) => {
               <button
                 disabled={!editor || !title || submitBtn.disabled}
                 type="submit"
-                className="btn-primary disabled:bg-gray-300 cursor-pointer"
+                className="btn bg-blue-600 text-gray-50"
               >
                 {submitBtn.content}
               </button>
-              <a
-                className="btn-black"
-                href="#"
+              <div
+                className="btn bg-600 text-50"
                 onClick={() => Router.push("/a")}
               >
                 Cancel
-              </a>
-              <a className="btn-black" href="#" onClick={clearData}>
-                Clear
-              </a>
+              </div>
             </div>
           </form>
         </div>

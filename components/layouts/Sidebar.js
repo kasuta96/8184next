@@ -51,20 +51,18 @@ function Sidebar() {
           title="Rss"
           onClick={() => router.push("/rss")}
         />
-        {session && session.user.role == "MOD" && (
-          <SidebarRow
-            Icon={ClipboardCheckIcon}
-            title="Unpublished"
-            onClick={() =>
-              router.push({
-                pathname: "/a",
-                query: {
-                  published: false,
-                },
-              })
-            }
-          />
-        )}
+        <SidebarRow
+          Icon={ClipboardCheckIcon}
+          title="Unpublished"
+          onClick={() =>
+            router.push({
+              pathname: "/a",
+              query: {
+                published: false,
+              },
+            })
+          }
+        />
       </div>
     </div>
   )
