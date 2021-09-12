@@ -11,7 +11,10 @@ export default async function handle(
 
   console.log(session?.user?.role)
 
-  if (!session || session?.user?.role !== "MOD") {
+  if (
+    !session ||
+    (session?.user?.role !== "ADMIN" && session?.user?.role !== "MOD")
+  ) {
     return res.status(400).json({
       message: "This is protected request",
     })

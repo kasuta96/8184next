@@ -8,9 +8,9 @@ export default async function handle(
   res: NextApiResponse
 ) {
   const articleId = req.query.id
+  const session = await getSession({ req })
 
   const checkAuthor = async () => {
-    const session = await getSession({ req })
     const article = await prisma.article.findUnique({
       where: {
         id: Number(articleId),
@@ -23,10 +23,11 @@ export default async function handle(
     return article?.authorId === session?.user?.id
   }
 
-  if (req.method === "DELETE") {
-    const belongsToUser = await checkAuthor()
+  const belongsToUser = await checkAuthor()
+  const modOrAdmin = session?.user?.role !== ("MOD" || "ADMIN")
 
-    if (belongsToUser) {
+  if (req.method === "DELETE") {
+    if (belongsToUser || modOrAdmin) {
       await prisma.article.update({
         where: {
           id: Number(articleId),
