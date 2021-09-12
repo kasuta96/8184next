@@ -84,7 +84,11 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
           <p>copyright: {article.stickers?.copyright}</p>
         )}
 
-        <ArticleReact authorId={article.author.id} articleId={article.id} />
+        <ArticleReact
+          authorId={article.author.id}
+          articleId={article.id}
+          published={article.published}
+        />
 
         <Comment id={article.id} />
       </div>

@@ -3,10 +3,12 @@ import { Fragment } from "react"
 
 export default function Dropdown({
   btn,
+  header,
   menu,
 }: {
   btn?: any
-  menu: Array<{
+  header?: any
+  menu?: Array<{
     icon?: any
     name: string
     onClick?: any
@@ -43,25 +45,30 @@ export default function Dropdown({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right bg-white text-gray-800 dark:bg-black dark:text-gray-100 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-30">
-          <div className="px-1 py-1 ">
-            {menu.map((item, i) => {
-              return (
-                <Menu.Item key={i}>
-                  {({ active }) => (
-                    <button
-                      className={`${
-                        active && "bg-blue-500 text-white"
-                      } group flex rounded-md items-center w-full px-2 py-2 text-sm`}
-                      onClick={item.onClick}
-                    >
-                      {item.icon && <div className="mr-2">{item.icon}</div>}
-                      {item.name}
-                    </button>
-                  )}
-                </Menu.Item>
-              )
-            })}
+        <Menu.Items className="absolute right-0 w-max mt-2 origin-top-right bg-white text-gray-800 dark:bg-black dark:text-gray-100 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-30">
+          {header && header}
+          <div className="p-1">
+            {menu ? (
+              menu.map((item, i) => {
+                return (
+                  <Menu.Item key={i}>
+                    {({ active }) => (
+                      <button
+                        className={`${
+                          active && "bg-blue-500 text-white"
+                        } group flex rounded-md items-center w-full p-2 text-sm`}
+                        onClick={item.onClick}
+                      >
+                        {item.icon && <div className="mr-2">{item.icon}</div>}
+                        {item.name}
+                      </button>
+                    )}
+                  </Menu.Item>
+                )
+              })
+            ) : (
+              <div className="text-gray-400 p-2">Empty option</div>
+            )}
           </div>
         </Menu.Items>
       </Transition>

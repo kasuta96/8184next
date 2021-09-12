@@ -12,16 +12,18 @@ import {
   // ShoppingCartIcon,
   // ViewGridIcon,
 } from "@heroicons/react/outline"
-import ProfileDd from "../Dropdowns/Profile"
 import SearchForm from "./SearchForm"
 import { SidebarToggle } from "./SidebarToogle"
 import { useTheme } from "next-themes"
 import { useState, useEffect } from "react"
 import Dropdown from "../Dropdowns/Dropdown"
 import { useRouter } from "next/router"
+import { signIn, signOut, useSession } from "next-auth/client"
+import Avatar from "../Image/Avatar"
 
 function Header() {
   const router = useRouter()
+  const [session, loading] = useSession()
 
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
@@ -80,7 +82,26 @@ function Header() {
           ]}
         />
         <BellIcon className="circle-icon" />
-        <ProfileDd />
+        {!session ? (
+          <button onClick={() => signIn()}>Sign in</button>
+        ) : (
+          <Dropdown
+            btn={<Avatar image={session?.user?.image} size={30} />}
+            header={<div className="px-4 py-3">{session?.user?.name}</div>}
+            menu={[
+              {
+                name: "Your profile",
+              },
+              {
+                name: "Setting",
+              },
+              {
+                name: "Sign out",
+                onClick: () => signOut(),
+              },
+            ]}
+          />
+        )}
       </div>
     </div>
   )

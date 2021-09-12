@@ -1,32 +1,32 @@
-import React from "react";
-import Layout from "../../components/Layout";
+import React from "react"
+import Layout from "../../components/Layout"
 import ArticleCard, {
   ArticleProps,
-} from "../../components/Article/ArticleCard";
+} from "../../components/Article/List/ArticleCard"
 // import { NextApiRequest, NextApiResponse } from 'next'
-const { URL, URLSearchParams } = require("url");
+const { URL, URLSearchParams } = require("url")
 
 export async function getServerSideProps(context: { query: any }) {
-  const fetchUrl = new URL(process.env.HOST + "/api/article/get-articles");
-  fetchUrl.search = new URLSearchParams(context.query).toString();
+  const fetchUrl = new URL(process.env.HOST + "/api/article/get-articles")
+  fetchUrl.search = new URLSearchParams(context.query).toString()
 
-  const res = await fetch(fetchUrl);
-  const articles = await res.json();
+  const res = await fetch(fetchUrl)
+  const articles = await res.json()
 
   if (!articles || articles.error) {
     return {
       notFound: true,
-    };
+    }
   }
 
   return {
     props: { articles },
-  };
+  }
 }
 
 type Props = {
-  articles: ArticleProps[];
-};
+  articles: ArticleProps[]
+}
 
 const Articles: React.FC<Props> = (props) => {
   return (
@@ -37,7 +37,7 @@ const Articles: React.FC<Props> = (props) => {
         ))}
       </div>
     </Layout>
-  );
-};
+  )
+}
 
-export default Articles;
+export default Articles

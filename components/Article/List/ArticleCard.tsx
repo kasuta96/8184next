@@ -1,10 +1,9 @@
 import React from "react"
 import Router from "next/router"
-import { formatDaysAgo } from "../../lib/formatDaysAgo"
-import Avatar from "../Image/Avatar"
-import Thumbnail from "../Image/Thumbnail"
-import { DotsHorizontalIcon } from "@heroicons/react/outline"
-import Dropdown from "../Dropdowns/Dropdown"
+import { formatDaysAgo } from "../../../lib/formatDaysAgo"
+import Avatar from "../../Image/Avatar"
+import Thumbnail from "../../Image/Thumbnail"
+import ArticleOption from "./ArticleOption"
 
 export type ArticleProps = {
   id: number
@@ -61,51 +60,8 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
               {formatDaysAgo(article.createdAt)}
             </span>
             <div className="ml-auto flex-none">
-              <Dropdown
-                btn={
-                  <DotsHorizontalIcon className="ml-auto circle-icon flex-none bg-100" />
-                }
-                menu={[
-                  {
-                    name: "Delete",
-                  },
-                  {
-                    name: "Edit",
-                  },
-                  {
-                    name: "Push",
-                    onClick: () => {
-                      console.log("dd click")
-                    },
-                  },
-                ]}
-              />
+              <ArticleOption id={article.id} />
             </div>
-            {/* <Dropdown
-              btn={
-                <DotsHorizontalIcon className="ml-auto circle-icon flex-none" />
-              }
-              menu={[
-                {
-                  name: "Delete",
-                  onClick: () => {
-                    console.log("dd click")
-                  },
-                },
-                {
-                  name: "Edit",
-                  onClick: () => {
-                    console.log("dd click")
-                  },
-                },
-                {
-                  name: "Push",
-                  onClick: () => {
-                    console.log("dd click")
-                  },
-                },
-              ]}
-            /> */}
           </div>
         </div>
       </div>

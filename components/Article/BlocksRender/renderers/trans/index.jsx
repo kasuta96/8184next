@@ -35,16 +35,16 @@ const TransOutput = ({ data, count }) => {
     const [openTrans, setOpenTrans] = React.useState(false)
     return (
       <div
+        title="Click to switch language"
         className={
-          "my-6 px-5 py-3 shadow rounded block cursor-pointer " +
-          (openTrans == true ? "text-100 bg-600" : "text-800 bg-200")
+          "my-6 p-3 hover:shadow hover:bg-gray-200 dark:hover:bg-gray-700 rounded block cursor-pointer"
         }
         onClick={() => {
           setOpenTrans((prevOpenTrans) => !prevOpenTrans)
         }}
         data-trans={id}
       >
-        <div className="float-right text-indigo-400 pl-2">
+        <div className="float-right text-indigo-500 dark:text-indigo-300 pl-2">
           <svg
             width="20"
             height="20"
