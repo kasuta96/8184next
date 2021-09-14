@@ -57,6 +57,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <div className="rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
           <Thumbnail image={article.thumbnail} />
         </div>
+
         <h3 className="font-bold pt-4">{title}</h3>
 
         <div className="flex items-center mt-4">
@@ -74,13 +75,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         </div>
 
         <section className="mt-10 mb-20">
-          <BlocksRender
-            data={article.content}
-            style
-            classNames
-            config
-            renderers
-          />
+          <BlocksRender data={article.content} />
         </section>
 
         {article.tags && <Tags tags={article.tags} />}
@@ -89,7 +84,11 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
           <p>copyright: {article.stickers?.copyright}</p>
         )}
 
-        <ArticleReact authorId={article.author.id} articleId={article.id} />
+        <ArticleReact
+          authorId={article.author.id}
+          articleId={article.id}
+          published={article.published}
+        />
 
         <Comment id={article.id} />
       </div>

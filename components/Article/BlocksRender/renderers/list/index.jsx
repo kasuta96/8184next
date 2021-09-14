@@ -24,14 +24,14 @@ const ListOutput = ({ data }) => {
 
     if (data.items && Array.isArray(data.items))
       content = data.items.map((item, index) => (
-        <li key={index} className="relative">
+        <li key={index} className="relative pb-5">
           <div className="h-full w-6 absolute inset-0 flex justify-center -ml-6">
             <div className="h-full w-1 bg-300 pointer-events-none"></div>
           </div>
           <div className="w-6 h-6 rounded-full inline-flex items-center justify-center bg-indigo-500 text-white relative text-sm -ml-6">
             {listType == "ordered" ? index + 1 : ""}
           </div>
-          <p className="ml-2">{ReactHtmlParser(item)}</p>
+          <p className="ml-3 -mt-6">{ReactHtmlParser(item)}</p>
         </li>
       ))
   }

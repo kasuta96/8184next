@@ -19,9 +19,9 @@ const TableOutput = ({ data }) => {
   const columnNames = content.shift()
 
   return (
-    <div className="flex flex-col">
+    <div className="my-8 flex flex-col">
       <div className="overflow-x-auto">
-        <div className="py-8 align-middle inline-block min-w-full">
+        <div className="py-4 align-middle inline-block min-w-full">
           <div className="shadow overflow-hidden rounded-lg">
             <table className="min-w-full divide-y divide-gray-400">
               <thead className="bg-50">

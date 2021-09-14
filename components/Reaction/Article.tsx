@@ -3,26 +3,48 @@ import { useRouter } from "next/router"
 import { TrashIcon, PencilAltIcon } from "@heroicons/react/outline"
 import Btn from "../Buttons/Btn"
 import Vote from "./Vote"
+import { useState } from "react"
+import Spin from "../Icons/Spin"
 
-const Article = ({ authorId, articleId }) => {
+const Article = ({
+  authorId,
+  articleId,
+  published,
+}: {
+  authorId: string
+  articleId: number
+  published: boolean
+}) => {
   const router = useRouter()
+  const [publish, setPublish] = useState(published)
+  const [publishing, setPublishing] = useState(false)
 
-  // async function publishArticle(id: number): Promise<void> {
-  //   await fetch(`${process.env.NEXTAUTH_URL}/api/publish/${id}`, {
-  //     method: "PUT",
-  //   });
-  //   await router.push("/a")
-  // }
+  async function publishArticle(id: number): Promise<void> {
+    setPublishing(true)
+    const res = await fetch(
+      `${process.env.HOST}/api/publish/${id}?publish=${publish}`,
+      {
+        method: "PUT",
+      }
+    )
+    const json = await res.json()
+    if (res.ok) {
+      setPublish(json)
+    } else {
+      console.log(json)
+    }
+    setPublishing(false)
+  }
 
   async function deleteArticle(id: number): Promise<void> {
     const res = await fetch(process.env.HOST + `/api/article/${id}`, {
       method: "DELETE",
     })
-    const data = await res.json()
+    const json = await res.json()
     if (res.ok) {
       await router.push("/a")
     } else {
-      console.log(data)
+      console.log(json)
     }
   }
 
@@ -32,12 +54,34 @@ const Article = ({ authorId, articleId }) => {
   }
   const userHasValidSession = Boolean(session)
   const articleBelongsToUser = session?.user?.id === authorId
+  const publisher = session?.user?.role === ("ADMIN" || "MOD")
 
   return (
-    <div className="container mt-8">
-      {/* {!props.published && userHasValidSession && articleBelongsToUser && (
-        <button onClick={() => publishArticle(props.id)}>Publish</button>
-      )} */}
+    <div className="container mt-16">
+      {userHasValidSession && publisher && (
+        <>
+          <hr />
+          <div className="flex items-center my-4">
+            <span className="text-gray-500 font-bold mr-4">Mod</span>
+            <Btn
+              title="Delete"
+              Icon={TrashIcon}
+              onClick={() => deleteArticle(articleId)}
+            />
+            <button
+              onClick={() => publishArticle(articleId)}
+              className="btn-primary"
+              disabled={publishing}
+            >
+              {publish ? "Unpublish" : "Publish"}
+              {publishing && <Spin className="ml-3" />}
+            </button>
+            {publish && (
+              <p className="ml-2 text-600">This article has been published</p>
+            )}
+          </div>
+        </>
+      )}
       {userHasValidSession && articleBelongsToUser && (
         <>
           <hr />

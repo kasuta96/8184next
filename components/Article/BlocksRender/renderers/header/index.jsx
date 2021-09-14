@@ -12,7 +12,7 @@ import ReactHtmlParser from "react-html-parser"
 
 const HeaderOutput = ({ data }) => {
   if (!data) return ""
-  let classNames = "font-bold mb-4 mt-8"
+  let classNames = "font-bold mb-8 mt-16"
   let content = null
 
   if (typeof data === "string") content = data

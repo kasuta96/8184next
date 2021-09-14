@@ -33,7 +33,7 @@
     @apply break-words;
   }
   main a {
-    @apply text-blue-500 hover:underline;
+    @apply text-blue-500 dark:text-blue-400 hover:underline;
   }
 }
 
@@ -49,10 +49,13 @@
     height: 14px;
   }
   .btn {
-    @apply inline-flex py-2 px-4 rounded-lg items-center focus:outline-none shadow-lg space-x-2 disabled:opacity-70 hover:bg-opacity-80;
+    @apply inline-flex py-2 px-4 rounded-lg items-center focus:outline-none shadow-lg space-x-2 disabled:opacity-70 hover:bg-opacity-70 dark:hover:bg-opacity-70 cursor-pointer capitalize transition-colors duration-200 transform;
+  }
+  .btn-text {
+    @apply inline-flex py-2 px-4 rounded-lg items-center space-x-2 disabled:text-gray-500 cursor-pointer focus:bg-300 hover:bg-300;
   }
   .btn-primary {
-    @apply px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-blue-600 rounded-md hover:outline-none hover:bg-blue-500 focus:bg-blue-500;
+    @apply btn bg-blue-600 text-white;
   }
   .btn-black {
     @apply px-4 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-200 transform rounded-md hover:outline-none bg-gray-700 hover:bg-gray-600 focus:bg-gray-600;

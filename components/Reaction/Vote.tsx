@@ -65,7 +65,7 @@ function Vote({ id }: { id: number }) {
 
   return (
     <>
-      <div className="flex items-center space-x-2 my-4">
+      <div className="flex items-center space-x-2 mb-8 mt-16">
         {loading && "loading..."}
         {session ? (
           <Avatar image={session.user.image} size={35} />

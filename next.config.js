@@ -1,3 +1,5 @@
+const nextTranslate = require("next-translate")
+
 const imageHost = [
   "links.papareact.com",
   "platform-lookaside.fbsbx.com",
@@ -10,7 +12,7 @@ const imageHost = [
   "picsum.photos",
 ]
 
-module.exports = {
+module.exports = nextTranslate({
   async redirects() {
     return [
       {
@@ -29,6 +31,7 @@ module.exports = {
     defaultLang: "en",
   },
   i18n: {
+    // localeDetection: false,
     // These are all the locales you want to support in
     // your application
     locales: ["en", "vi", "ja"],
@@ -52,4 +55,4 @@ module.exports = {
       // },
     ],
   },
-}
+})
