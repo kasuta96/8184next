@@ -7,7 +7,7 @@ import ArticleCard, {
 const { URL, URLSearchParams } = require("url")
 
 export async function getServerSideProps(context: { query: any }) {
-  const fetchUrl = new URL(process.env.HOST + "/api/article/get-articles")
+  const fetchUrl = new URL(`${process.env.HOST}/api/article/get-articles`)
   fetchUrl.search = new URLSearchParams(context.query).toString()
 
   const res = await fetch(fetchUrl)

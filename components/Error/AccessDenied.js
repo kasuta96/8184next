@@ -1,17 +1,20 @@
-import { signIn } from 'next-auth/client'
+import { signIn } from "next-auth/client"
 
-export default function AccessDenied () {
+export default function AccessDenied() {
   return (
     <section className="flex-grow min-h-screen p-5 mx-auto">
       <div className="lg:max-w-3xl mx-auto text-center">
-
         <h1>Access Denied</h1>
         <p>
-          <a href="/api/auth/signin"
+          <a
+            href="${process.env.HOST}/api/auth/signin"
             onClick={(e) => {
-            e.preventDefault()
-            signIn()
-          }}>You must be signed in to view this page</a>
+              e.preventDefault()
+              signIn()
+            }}
+          >
+            You must be signed in to view this page
+          </a>
         </p>
       </div>
     </section>
