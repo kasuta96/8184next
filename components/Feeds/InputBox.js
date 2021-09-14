@@ -72,7 +72,7 @@ function InputBox() {
       <>
         <span className="">You are not signed in </span>
         <a
-          href={`/api/auth/signin`}
+          href={`${process.env.HOST}/api/auth/signin`}
           className="text-50 bg-indigo-500 border-0 p-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"
           onClick={(e) => {
             e.preventDefault()

@@ -37,7 +37,7 @@ const Article = ({
   }
 
   async function deleteArticle(id: number): Promise<void> {
-    const res = await fetch(process.env.HOST + `/api/article/${id}`, {
+    const res = await fetch(`${process.env.HOST}/api/article/${id}`, {
       method: "DELETE",
     })
     const json = await res.json()
@@ -97,7 +97,7 @@ const Article = ({
               Icon={PencilAltIcon}
               onClick={() =>
                 router.push({
-                  pathname: `${process.env.HOST}/a/create`,
+                  pathname: `/a/create`,
                   query: { id: articleId },
                 })
               }

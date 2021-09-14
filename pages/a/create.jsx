@@ -14,7 +14,7 @@ import More from "../../components/Article/Create/More"
 // get data if has id query
 export const getServerSideProps = async ({ query }) => {
   if (query.id) {
-    const res = await fetch(process.env.HOST + "/api/article/" + query.id)
+    const res = await fetch(`${process.env.HOST}/api/article/${query.id}`)
     const article = await res.json()
 
     if (article?.status) {

@@ -19,7 +19,7 @@ function Vote({ id }: { id: number }) {
 
   // fetch all votes data
   const fetchVote = async (id: Number) => {
-    const res = await fetch(process.env.HOST + `/api/Reaction/Vote?id=${id}`)
+    const res = await fetch(`${process.env.HOST}/api/Reaction/Vote?id=${id}`)
     const data = await res.json()
     if (res.ok) {
       setStars({
@@ -43,7 +43,7 @@ function Vote({ id }: { id: number }) {
       status: true,
       text: "Loading...",
     })
-    const res = await fetch(process.env.HOST + `/api/Reaction/Vote`, {
+    const res = await fetch(`${process.env.HOST}/api/Reaction/Vote`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
