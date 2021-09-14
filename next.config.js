@@ -26,7 +26,7 @@ module.exports = nextTranslate({
     domains: imageHost,
   },
   env: {
-    HOST: "http://localhost:3000",
+    HOST: process.env.NEXTAUTH_URL,
     imageHost: imageHost,
     defaultLang: "en",
   },

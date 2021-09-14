@@ -16,8 +16,6 @@ function Sidebar() {
   const [session, loading] = useSession()
   const router = useRouter()
 
-  console.log("lang", lang)
-
   return (
     <div
       id="sidebar"

@@ -5,7 +5,7 @@ import useTrans from "../../hooks/useTrans"
 
 function SearchForm() {
   const { t, lang } = useTrans("layouts")
-  const [kw, setKw] = useState(null)
+  const [kw, setKw] = useState("")
 
   function handleSubmit(e) {
     e.preventDefault()
