@@ -58,7 +58,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
           <Thumbnail image={article.thumbnail} />
         </div>
 
-        <h2 className="font-bold pt-4">{title}</h2>
+        <h3 className="font-bold pt-4">{title}</h3>
 
         <div className="flex items-center mt-4">
           <a href={"/user/" + article.author.id} className="block relative">

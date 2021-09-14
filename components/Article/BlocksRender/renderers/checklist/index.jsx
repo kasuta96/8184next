@@ -8,8 +8,8 @@
 //#region imports
 import React from "react"
 import ReactHtmlParser from "react-html-parser"
-import { BadgeCheckIcon as CheckIcon } from "@heroicons/react/outline"
-import { BadgeCheckIcon as CheckedIcon } from "@heroicons/react/solid"
+import { CheckCircleIcon as CheckIcon } from "@heroicons/react/outline"
+import { CheckCircleIcon as CheckedIcon } from "@heroicons/react/solid"
 //#endregion
 
 const ChecklistOutput = ({ data }) => {
@@ -28,9 +28,9 @@ const ChecklistOutput = ({ data }) => {
       content = data.items.map((item, index) => (
         <div key={index} className="flex items-center space-x-3 mb-3">
           {item.checked ? (
-            <CheckedIcon className="text-blue-600 h-6 w-6" />
+            <CheckedIcon className="text-green-600 h-7 w-7" />
           ) : (
-            <CheckIcon className="text-gray-400 h-6 w-6" />
+            <CheckIcon className="text-gray-400 h-7 w-7" />
           )}
           <label className="text-gray-700 dark:text-white font-normal">
             {ReactHtmlParser(item.text)}
@@ -41,7 +41,7 @@ const ChecklistOutput = ({ data }) => {
 
   if (content.length <= 0) return ""
 
-  return <div className="mx-4 my-8">{content}</div>
+  return <div className="mx-2 my-10">{content}</div>
 }
 
 export default ChecklistOutput

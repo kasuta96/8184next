@@ -1,48 +1,38 @@
 import { SearchIcon } from "@heroicons/react/outline"
 import Router from "next/router"
-import React from "react"
+import React, { useState } from "react"
+import useTrans from "../../hooks/useTrans"
 
-class SearchForm extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { value: "" }
+function SearchForm() {
+  const { t, lang } = useTrans("layouts")
+  const [kw, setKw] = useState(null)
 
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleChange(event) {
-    this.setState({ value: event.target.value })
-  }
-
-  handleSubmit(event) {
-    event.preventDefault()
+  function handleSubmit(e) {
+    e.preventDefault()
     Router.push({
       pathname: "/a",
       query: {
-        kw: this.state.value,
+        kw: kw,
       },
     })
   }
 
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <div className="flex items-center rounded-full bg-gray-100 dark:bg-gray-700 p-1">
-          <input
-            className="w-24 md:w-48 items-center ml-2 bg-transparent outline-none"
-            type="text"
-            name="kw"
-            placeholder="Search"
-            value={this.state.value}
-            onChange={this.handleChange}
-          />
-          <button className="px-2" type="submit">
-            <SearchIcon className="h-5 opacity-50" />
-          </button>
-        </div>
-      </form>
-    )
-  }
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="flex items-center rounded-full bg-gray-100 dark:bg-gray-700 p-1">
+        <input
+          className="w-24 md:w-48 items-center ml-2 bg-transparent outline-none"
+          type="text"
+          name="kw"
+          placeholder={t`Search`}
+          value={kw}
+          onChange={(e) => setKw(e.target.value)}
+        />
+        <button className="px-2" type="submit">
+          <SearchIcon className="h-5 opacity-50" />
+        </button>
+      </div>
+    </form>
+  )
 }
 export default SearchForm

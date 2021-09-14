@@ -1,8 +1,6 @@
 import {
   BellIcon,
   MenuIcon,
-  MoonIcon,
-  SunIcon,
   PlusIcon,
   NewspaperIcon,
   DocumentTextIcon,
@@ -14,24 +12,17 @@ import {
 } from "@heroicons/react/outline"
 import SearchForm from "./SearchForm"
 import { SidebarToggle } from "./SidebarToogle"
-import { useTheme } from "next-themes"
-import { useState, useEffect } from "react"
 import Dropdown from "../Dropdowns/Dropdown"
 import { useRouter } from "next/router"
 import { signIn, signOut, useSession } from "next-auth/client"
 import Avatar from "../Image/Avatar"
+import QuickSetting from "./QuickSetting"
+import useTrans from "../../hooks/useTrans"
 
 function Header() {
   const router = useRouter()
   const [session, loading] = useSession()
-
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
-
-  // When mounted on client, now we can show the UI
-  useEffect(() => setMounted(true), [])
-
-  if (!mounted) return null
+  const { t, lang } = useTrans("layouts")
 
   return (
     <div className="sticky top-0 z-50 flex items-center space-x-2 p-2 lg:px-5 shadow-md bg-white dark:bg-gray-900">
@@ -51,52 +42,51 @@ function Header() {
 
       {/* right */}
       <div className="flex items-center space-x-2 justify-end">
-        <button
-          className="p-1 rounded"
-          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          {theme == "dark" ? (
-            <SunIcon className="w-6 h-6" />
-          ) : (
-            <MoonIcon className="w-6 h-6" />
-          )}
-        </button>
-        {/* <CreateDd /> */}
+        <QuickSetting className="hidden sm:flex items-center" />
+
         <Dropdown
           btn={<PlusIcon className="circle-icon" />}
+          header={
+            <div className="px-4 py-2 text-600 font-medium text-center">{t`Create`}</div>
+          }
           menu={[
             {
-              name: "Article",
+              name: t`Article`,
               icon: <NewspaperIcon className="h-6 w-6 mr-2" />,
               onClick: () =>
                 router.push("/a/create", undefined, { shallow: true }),
             },
             {
-              name: "Post",
+              name: t`Post`,
               icon: <DocumentTextIcon className="h-6 w-6 mr-2" />,
             },
             {
-              name: "Question",
+              name: t`Question`,
               icon: <QuestionMarkCircleIcon className="h-6 w-6 mr-2" />,
             },
           ]}
         />
         <BellIcon className="circle-icon" />
         {!session ? (
-          <button onClick={() => signIn()}>Sign in</button>
+          <button onClick={() => signIn()}>{t`Sign in`}</button>
         ) : (
           <Dropdown
             btn={<Avatar image={session?.user?.image} size={30} />}
-            header={<div className="px-4 py-3">{session?.user?.name}</div>}
+            header={
+              <>
+                <div className="px-4 py-3">{session?.user?.name}</div>
+                <QuickSetting className="flex items-center sm:hidden text-center justify-center" />
+              </>
+            }
             menu={[
               {
-                name: "Your profile",
+                name: t`Your profile`,
               },
               {
-                name: "Setting",
+                name: t`Setting`,
               },
               {
-                name: "Sign out",
+                name: t`Sign out`,
                 onClick: () => signOut(),
               },
             ]}
