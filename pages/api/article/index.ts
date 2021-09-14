@@ -1,10 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../lib/db"
 import { getSession } from "next-auth/client"
-import slug from "slugify"
-import Kuroshiro from "kuroshiro"
-import KuromojiAnalyzer from "kuroshiro-analyzer-kuromoji"
-
+import slugify from "../../../lib/slugify"
 // POST /api/article
 export default async function handle(
   req: NextApiRequest,
@@ -39,19 +36,8 @@ export default async function handle(
       data.thumbnail = firstImg?.data.url || firstImg?.data.file.url || ""
     }
 
-    // Slug
-    // Instantiate
-    const kuroshiro = new Kuroshiro()
-    // Initialize
-    // Here uses async/await, you could also use Promise
-    // *error: Kuroshiro has already been initialized -> fix: only initialize if kuroshiro._analyzer not already
-    if (!kuroshiro._analyzer) await kuroshiro.init(new KuromojiAnalyzer())
-
-    const kanjiToRomanji = await kuroshiro.convert(data.title, {
-      to: "romaji",
-    })
-
-    data.slug = slug(kanjiToRomanji)
+    data.slug = slugify(data.title)
+    console.log("slug", data.slug)
 
     // More handle data ...
 
