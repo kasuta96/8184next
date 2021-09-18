@@ -17,7 +17,7 @@ function Card({
   }
   text: string
   star?: number
-  time: string
+  time: any
   onDelete?: any
   deleting: boolean
 }) {

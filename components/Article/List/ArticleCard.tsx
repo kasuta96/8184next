@@ -1,9 +1,9 @@
 import React from "react"
 import Router from "next/router"
-import { formatDaysAgo } from "../../../lib/formatDaysAgo"
 import Avatar from "../../Image/Avatar"
 import Thumbnail from "../../Image/Thumbnail"
 import ArticleOption from "./ArticleOption"
+import FormatDate from "../../handleData/FormatDate"
 
 export type ArticleProps = {
   id: number
@@ -57,7 +57,7 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
               {article.author?.name || "Unknown"}
             </div>
             <span className="flex-none mx-1 text-xs text-gray-600 dark:text-gray-300">
-              {formatDaysAgo(article.createdAt)}
+              <FormatDate value={article.createdAt} />
             </span>
             <div className="ml-auto flex-none">
               <ArticleOption id={article.id} />
