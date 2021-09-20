@@ -4,6 +4,7 @@ import {
   UserGroupIcon,
   DocumentTextIcon,
   ClipboardCheckIcon,
+  ArchiveIcon,
 } from "@heroicons/react/outline"
 import { useSession } from "next-auth/client"
 import SidebarRow from "./SidebarRow"
@@ -20,7 +21,7 @@ function Sidebar() {
     <div
       id="sidebar"
       onClick={navWrapperToggle}
-      className="fixed z-40 inset-0 flex-none h-full bg-black bg-opacity-50 w-full md:static md:h-auto md:overflow-y-visible md:pt-0 md:w-48 xl:w-56 md:block hidden"
+      className="fixed z-20 inset-0 flex-none h-full bg-black bg-opacity-50 w-full md:static md:h-auto md:overflow-y-visible md:pt-0 md:w-48 xl:w-56 md:block hidden"
     >
       <div
         id="navWrapper"
@@ -38,20 +39,20 @@ function Sidebar() {
           title={t`Articles`}
           onClick={() => router.push("/a")}
         />
-        <SidebarRow
+        {/* <SidebarRow
           Icon={DocumentTextIcon}
           title={t`Posts`}
           onClick={() => router.push("/p")}
-        />
-        <SidebarRow
-          Icon={UserGroupIcon}
-          title={t`Group`}
-          onClick={() => router.push("/group")}
-        />
+        /> */}
         <SidebarRow
           Icon={RssIcon}
           title={t`Rss`}
           onClick={() => router.push("/rss")}
+        />
+        <SidebarRow
+          Icon={UserGroupIcon}
+          title={t`Group`}
+          onClick={() => router.push("/p")}
         />
         <SidebarRow
           Icon={ClipboardCheckIcon}
@@ -65,6 +66,23 @@ function Sidebar() {
             })
           }
         />
+        {session && (
+          <div className="my-1">
+            <SidebarRow
+              Icon={ArchiveIcon}
+              title={t`Draft`}
+              onClick={() =>
+                router.push({
+                  pathname: "/a",
+                  query: {
+                    draft: true,
+                    user: session.user.id,
+                  },
+                })
+              }
+            />
+          </div>
+        )}
       </div>
     </div>
   )

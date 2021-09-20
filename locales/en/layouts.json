@@ -1,6 +1,7 @@
 {
   "Article": "Article",
   "Articles": "Articles",
+  "Censorship": "Censorship",
   "Create": "Create",
   "Group": "Group",
   "Post": "Post",
@@ -12,5 +13,6 @@
   "Sign in": "Sign in",
   "Sign out": "Sign out",
   "Unpublished": "Unpublished",
-  "Your profile": "Your profile"
+  "Your profile": "Your profile",
+  "Draft": "Draft"
 }

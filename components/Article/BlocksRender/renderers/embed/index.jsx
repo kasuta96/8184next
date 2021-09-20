@@ -13,14 +13,24 @@ import ReactHtmlParser from "react-html-parser"
 const EmbedOutput = ({ data }) => {
   if (!data || !data.embed) return ""
 
-  let width = data.width ? data.width : 580
-  let height = data.height ? data.height : 320
+  let width = data.width ? data.width : 640
+  let height = data.height ? data.height : 360
   let classNames = "mx-auto shadow-xl rounded-xl"
 
-  if (data.service == "youtube") {
-    classNames += " max-w-full"
-  } else if (data.service == "codepen") {
-    classNames += " w-full h-96"
+  switch (data.service) {
+    case "codepen":
+      classNames += " w-full h-96"
+      break
+    // case "youtube":
+    //   classNames += " max-w-full"
+    //   break
+    // case "nhk":
+    //   classNames += " max-w-full"
+    //   break
+
+    default:
+      classNames += " max-w-full"
+      break
   }
 
   return (

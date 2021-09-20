@@ -1,5 +1,5 @@
 import { useSession } from "next-auth/client"
-import { formatDaysAgo } from "../../lib/formatDaysAgo"
+import FormatDate from "../handleData/FormatDate"
 import Card from "./Card"
 
 function CommentList({ comments, onDelete, deleting }) {
@@ -15,7 +15,7 @@ function CommentList({ comments, onDelete, deleting }) {
             key={comment.id}
             user={comment.user}
             text={comment.content}
-            time={formatDaysAgo(comment.createdAt)}
+            time={<FormatDate value={comment.createdAt} />}
             onDelete={isAuthor ? () => onDelete(comment) : false}
             deleting={deleting}
           />

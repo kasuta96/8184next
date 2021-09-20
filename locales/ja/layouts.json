@@ -1,6 +1,7 @@
 {
   "Article": "記事",
   "Articles": "記事",
+  "Censorship": "検閲",
   "Create": "作成する",
   "Group": "グループ",
   "Post": "投稿",
@@ -12,5 +13,6 @@
   "Sign in": "ログイン",
   "Sign out": "サインアウト",
   "Unpublished": "未公開",
-  "Your profile": "あなたのプロフィール"
+  "Your profile": "あなたのプロフィール",
+  "Draft": "下書き"
 }

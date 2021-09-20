@@ -1,6 +1,7 @@
 {
   "Article": "Bài viết",
   "Articles": "Bài viết",
+  "Censorship": "Kiểm duyệt",
   "Create": "Tạo",
   "Group": "Nhóm",
   "Post": "Bài đăng",
@@ -12,5 +13,6 @@
   "Sign in": "Đăng nhập",
   "Sign out": "Đăng xuất",
   "Unpublished": "Chưa xuất bản",
-  "Your profile": "Hồ sơ của bạn"
+  "Your profile": "Hồ sơ của bạn",
+  "Draft": "Nháp"
 }

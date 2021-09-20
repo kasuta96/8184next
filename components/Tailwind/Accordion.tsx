@@ -1,22 +1,29 @@
-import React, { useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { ChevronUpIcon } from "@heroicons/react/solid"
 
 interface AccordionProps {
   title: React.ReactNode
   content: React.ReactNode
+  show?: boolean
 }
 
-export const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
-  const [active, setActive] = useState(false)
+export const Accordion: React.FC<AccordionProps> = ({
+  title,
+  content,
+  show = false,
+}) => {
+  const [active, setActive] = useState(show)
   const [height, setHeight] = useState("0px")
   const [rotate, setRotate] = useState("transform duration-300 ease")
 
   const contentSpace = useRef(null)
+  useEffect(() => {
+    // @ts-ignore
+    setHeight(active ? `${contentSpace.current.scrollHeight}px` : "0px")
+  }, [active])
 
   function toggleAccordion() {
     setActive(active === false ? true : false)
-    // @ts-ignore
-    setHeight(active ? "0px" : `${contentSpace.current.scrollHeight}px`)
     setRotate(
       active
         ? "transform duration-300 ease"
@@ -27,7 +34,7 @@ export const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
   return (
     <div className="flex flex-col border-l-4 border-indigo-700">
       <div
-        className="p-4 appearance-none cursor-pointer focus:bg-white hover:bg-white dark:focus:bg-black dark:hover:bg-black flex items-center justify-between"
+        className="appearance-none cursor-pointer focus:bg-white hover:bg-white dark:focus:bg-black dark:hover:bg-black flex items-center justify-between"
         onClick={toggleAccordion}
       >
         <div className="inline-block">{title}</div>
@@ -38,7 +45,7 @@ export const Accordion: React.FC<AccordionProps> = ({ title, content }) => {
         style={{ maxHeight: `${height}` }}
         className="overflow-auto transition-max-height duration-300 ease-in-out"
       >
-        <div className="p-4">{content}</div>
+        {content}
       </div>
     </div>
   )

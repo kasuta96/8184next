@@ -1,0 +1,52 @@
+[
+  {
+    "name": "nhk",
+    "author": {
+      "name": "NHKニュース",
+      "url": "https://www3.nhk.or.jp/news/",
+      "image": "https://www3.nhk.or.jp/news/parts16/images/favicon/144x144.png"
+    },
+    "cat": [
+      {
+        "name": "Main news",
+        "id": "0",
+        "url": "https://www.nhk.or.jp/rss/news/cat0.xml"
+      },
+      {
+        "name": "Social",
+        "id": "1",
+        "url": "https://www.nhk.or.jp/rss/news/cat1.xml"
+      },
+      {
+        "name": "Culture & Entertainment",
+        "id": "2",
+        "url": "https://www.nhk.or.jp/rss/news/cat2.xml"
+      },
+      {
+        "name": "Science & Health",
+        "id": "3",
+        "url": "https://www.nhk.or.jp/rss/news/cat3.xml"
+      },
+      {
+        "name": "Political",
+        "id": "4",
+        "url": "https://www.nhk.or.jp/rss/news/cat4.xml"
+      },
+      {
+        "name": "Economy",
+        "id": "5",
+        "url": "https://www.nhk.or.jp/rss/news/cat5.xml"
+      },
+      {
+        "name": "International",
+        "id": "6",
+        "url": "https://www.nhk.or.jp/rss/news/cat6.xml"
+      },
+      {
+        "name": "Sport",
+        "id": "7",
+        "url": "https://www.nhk.or.jp/rss/news/cat7.xml"
+      }
+    ]
+  }
+]

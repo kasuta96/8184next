@@ -1,4 +1,5 @@
 import { Accordion } from "../../Tailwind/Accordion"
+import useTrans from "../../../hooks/useTrans"
 
 export default function More({
   description,
@@ -8,22 +9,23 @@ export default function More({
   tags,
   setTags,
 }) {
+  const { t, lang } = useTrans("primary")
+
   return (
     <div className="mt-6">
       <Accordion
-        title={<p className="text-lg">More option</p>}
+        title={<p className="text-lg p-4">{t`More`}</p>}
         content={
-          <>
+          <div className="p-4">
             <div className="w-full mb-8">
               <label
                 className="block mb-2 text-sm font-medium text-600"
                 htmlFor="description"
               >
-                Description
+                {t`Description`}
               </label>
               <textarea
                 className="block w-full py-2 px-4 bg-200 text-700 placeholder-gray-400 rounded-xl text-base focus:outline-none"
-                placeholder="Enter your description"
                 name="description"
                 rows={5}
                 cols={40}
@@ -36,11 +38,11 @@ export default function More({
                 className="block mb-2 text-sm font-medium text-600"
                 htmlFor="thumbnail"
               >
-                Thumbnail
+                {t`Thumbnail`}
               </label>
               <input
                 className="block w-full py-2 px-4 bg-200 text-700 placeholder-gray-400 rounded-xl text-base focus:outline-none"
-                placeholder="Enter image URL"
+                placeholder={t`Image URL`}
                 name="thumbnail"
                 onChange={(e) => setThumbnail(e.target.value)}
                 value={thumbnail}
@@ -51,18 +53,21 @@ export default function More({
                 className="block mb-2 text-sm font-medium text-600"
                 htmlFor="tags"
               >
-                Tags
-                <span className="text-muted">(separate by comma ',')</span>
+                {t`Tags`}
+                <span className="text-muted">
+                  {" "}
+                  ({t`Separate by comma`} ',')
+                </span>
               </label>
               <input
                 className="block w-full py-2 px-4 bg-200 text-700 placeholder-gray-400 rounded-xl text-base focus:outline-none"
-                placeholder="Enter keywords"
+                placeholder={t`Keywords`}
                 name="tags"
                 onChange={(e) => setTags(e.target.value)}
                 value={tags}
               />
             </div>
-          </>
+          </div>
         }
       />
     </div>

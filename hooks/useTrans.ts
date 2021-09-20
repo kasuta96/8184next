@@ -1,6 +1,6 @@
 import useTranslation from "next-translate/useTranslation"
 
-export default function useTrans(dfns: string) {
+export default function useTrans(dfns?: string) {
   if (dfns) {
     const { t, lang } = useTranslation(dfns)
     return {
