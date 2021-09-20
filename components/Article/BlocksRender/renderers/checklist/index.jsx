@@ -7,7 +7,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 import { CheckCircleIcon as CheckIcon } from "@heroicons/react/outline"
 import { CheckCircleIcon as CheckedIcon } from "@heroicons/react/solid"
 //#endregion
@@ -33,7 +33,7 @@ const ChecklistOutput = ({ data }) => {
             <CheckIcon className="text-gray-400 h-7 w-7" />
           )}
           <label className="text-gray-700 dark:text-white font-normal">
-            {ReactHtmlParser(item.text)}
+            {HtmlReactParser(item.text)}
           </label>
         </div>
       ))

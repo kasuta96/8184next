@@ -8,7 +8,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 //#endregion
 
 const CodeOutput = ({ data }) => {
@@ -31,7 +31,7 @@ const CodeOutput = ({ data }) => {
   return (
     <div className="bg-300 p-5 my-8 rounded text-sm border-l-4 border-pink-500 overflow-x-auto">
       <pre>
-        <code className="">{ReactHtmlParser(content)}</code>
+        <code className="">{HtmlReactParser(content)}</code>
       </pre>
     </div>
   )

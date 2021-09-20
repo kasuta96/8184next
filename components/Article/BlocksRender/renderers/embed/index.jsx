@@ -7,7 +7,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 //#endregion
 
 const EmbedOutput = ({ data }) => {
@@ -48,7 +48,7 @@ const EmbedOutput = ({ data }) => {
       ></iframe>
       {data.caption && (
         <figcaption className="text-gray-500 text-sm mt-4">
-          {ReactHtmlParser(data.caption)}
+          {HtmlReactParser(data.caption)}
         </figcaption>
       )}
     </figure>

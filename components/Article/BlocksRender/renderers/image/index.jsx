@@ -7,7 +7,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 //#endregion
 
 const ImageOutput = ({ data }) => {
@@ -29,7 +29,7 @@ const ImageOutput = ({ data }) => {
       <img src={url} alt={data.caption || ""} className={classNames.img} />
       {data.caption && (
         <figcaption className="text-gray-400 text-sm mt-4">
-          {ReactHtmlParser(data.caption)}
+          {HtmlReactParser(data.caption)}
         </figcaption>
       )}
     </figure>

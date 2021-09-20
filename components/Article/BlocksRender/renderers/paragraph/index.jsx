@@ -7,7 +7,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 //#endregion
 
 const ParagraphOutput = ({ data }) => {
@@ -23,7 +23,7 @@ const ParagraphOutput = ({ data }) => {
   )
     content = data.text
 
-  return content ? <p className="my-8">{ReactHtmlParser(content)}</p> : ""
+  return content ? <p className="my-8">{HtmlReactParser(content)}</p> : ""
 }
 
 export default ParagraphOutput

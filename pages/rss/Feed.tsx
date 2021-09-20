@@ -54,15 +54,7 @@ export default function Feed() {
     } else {
       setFeedSearch(feed)
     }
-
-    // return () => {
-    //   setSearch("")
-    //   setFeedSearch(null)
-    //   setFeedSource(null)
-    // }
   }, [search])
-
-  const searchOnChange = async () => {}
 
   return (
     <div className="">
