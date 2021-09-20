@@ -131,7 +131,6 @@ export default async function nhkParser(link: string) {
             pushP(p)
           })
         }
-        summaryMore && pushP(summaryMore)
       }
 
       // content--body

@@ -4,9 +4,11 @@ import Render from "../Article/BlocksRender/rssRender"
 import useTrans from "../../hooks/useTrans"
 import FormatDate from "../handleData/FormatDate"
 import { useRouter } from "next/router"
+import { useSession, signIn } from "next-auth/client"
 
 export default function Modal() {
   const { t, lang } = useTrans()
+  const [session, loading] = useSession()
   const router = useRouter()
 
   const [showModal, setShowModal] = useState(false)
@@ -90,16 +92,30 @@ export default function Modal() {
                   </div>
                   {/*footer*/}
                   <div className="flex items-center justify-end p-4 border-t border-solid space-x-2">
+                    {session ? (
+                      <button
+                        className="btn-primary"
+                        onClick={submitModal}
+                        disabled={disabled}
+                      >
+                        {t("rss", "Translate this content")}
+                      </button>
+                    ) : (
+                      <>
+                        <span className="text-600">
+                          {t("rss", "Translate this content")}
+                        </span>
+                        <button
+                          className="btn-primary"
+                          onClick={() => signIn()}
+                        >
+                          {t("primary", "Sign in")}
+                        </button>
+                      </>
+                    )}
+
                     <button className="btn" type="button" onClick={closeModal}>
                       {t("primary", "Close")}
-                    </button>
-                    <button
-                      className="btn-primary"
-                      type="button"
-                      onClick={submitModal}
-                      disabled={disabled}
-                    >
-                      {t("rss", "Translate this content")}
                     </button>
                   </div>
                 </div>
