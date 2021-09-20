@@ -7,16 +7,20 @@ export default async function handle(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  // const { id, title, content, description, thumbnail, tags } = req.body;
-
   interface Data {
-    id: any
+    id?: any
     title: string
     content: { blocks: any[] }
     description: string
     thumbnail: string
     tags: string
     slug: string
+    source?: {
+      author?: string
+      id?: string
+      url?: string
+    }
+    draft: boolean
   }
 
   const handleData = async (data: Data) => {
@@ -37,7 +41,6 @@ export default async function handle(
     }
 
     data.slug = slugify(data.title)
-    console.log("slug", data.slug)
 
     // More handle data ...
 
@@ -61,7 +64,36 @@ export default async function handle(
 
   if (req.method === "POST") {
     const reqData = await handleData(req.body)
-    const { id, title, content, description, thumbnail, tags, slug } = reqData
+    const {
+      id,
+      title,
+      content,
+      description,
+      thumbnail,
+      tags,
+      slug,
+      source,
+      draft,
+    } = reqData
+
+    // source
+    let copyright = []
+    id &&
+      copyright.push({
+        name: "Fork",
+        data: {
+          id: id,
+        },
+      })
+    source &&
+      copyright.push({
+        name: "Copyright",
+        data: source,
+      })
+
+    // 0: public, 1: draft
+    let status = 0
+    if (draft) status = 1
 
     const data = {
       title: title,
@@ -71,25 +103,34 @@ export default async function handle(
       description: description,
       thumbnail: thumbnail,
       tags: tags,
-      stickers: {},
-    }
-
-    if (id) {
-      data.stickers = {
-        copyright: id,
-      }
+      stickers: { copyright: copyright },
+      status: status,
     }
 
     const result = await prisma.article.create({
       data: data,
     })
+
+    // if has soure -> from rss page -> route to edit page
+    if (source)
+      return res.json({
+        status: "success",
+        route: "/a/create?id=" + result.id,
+      })
+
+    // default return
     return res.json({
       status: "success",
       route: "/a/" + result.id,
     })
   } else if (req.method === "PUT") {
     const reqData = await handleData(req.body)
-    const { id, title, content, description, thumbnail, tags, slug } = reqData
+    const { id, title, content, description, thumbnail, tags, slug, draft } =
+      reqData
+
+    // 0: public, 1: draft
+    let status = 0
+    if (draft) status = 1
 
     // Check article belong to user or not
     const belongsToUser = await checkAuthor(id)
@@ -105,6 +146,7 @@ export default async function handle(
           description: description,
           thumbnail: thumbnail,
           tags: tags,
+          status: status,
         },
       })
       return res.json({

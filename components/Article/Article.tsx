@@ -23,16 +23,16 @@ export type ArticleProps = {
   tags: string
   published: boolean
   createdAt: Date
-  status: string
+  status: number
   stickers: {
-    copyright: number
+    copyright: any[]
   }
 }
 
 const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
   let authorName = article.author ? article.author.name : "Unknown author"
   let title = article.title
-  if (!article.published) {
+  if (article.status == 1) {
     title = `${title} (Draft)`
   }
 
@@ -80,9 +80,13 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
 
         {article.tags && <Tags tags={article.tags} />}
 
-        {article.stickers?.copyright && (
-          <p>copyright: {article.stickers?.copyright}</p>
-        )}
+        {article.stickers?.copyright?.map((s, i) => {
+          return (
+            <p key={s.id || i}>
+              {s.name}: {s.data.author ? s.data.author : s.data.id}
+            </p>
+          )
+        })}
 
         <ArticleReact
           authorId={article.author.id}

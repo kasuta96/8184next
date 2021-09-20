@@ -13,23 +13,22 @@ import ReactHtmlParser from "react-html-parser"
 const TransOutput = ({ data, count }) => {
   if (!data || typeof data !== "object") return ""
 
-  let original = null
-  let translation = null
-  let option = "paragraph"
+  let original = data.original || ""
+  let translation = data.translation || ""
+  let option = data.option || "paragraph"
 
-  if (data.original && typeof data.original === "string")
-    original = data.original
-  if (data.translation && typeof data.translation === "string")
-    translation = data.translation
-  if (data.option && typeof data.option === "string") option = data.option
-
-  const Tag = ({ data }) => {
+  const Tag = ({ data, className = "" }) => {
     return option == "header" ? (
-      <h4 className="font-bold">{ReactHtmlParser(data)}</h4>
+      <h4 className={`font-bold ${className}`}>{ReactHtmlParser(data)}</h4>
     ) : (
-      <p className="">{ReactHtmlParser(data)}</p>
+      <p className={`${className}`}>{ReactHtmlParser(data)}</p>
     )
   }
+
+  // if something empty
+  if (!translation && !original) return ""
+  if (!translation || !original)
+    return <Tag data={original ? original : translation} className="my-8" />
 
   const Tabs = ({ id = "", original, translation }) => {
     const [openTrans, setOpenTrans] = React.useState(false)

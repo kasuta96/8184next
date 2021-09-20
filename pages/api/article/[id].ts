@@ -48,7 +48,14 @@ export default async function handle(
     const article = await prisma.article.findFirst({
       where: {
         id: Number(articleId) || -1,
-        status: 0,
+        OR: [
+          {
+            status: 0,
+          },
+          {
+            status: 1,
+          },
+        ],
       },
       select: {
         id: true,
@@ -67,6 +74,7 @@ export default async function handle(
         content: true,
         stickers: true,
         published: true,
+        status: true,
         createdAt: true,
       },
     })

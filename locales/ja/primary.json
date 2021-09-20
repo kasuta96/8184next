@@ -64,5 +64,11 @@
   "View": "見る",
   "Views": "閲覧数",
   "Vote": "投票",
-  "Wait": "待つ"
+  "Wait": "待つ",
+  "Separate by comma": "カンマで分割",
+  "Thumbnail": "サムネイル",
+  "Description": "説明",
+  "Tags": "タグ",
+  "Keywords": "キーワード",
+  "Clear": "クリアする"
 }

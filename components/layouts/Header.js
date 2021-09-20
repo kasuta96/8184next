@@ -25,7 +25,7 @@ function Header() {
   const { t, lang } = useTrans("layouts")
 
   return (
-    <div className="sticky top-0 z-50 flex items-center space-x-2 p-2 lg:px-5 shadow-md bg-white dark:bg-gray-900">
+    <div className="sticky top-0 z-30 flex items-center space-x-2 p-2 lg:px-5 shadow-md bg-white dark:bg-gray-900">
       {/* left */}
       <div className="flex items-center">
         {/* logo */}
