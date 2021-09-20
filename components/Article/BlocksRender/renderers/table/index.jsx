@@ -7,7 +7,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 //#endregion
 
 const TableOutput = ({ data }) => {
@@ -32,7 +32,7 @@ const TableOutput = ({ data }) => {
                       scope="col"
                       className="px-6 py-4 text-left text-xs font-medium text-700 uppercase tracking-wider"
                     >
-                      {ReactHtmlParser(columnName)}
+                      {HtmlReactParser(columnName)}
                     </th>
                   ))}
                 </tr>
@@ -44,7 +44,7 @@ const TableOutput = ({ data }) => {
                       row.length > 1 &&
                       row.map((columnValue, i) => (
                         <td key={i} className="px-6 py-4 whitespace-nowrap">
-                          {ReactHtmlParser(columnValue)}
+                          {HtmlReactParser(columnValue)}
                         </td>
                       ))}
                   </tr>

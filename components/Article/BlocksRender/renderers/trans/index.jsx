@@ -7,7 +7,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 //#endregion
 
 const TransOutput = ({ data, count }) => {
@@ -19,9 +19,9 @@ const TransOutput = ({ data, count }) => {
 
   const Tag = ({ data, className = "" }) => {
     return option == "header" ? (
-      <h4 className={`font-bold ${className}`}>{ReactHtmlParser(data)}</h4>
+      <h4 className={`font-bold ${className}`}>{HtmlReactParser(data)}</h4>
     ) : (
-      <p className={`${className}`}>{ReactHtmlParser(data)}</p>
+      <p className={`${className}`}>{HtmlReactParser(data)}</p>
     )
   }
 

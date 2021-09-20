@@ -7,7 +7,7 @@
 
 //#region imports
 import React from "react"
-import ReactHtmlParser from "react-html-parser"
+import HtmlReactParser from "html-react-parser"
 //#endregion
 
 const validListStyles = ["ordered", "unordered"]
@@ -31,7 +31,7 @@ const ListOutput = ({ data }) => {
           <div className="w-6 h-6 rounded-full inline-flex items-center justify-center bg-indigo-500 text-white relative text-sm -ml-6">
             {listType == "ordered" ? index + 1 : ""}
           </div>
-          <p className="ml-3 -mt-6">{ReactHtmlParser(item)}</p>
+          <p className="ml-3 -mt-6">{HtmlReactParser(item)}</p>
         </li>
       ))
   }
