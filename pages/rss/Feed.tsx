@@ -10,6 +10,7 @@ import { ArraySearch } from "../../components/handleData/Search"
 export default function Feed() {
   const { t, lang } = useTrans("rss")
 
+  const [search, setSearch] = useState("")
   const [feed, setFeed] = useState(null)
   const [feedSearch, setFeedSearch] = useState(null)
   const [feedSource, setFeedSource] = useState(null)
@@ -21,6 +22,7 @@ export default function Feed() {
   }, [])
 
   const loadFeed = async (sou = "nhk", cat = "0", url = "") => {
+    setSearch("")
     setActive(sou + cat)
     setFeeding(true)
     let rssUrl = ""
@@ -43,8 +45,8 @@ export default function Feed() {
     setFeeding(false)
   }
 
-  const searchOnChange = async (e: { target: { value: any } }) => {
-    let value = e.target.value
+  useEffect(() => {
+    let value = search
 
     if (value) {
       let search = ArraySearch(feed, value)
@@ -52,7 +54,15 @@ export default function Feed() {
     } else {
       setFeedSearch(feed)
     }
-  }
+
+    // return () => {
+    //   setSearch("")
+    //   setFeedSearch(null)
+    //   setFeedSource(null)
+    // }
+  }, [search])
+
+  const searchOnChange = async () => {}
 
   return (
     <div className="">
@@ -91,7 +101,10 @@ export default function Feed() {
                 {t`Result`}: {feedSearch ? feedSearch.length : feed.length}
               </span>
             </div>
-            <Search onChange={searchOnChange} />
+            <Search
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </div>
           <List data={feedSearch ? feedSearch : feed} source={feedSource} />
         </div>

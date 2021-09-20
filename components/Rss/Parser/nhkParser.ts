@@ -110,23 +110,29 @@ export default async function nhkParser(link: string) {
       image && pushImg(image)
 
       // summary
-      let summary = main.querySelector("p.content--summary")?.rawText
-      summary && pushP(summary)
-
-      // content--detail-more
-      let detail = main.querySelector("div.content--detail-more")
-      // more summary
-      let summaryMore = detail.querySelector(
-        "p.content--summary-more"
-      )?.innerHTML
-      if (summaryMore) {
-        let arr = summaryMore.split("<br><br>")
+      let summary = main.querySelector("p.content--summary")?.innerHTML
+      if (summary) {
+        let arr = summary.split("<br><br>")
         arr.map((p) => {
           pushP(p)
         })
       }
+      // content--detail-more
+      let detail = main.querySelector("div.content--detail-more")
 
-      summaryMore && pushP(summaryMore)
+      if (detail) {
+        // more summary
+        let summaryMore = detail.querySelector(
+          "p.content--summary-more"
+        )?.innerHTML
+        if (summaryMore) {
+          let arr = summaryMore.split("<br><br>")
+          arr.map((p) => {
+            pushP(p)
+          })
+        }
+        summaryMore && pushP(summaryMore)
+      }
 
       // content--body
       let body = main.querySelectorAll("section.content--body")

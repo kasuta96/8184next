@@ -65,8 +65,6 @@ export default async function handle(
         },
       })
 
-      console.log(data.articles)
-
       return res.json(data.articles)
     } else {
       // get all article
