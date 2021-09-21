@@ -19,7 +19,7 @@ function SearchForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex items-center rounded-full bg-gray-100 dark:bg-gray-700 p-1">
+      <div className="flex items-center rounded-full bg-200 p-1">
         <input
           className="w-24 md:w-48 items-center ml-2 bg-transparent outline-none"
           type="text"
