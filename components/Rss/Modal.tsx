@@ -8,12 +8,13 @@ import { useSession, signIn } from "next-auth/client"
 
 export default function Modal() {
   const { t, lang } = useTrans()
-  const [session, loading] = useSession()
+  const [session] = useSession()
   const router = useRouter()
 
   const [showModal, setShowModal] = useState(false)
   const [modalContent, setModalContent] = useState(null)
   const [disabled, setDisabled] = useState(true)
+  const [loading, setLoading] = useState(false)
 
   const closeModal = () => {
     setShowModal(false)
@@ -26,7 +27,7 @@ export default function Modal() {
   }
 
   const submitModal = async () => {
-    setDisabled(true)
+    setLoading(true)
     // Save data & route -> create page
     try {
       const res = await fetch(`${process.env.HOST}/api/article`, {
@@ -40,7 +41,7 @@ export default function Modal() {
       }
     } catch (error) {
       console.log(error)
-      setDisabled(false)
+      setLoading(true)
     }
   }
 
@@ -53,35 +54,20 @@ export default function Modal() {
               onClick={closeModal}
               className="justify-center items-center flex overflow-x-hidden fixed inset-0 z-40 outline-none focus:outline-none"
             >
-              <div className="relative w-auto mx-auto max-w-3xl">
+              <div className="w-auto mx-auto max-w-3xl">
                 {/*content*/}
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation()
-                  }}
-                  className="border-0 rounded-lg shadow-lg relative flex flex-col w-full max-h-screen bg-50 outline-none focus:outline-none"
-                >
-                  {/*header*/}
-                  <div className="p-4 pb-2 border-b border-solid">
-                    <button
-                      className="float-right p-1 bg-transparent border-0 text-3xl leading-none font-semibold outline-none focus:outline-none"
-                      onClick={closeModal}
-                    >
-                      ×
-                    </button>
-                    <h5 className="font-semibold">
-                      {modalContent?.title || ""}
-                    </h5>
-                    <span className="text-xs">
-                      {modalContent?.createdAt ? (
-                        <FormatDate value={modalContent?.createdAt} />
-                      ) : (
-                        ""
-                      )}
-                    </span>
-                  </div>
+                <div className="flex flex-col max-h-screen outline-none focus:outline-none">
                   {/*body*/}
-                  <div className="relative p-6 flex-auto overflow-y-scroll">
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
+                    className="relative p-6 flex-auto overflow-y-scroll bg-50"
+                  >
+                    <div className="text-center mb-4 text-400 text-lg">{t("primary", "Preview")}</div>
+                    <h5 className="font-semibold">{modalContent?.title || ""}</h5>
+                    <span className="text-xs">{modalContent?.createdAt ? <FormatDate value={modalContent?.createdAt} /> : ""}</span>
+
                     {modalContent?.error ? (
                       modalContent?.error
                     ) : modalContent?.content ? (
@@ -91,24 +77,20 @@ export default function Modal() {
                     )}
                   </div>
                   {/*footer*/}
-                  <div className="flex items-center justify-end p-4 border-t border-solid space-x-2">
+                  <div
+                    onClick={(e) => {
+                      e.stopPropagation()
+                    }}
+                    className="flex items-center justify-center p-4 border-t rounded-b-lg space-x-2 bg-100"
+                  >
                     {session ? (
-                      <button
-                        className="btn-primary"
-                        onClick={submitModal}
-                        disabled={disabled}
-                      >
-                        {t("rss", "Translate this content")}
+                      <button className="btn-primary" onClick={submitModal} disabled={disabled || loading}>
+                        {t("rss", "Translate this content")} {loading && <Spin />}
                       </button>
                     ) : (
                       <>
-                        <span className="text-600">
-                          {t("rss", "Translate this content")}
-                        </span>
-                        <button
-                          className="btn-primary"
-                          onClick={() => signIn()}
-                        >
+                        <span className="text-600">{t("rss", "Translate this content")}</span>
+                        <button className="btn-primary" onClick={() => signIn()}>
                           {t("primary", "Sign in")}
                         </button>
                       </>
@@ -118,6 +100,8 @@ export default function Modal() {
                       {t("primary", "Close")}
                     </button>
                   </div>
+
+                  <div className="h-12 flex-none"></div>
                 </div>
               </div>
             </div>

@@ -1,11 +1,4 @@
-import {
-  NewspaperIcon,
-  RssIcon,
-  UserGroupIcon,
-  DocumentTextIcon,
-  ClipboardCheckIcon,
-  ArchiveIcon,
-} from "@heroicons/react/outline"
+import { NewspaperIcon, RssIcon, UserGroupIcon, DocumentTextIcon, ClipboardCheckIcon, ArchiveIcon } from "@heroicons/react/outline"
 import { useSession } from "next-auth/client"
 import SidebarRow from "./SidebarRow"
 import { navWrapperToggle } from "./SidebarToogle"
@@ -21,39 +14,18 @@ function Sidebar() {
     <div
       id="sidebar"
       onClick={navWrapperToggle}
-      className="fixed z-20 inset-0 flex-none h-full bg-black bg-opacity-50 w-full md:static md:h-auto md:overflow-y-visible md:pt-0 md:w-48 xl:w-56 md:block hidden"
+      className="fixed z-20 flex-none h-full bg-black bg-opacity-50 w-full md:static md:h-auto md:overflow-y-visible md:w-48 xl:w-56 md:block hidden"
     >
-      <div
-        id="navWrapper"
-        className="px-2 py-4 w-56 bg-100 md:w-48 xl:w-56 sticky top-12 overflow-y-scroll"
-      >
-        {session && (
-          <SidebarRow
-            avatar={true}
-            image={session.user.image}
-            title={session.user.name}
-          />
-        )}
-        <SidebarRow
-          Icon={NewspaperIcon}
-          title={t`Articles`}
-          onClick={() => router.push("/a")}
-        />
+      <div id="navWrapper" className="px-2 py-4 md:pt-16 w-56 bg-100 md:w-48 xl:w-56 sticky top-0 h-screen overflow-y-scroll">
+        {session && <SidebarRow avatar={true} image={session.user.image} title={session.user.name} />}
+        <SidebarRow Icon={NewspaperIcon} title={t`Articles`} onClick={() => router.push("/a")} />
         {/* <SidebarRow
           Icon={DocumentTextIcon}
           title={t`Posts`}
           onClick={() => router.push("/p")}
         /> */}
-        <SidebarRow
-          Icon={RssIcon}
-          title={t`Rss`}
-          onClick={() => router.push("/rss")}
-        />
-        <SidebarRow
-          Icon={UserGroupIcon}
-          title={t`Group`}
-          onClick={() => router.push("/p")}
-        />
+        <SidebarRow Icon={RssIcon} title={t`Rss`} onClick={() => router.push("/rss")} />
+        <SidebarRow Icon={UserGroupIcon} title={t`Group`} onClick={() => router.push("/p")} />
         <SidebarRow
           Icon={ClipboardCheckIcon}
           title={t`Unpublished`}

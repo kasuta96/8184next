@@ -139,9 +139,6 @@
   }
 }
 
-#sidebar > div {
-  height: calc(100vh - 3rem);
-}
 .line-3 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
