@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react"
+import Footer from "./layouts/Footer"
 import Header from "./layouts/Header"
 import Sidebar from "./layouts/Sidebar"
 
@@ -14,7 +15,8 @@ const Layout: React.FC<Props> = (props) => (
 
         <main id="content-wrapper" className="min-w-0 w-full flex-auto md:static md:max-h-full md:overflow-visible">
           <Header />
-          <div className="w-full flex">{props.children}</div>
+          <div className="w-full min-h-screen flex">{props.children}</div>
+          <Footer />
         </main>
       </div>
     </div>
