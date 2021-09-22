@@ -86,17 +86,14 @@ export default function Feed() {
         )
       })}
       {feed && (
-        <div className={`my-8 ${feeding && "animate-pulse"}`}>
+        <div className={`my-8 px-2 ${feeding && "animate-pulse"}`}>
           <div className="flex justify-between items-center">
             <div className="text-600 text-xs">
               <span>
                 {t`Result`}: {feedSearch ? feedSearch.length : feed.length}
               </span>
             </div>
-            <Search
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            <Search value={search} onChange={(e) => setSearch(e.target.value)} />
           </div>
           <List data={feedSearch ? feedSearch : feed} source={feedSource} />
         </div>

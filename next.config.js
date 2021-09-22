@@ -26,6 +26,7 @@ module.exports = nextTranslate({
     domains: imageHost,
   },
   env: {
+    DMNAME: "8184.vercel.app",
     HOST: process.env.NEXTAUTH_URL,
     imageHost: imageHost,
     defaultLang: "en",

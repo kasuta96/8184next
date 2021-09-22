@@ -24,7 +24,7 @@ function Sidebar() {
           title={t`Posts`}
           onClick={() => router.push("/p")}
         /> */}
-        <SidebarRow Icon={RssIcon} title={t`Rss`} onClick={() => router.push("/rss")} />
+        <SidebarRow Icon={RssIcon} title={t`Japanese news`} onClick={() => router.push("/rss")} />
         <SidebarRow Icon={UserGroupIcon} title={t`Group`} onClick={() => router.push("/p")} />
         <SidebarRow
           Icon={ClipboardCheckIcon}

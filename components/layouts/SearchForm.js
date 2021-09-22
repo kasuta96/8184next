@@ -18,20 +18,18 @@ function SearchForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex items-center rounded-full bg-200 p-1">
-        <input
-          className="w-24 md:w-48 items-center ml-2 bg-transparent outline-none"
-          type="text"
-          name="kw"
-          placeholder={t`Search`}
-          value={kw}
-          onChange={(e) => setKw(e.target.value)}
-        />
-        <button className="px-2" type="submit">
-          <SearchIcon className="h-5 opacity-50" />
-        </button>
-      </div>
+    <form onSubmit={handleSubmit} className="flex items-center rounded-full bg-200 p-1.5">
+      <input
+        className="w-14 md:w-48 items-center ml-2 bg-transparent outline-none"
+        type="text"
+        name="kw"
+        placeholder={t`Search`}
+        value={kw}
+        onChange={(e) => setKw(e.target.value)}
+      />
+      <button className="px-2" type="submit">
+        <SearchIcon className="h-5 opacity-50" />
+      </button>
     </form>
   )
 }

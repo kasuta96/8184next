@@ -20,13 +20,8 @@ export default function Dropdown({
         {btn ? (
           btn
         ) : (
-          <div className="inline-flex justify-center w-full p-2 text-sm font-medium hover:bg-gray-200 dark:hover:bg-gray-700 rounded-md focus:outline-none">
-            <svg
-              className="w-4 h-4"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
+          <div className="">
+            <svg className="circle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fillRule="evenodd"
                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -45,31 +40,28 @@ export default function Dropdown({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-max mt-2 origin-top-right bg-white text-gray-800 dark:bg-black dark:text-gray-100 divide-y divide-gray-100 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-30">
+        <Menu.Items className="absolute right-0 w-max max-w-sm mt-2 origin-top-right bg-white text-gray-800 dark:bg-black dark:text-gray-100 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-30">
           {header && header}
-          <div className="p-1">
-            {menu ? (
-              menu.map((item, i) => {
-                return (
+          {menu &&
+            menu.map((item, i) => {
+              return (
+                <div className="p-3">
                   <Menu.Item key={i}>
                     {({ active }) => (
-                      <button
+                      <div
                         className={`${
-                          active && "bg-blue-500 text-white"
-                        } group flex rounded-md items-center w-full p-2 text-sm`}
+                          active && "bg-200"
+                        } group flex items-center w-full py-2 px-4 rounded-md cursor-pointer`}
                         onClick={item.onClick}
                       >
                         {item.icon && <div className="mr-2">{item.icon}</div>}
                         {item.name}
-                      </button>
+                      </div>
                     )}
                   </Menu.Item>
-                )
-              })
-            ) : (
-              <div className="text-gray-400 p-2">Empty option</div>
-            )}
-          </div>
+                </div>
+              )
+            })}
         </Menu.Items>
       </Transition>
     </Menu>
