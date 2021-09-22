@@ -1,6 +1,6 @@
 // Editor options
 export const options = {
-  placeholder: "Enter for new paragraph",
+  // placeholder: "Enter for new paragraph",
   // autofocus: true,
   minHeight: 100,
 
@@ -17,4 +17,4 @@ export const options = {
   // onChange: () => {
   //   console.count("CHANGE callback");
   // },
-};
+}

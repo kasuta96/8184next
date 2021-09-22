@@ -1,8 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@100;300;400;500;700;800;900&display=optional");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  body {
+    font-family: "M PLUS Rounded 1c", sans-serif;
+  }
   h1 {
     @apply text-5xl;
   }
@@ -165,6 +169,28 @@
 .ce-block {
   @apply my-4;
 }
+.ce-inline-tool {
+  @apply text-current hover:bg-300;
+}
+.ce-inline-toolbar {
+  @apply bg-200 border-none;
+}
+.ce-inline-toolbar__dropdown {
+  @apply bg-200 hover:bg-300;
+}
+.ce-conversion-tool {
+  @apply text-current hover:bg-300;
+}
+.ce-conversion-toolbar {
+  @apply bg-200 border-none;
+}
+.ce-conversion-tool__icon {
+  @apply bg-200;
+}
+.ce-conversion-toolbar__label {
+  @apply text-current;
+}
+
 /* # Custom */
 .inline-code {
   @apply bg-red-50 text-red-800 dark:text-red-200 dark:bg-gray-900 font-light my-0 mx-px p-1 tracking-wide;

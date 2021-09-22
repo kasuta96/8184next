@@ -62,7 +62,7 @@ function Header() {
               {
                 name: t`Article`,
                 icon: <NewspaperIcon className="h-6 w-6 mr-2" />,
-                onClick: () => router.push("/a/create", undefined, { shallow: true }),
+                onClick: () => router.push("/a/create"),
               },
               // {
               //   name: t`Question`,
@@ -88,18 +88,18 @@ function Header() {
                     </>
                   )}
                 </div>
-                <QuickSetting className="flex items-center sm:hidden text-center justify-center" />
+                <QuickSetting className="flex items-center sm:hidden text-center justify-center p-2" />
               </>
             }
             menu={
               session
                 ? [
-                    {
-                      name: t`Your profile`,
-                    },
-                    {
-                      name: t`Setting`,
-                    },
+                    // {
+                    //   name: t`Your profile`,
+                    // },
+                    // {
+                    //   name: t`Setting`,
+                    // },
                     {
                       name: t`Sign out`,
                       onClick: () => signOut(),

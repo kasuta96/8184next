@@ -57,7 +57,7 @@ export default function Feed() {
   }, [search])
 
   return (
-    <div className="">
+    <div className="px-2">
       {source.map((s) => {
         return (
           <div key={s.name}>
@@ -86,7 +86,7 @@ export default function Feed() {
         )
       })}
       {feed && (
-        <div className={`my-8 px-2 ${feeding && "animate-pulse"}`}>
+        <div className={`my-8 ${feeding && "animate-pulse"}`}>
           <div className="flex justify-between items-center">
             <div className="text-600 text-xs">
               <span>
