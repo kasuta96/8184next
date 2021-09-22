@@ -40,12 +40,12 @@ export default function Dropdown({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-max max-w-sm mt-2 origin-top-right bg-white text-gray-800 dark:bg-black dark:text-gray-100 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-30">
+        <Menu.Items className="absolute right-0 w-max max-w-sm mt-2 origin-top-right bg-white text-gray-800 dark:bg-black dark:text-gray-100 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black dark:ring-gray-700 ring-opacity-5 focus:outline-none z-30">
           {header && header}
-          {menu &&
-            menu.map((item, i) => {
-              return (
-                <div className="p-3">
+          {menu && (
+            <div className="p-3">
+              {menu.map((item, i) => {
+                return (
                   <Menu.Item key={i}>
                     {({ active }) => (
                       <div
@@ -59,9 +59,10 @@ export default function Dropdown({
                       </div>
                     )}
                   </Menu.Item>
-                </div>
-              )
-            })}
+                )
+              })}
+            </div>
+          )}
         </Menu.Items>
       </Transition>
     </Menu>

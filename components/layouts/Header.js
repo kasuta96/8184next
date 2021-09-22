@@ -88,18 +88,18 @@ function Header() {
                     </>
                   )}
                 </div>
-                <QuickSetting className="flex items-center sm:hidden text-center justify-center" />
+                <QuickSetting className="flex items-center sm:hidden text-center justify-center p-2" />
               </>
             }
             menu={
               session
                 ? [
-                    {
-                      name: t`Your profile`,
-                    },
-                    {
-                      name: t`Setting`,
-                    },
+                    // {
+                    //   name: t`Your profile`,
+                    // },
+                    // {
+                    //   name: t`Setting`,
+                    // },
                     {
                       name: t`Sign out`,
                       onClick: () => signOut(),

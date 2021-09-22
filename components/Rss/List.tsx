@@ -11,13 +11,7 @@ export interface RssType {
   created: string
 }
 
-export default function List({
-  data,
-  source,
-}: {
-  data: RssType[]
-  source: any
-}) {
+export default function List({ data, source }: { data: RssType[]; source: any }) {
   const { t, lang } = useTrans("rss")
   const { ModalCtn, openModal, setModalContent, setDisabled } = Modal()
 
@@ -43,10 +37,7 @@ export default function List({
       {data.map((item, i) => {
         return (
           <div key={i} className="group p-4 my-4 bg-50 rounded-lg space-y-1">
-            <h5
-              onClick={() => RssPreview(item.link)}
-              className="cursor-pointer text-900"
-            >
+            <h5 onClick={() => RssPreview(item.link)} className="cursor-pointer text-900">
               {item.title}
             </h5>
             {/* <p>{data.link}</p> */}
@@ -54,20 +45,14 @@ export default function List({
               <span className="p-2 text-600">
                 {source.name} ・ <FormatDate value={item.created} />
               </span>
-              <span className="items-center hidden group-hover:flex group-focus:flex text-indigo-400">
-                <button
-                  title={t`Save for later`}
-                  className="p-2 rounded-full hover:bg-300"
-                >
+              {/* <span className="items-center md:hidden md:group-hover:flex text-indigo-400">
+                <button title={t`Save for later`} className="p-2 rounded-full hover:bg-300">
                   <BookmarkIcon className="w-4 h-4" />
                 </button>
-                <button
-                  title={t`Translate this content`}
-                  className="p-2 rounded-full hover:bg-300"
-                >
+                <button title={t`Translate this content`} className="p-2 rounded-full hover:bg-300">
                   <TranslateIcon className="w-4 h-4" />
                 </button>
-              </span>
+              </span> */}
             </p>
             <p className="text-600 text-sm line-3">{item.description}</p>
           </div>
