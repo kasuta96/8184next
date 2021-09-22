@@ -2,11 +2,7 @@ import React, { useState, useEffect } from "react"
 import Layout from "../../components/Layout"
 import Router from "next/router"
 import dynamic from "next/dynamic"
-import {
-  options,
-  useClearDataCallback,
-  useSetData,
-} from "../../components/Editor"
+import { useClearDataCallback, useSetData } from "../../components/Editor"
 import { useSession } from "next-auth/client"
 import AccessDenied from "../../components/Error/AccessDenied"
 import More from "../../components/Article/Create/More"
@@ -37,11 +33,9 @@ export const getServerSideProps = async ({ query }) => {
 }
 
 // CSR
-const Editor = dynamic(
-  () =>
-    import("../../components/Editor/editor").then((mod) => mod.EditorContainer),
-  { ssr: false }
-)
+const Editor = dynamic(() => import("../../components/Editor/editor").then((mod) => mod.EditorContainer), {
+  ssr: false,
+})
 
 const Create = (props) => {
   const { t, lang } = useTrans()
@@ -120,10 +114,10 @@ const Create = (props) => {
           <div className="items-center md:flex md:space-x-4">
             <div className="w-full">
               <input
-                className="block w-full px-4 py-2 text-800 bg-200 rounded-xl focus:outline-none"
+                className="block w-full px-4 py-2 text-800 text-lg font-semibold bg-50 rounded-xl focus:outline-none"
                 autoFocus
                 onChange={(e) => setTitle(e.target.value)}
-                placeholder="Title"
+                placeholder={t("primary", "Title")}
                 type="text"
                 value={title}
               />
@@ -132,7 +126,7 @@ const Create = (props) => {
 
           <div className="w-full mt-4">
             <div className="editorContainer">
-              <Editor reInit editorRef={setEditor} options={options} />
+              <Editor reInit editorRef={setEditor} />
             </div>
             <div className="text-right text-600">
               <button className="btn-text" onClick={clearData}>
@@ -166,10 +160,7 @@ const Create = (props) => {
               {t("primary", "Draft")}
             </button>
 
-            <div
-              className="btn bg-600 text-50"
-              onClick={() => Router.push("/a")}
-            >
+            <div className="btn bg-600 text-50" onClick={() => Router.push("/a")}>
               {t("primary", "Back")}
             </div>
           </div>

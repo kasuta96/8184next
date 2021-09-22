@@ -62,7 +62,7 @@ function Header() {
               {
                 name: t`Article`,
                 icon: <NewspaperIcon className="h-6 w-6 mr-2" />,
-                onClick: () => router.push("/a/create", undefined, { shallow: true }),
+                onClick: () => router.push("/a/create"),
               },
               // {
               //   name: t`Question`,
