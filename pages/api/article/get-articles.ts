@@ -8,6 +8,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
   // if has [published=false] request query
   const draft = req?.query?.draft == "true" ? true : false
   const user = req?.query?.user?.toString() || ""
+  const category = req?.query?.category?.toString() || ""
 
   const select = {
     id: true,
@@ -26,6 +27,18 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     published: true,
     createdAt: true,
   }
+  const kwSearch = [
+    {
+      title: {
+        contains: kw,
+      },
+    },
+    {
+      tags: {
+        contains: kw,
+      },
+    },
+  ]
 
   try {
     // get user's article
@@ -41,18 +54,31 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
             take: 10,
             where: {
               status: draft ? 1 : 0,
-              OR: [
-                {
-                  title: {
-                    contains: kw,
-                  },
-                },
-                {
-                  tags: {
-                    contains: kw,
-                  },
-                },
-              ],
+              OR: kwSearch,
+            },
+            orderBy: {
+              id: "desc",
+            },
+            select: select,
+          },
+        },
+      })
+      return res.json(data)
+
+      // get catrgory's articles
+    } else if (category) {
+      const data = await prisma.category.findUnique({
+        where: {
+          id: Number(category),
+        },
+        select: {
+          name: true,
+          description: true,
+          article: {
+            take: 10,
+            where: {
+              status: 0,
+              OR: kwSearch,
             },
             orderBy: {
               id: "desc",
@@ -62,26 +88,15 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         },
       })
 
-      return res.json(data.articles)
+      return res.json(data)
     } else {
       // get all article
-      const articles = await prisma.article.findMany({
+      const article = await prisma.article.findMany({
         take: 10,
         where: {
           status: 0,
           published: published,
-          OR: [
-            {
-              title: {
-                contains: kw,
-              },
-            },
-            {
-              tags: {
-                contains: kw,
-              },
-            },
-          ],
+          OR: kwSearch,
         },
         orderBy: {
           id: "desc",
@@ -89,7 +104,8 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         select: select,
       })
 
-      return res.json(articles)
+      // response data like data: {articles}
+      return res.json({ article })
     }
   } catch (error) {
     return res.status(500).json({

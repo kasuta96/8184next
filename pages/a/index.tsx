@@ -12,6 +12,7 @@ export default function articles() {
   const { query } = useRouter()
 
   const getArticles = async (query: any) => {
+    console.log("get-articles")
     setLoading(true)
     // handle parameter
     let params = ""
@@ -27,7 +28,9 @@ export default function articles() {
       setError("Can't get data")
       console.log("error", error)
     } else {
-      setArticles(data)
+      console.log("data", data)
+
+      setArticles(data.article)
     }
     setLoading(false)
   }
