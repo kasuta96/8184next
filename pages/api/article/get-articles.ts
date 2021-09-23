@@ -1,10 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../lib/db"
 
-export default async function handle(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const kw = req?.query?.kw?.toString() || ""
   // if has [published=false] request query
   const published = req?.query?.published == "false" ? false : true
@@ -32,7 +29,7 @@ export default async function handle(
 
   try {
     // get user's article
-    if (draft && user) {
+    if (user) {
       const data = await prisma.user.findUnique({
         where: {
           id: user,
@@ -43,7 +40,7 @@ export default async function handle(
           articles: {
             take: 10,
             where: {
-              status: 1,
+              status: draft ? 1 : 0,
               OR: [
                 {
                   title: {
@@ -96,7 +93,6 @@ export default async function handle(
     }
   } catch (error) {
     return res.status(500).json({
-      status: "DBError",
       error: true,
       message: error,
     })

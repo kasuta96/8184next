@@ -51,26 +51,7 @@ function Sidebar() {
             )
           }
         />
-        {session && (
-          <div className="my-1">
-            <SidebarRow
-              Icon={ArchiveIcon}
-              title={t`Draft`}
-              onClick={() =>
-                router.push(
-                  {
-                    pathname: "/a",
-                    query: {
-                      draft: true,
-                      user: session.user.id,
-                    },
-                  },
-                  "/a/draft"
-                )
-              }
-            />
-          </div>
-        )}
+        {session && <div className="my-2">{/* User sidebar */}</div>}
       </div>
     </div>
   )

@@ -8,6 +8,7 @@ import {
   // ChevronDownIcon,
   // HomeIcon,
   RssIcon,
+  ArchiveIcon,
   // ViewGridIcon,
 } from "@heroicons/react/outline"
 import HeaderIcon from "./HeaderIcon"
@@ -100,6 +101,36 @@ function Header() {
                     // {
                     //   name: t`Setting`,
                     // },
+                    {
+                      icon: <ArchiveIcon className="h-6 w-6 mr-2" />,
+                      name: t`Draft`,
+                      onClick: () =>
+                        router.push(
+                          {
+                            pathname: "/a",
+                            query: {
+                              draft: true,
+                              user: session.user.id,
+                            },
+                          },
+                          "/a/draft"
+                        ),
+                    },
+                    {
+                      icon: <NewspaperIcon className="h-6 w-6 mr-2" />,
+                      name: t`Articles`,
+                      onClick: () =>
+                        router.push(
+                          {
+                            pathname: "/a",
+                            query: {
+                              user: session.user.id,
+                            },
+                          },
+                          "/a/my-articles"
+                        ),
+                    },
+
                     {
                       name: t`Sign out`,
                       onClick: () => signOut(),
