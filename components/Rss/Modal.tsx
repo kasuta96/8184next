@@ -54,7 +54,7 @@ export default function Modal() {
               onClick={closeModal}
               className="justify-center items-center flex overflow-x-hidden fixed inset-0 z-40 outline-none focus:outline-none"
             >
-              <div className="w-auto mx-auto max-w-3xl">
+              <div className="w-full lg:w-auto mx-auto max-w-3xl">
                 {/*content*/}
                 <div className="flex flex-col max-h-screen outline-none focus:outline-none">
                   {/*body*/}
