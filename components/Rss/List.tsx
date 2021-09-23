@@ -36,7 +36,7 @@ export default function List({ data, source }: { data: RssType[]; source: any })
 
       {data.map((item, i) => {
         return (
-          <div key={i} className="group p-4 my-4 bg-50 rounded-lg space-y-1">
+          <div key={i} className="group p-4 my-4 bg-50 rounded-lg space-y-1 shadow-md">
             <h5 onClick={() => RssPreview(item.link)} className="cursor-pointer text-900">
               {item.title}
             </h5>

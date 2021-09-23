@@ -4,7 +4,8 @@ import {
   UserGroupIcon,
   DocumentTextIcon,
   ClipboardCheckIcon,
-  ArchiveIcon,
+  TranslateIcon,
+  PencilAltIcon,
 } from "@heroicons/react/outline"
 import { useSession } from "next-auth/client"
 import SidebarRow from "./SidebarRow"
@@ -21,56 +22,67 @@ function Sidebar() {
     <div
       id="sidebar"
       onClick={navWrapperToggle}
-      className="fixed z-20 flex-none h-full bg-black bg-opacity-50 w-full md:static md:h-auto md:overflow-y-visible md:w-48 xl:w-56 md:block hidden"
+      className="fixed lg:static z-20 flex-none h-full bg-black bg-opacity-50 w-full md:h-auto md:overflow-y-visible lg:w-56 lg:block hidden"
     >
-      <div
-        id="navWrapper"
-        className="px-2 py-4 md:pt-16 w-56 bg-100 md:w-48 xl:w-56 sticky top-0 h-screen overflow-y-scroll"
-      >
+      <div id="navWrapper" className="px-2 py-4 md:pt-16 w-56 bg-100 sticky top-0 h-screen overflow-y-scroll">
         {session && <SidebarRow avatar={true} image={session.user.image} title={session.user.name} />}
-        <SidebarRow Icon={NewspaperIcon} title={t`Articles`} onClick={() => router.push("/a")} />
+        <SidebarRow
+          Icon={DocumentTextIcon}
+          title="Blog"
+          onClick={() =>
+            router.push({
+              pathname: "/a",
+              query: {
+                category: 2, // Category "Blog"
+              },
+            })
+          }
+          active={router.pathname == "/a" && router.query?.category == "2"}
+        />
+        <SidebarRow
+          Icon={TranslateIcon}
+          title={t`Translated news`}
+          onClick={() =>
+            router.push({
+              pathname: "/a",
+              query: {
+                category: 1, // Category "Blog"
+              },
+            })
+          }
+          active={router.pathname == "/a" && router.query?.category == "1"}
+        />
         {/* <SidebarRow
           Icon={DocumentTextIcon}
           title={t`Posts`}
           onClick={() => router.push("/p")}
         /> */}
-        <SidebarRow Icon={RssIcon} title={t`Japanese news`} onClick={() => router.push("/rss")} />
-        <SidebarRow Icon={UserGroupIcon} title={t`Group`} onClick={() => router.push("/p")} />
+        <SidebarRow
+          Icon={RssIcon}
+          title={t`News source`}
+          onClick={() => router.push("/rss")}
+          active={router.pathname == "/rss"}
+        />
+        <SidebarRow
+          Icon={UserGroupIcon}
+          title={t`Group`}
+          onClick={() => router.push("/p")}
+          active={router.pathname == "/p"}
+        />
         <SidebarRow
           Icon={ClipboardCheckIcon}
           title={t`Unpublished`}
           onClick={() =>
-            router.push(
-              {
-                pathname: "/a",
-                query: {
-                  published: false,
-                },
+            router.push({
+              pathname: "/a",
+              query: {
+                published: false,
               },
-              "a/unpublished"
-            )
+            })
           }
+          active={router.pathname == "/a" && router.query?.published === "false"}
         />
-        {session && (
-          <div className="my-1">
-            <SidebarRow
-              Icon={ArchiveIcon}
-              title={t`Draft`}
-              onClick={() =>
-                router.push(
-                  {
-                    pathname: "/a",
-                    query: {
-                      draft: true,
-                      user: session.user.id,
-                    },
-                  },
-                  "/a/draft"
-                )
-              }
-            />
-          </div>
-        )}
+        {session && <div className="my-2">{/* User sidebar */}</div>}
       </div>
     </div>
   )

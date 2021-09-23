@@ -1,8 +1,8 @@
 export default function Footer() {
   return (
     <>
-      <footer className="text-500">
-        <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row text-sm">
+      <footer className="text-500 max-w-4xl mx-auto mt-10">
+        <div className="py-4 px-5 flex flex-wrap flex-col sm:flex-row text-sm">
           <p className="text-400 text-center sm:text-left">
             © 2021 —
             <a

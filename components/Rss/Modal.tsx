@@ -66,12 +66,22 @@ export default function Modal() {
                   >
                     <div className="text-center mb-4 text-400 text-lg">{t("primary", "Preview")}</div>
                     <h5 className="font-semibold">{modalContent?.title || ""}</h5>
-                    <span className="text-xs">{modalContent?.createdAt ? <FormatDate value={modalContent?.createdAt} /> : ""}</span>
+                    <span className="text-xs">
+                      {modalContent?.createdAt ? <FormatDate value={modalContent?.createdAt} /> : ""}
+                    </span>
 
                     {modalContent?.error ? (
                       modalContent?.error
                     ) : modalContent?.content ? (
-                      <Render data={modalContent.content} />
+                      <>
+                        <Render data={modalContent.content} />
+                        <div className="text-700 my-8">
+                          {t("rss", "Source")}:{" "}
+                          <a href={modalContent.source.url} target="_blank">
+                            {modalContent.source.url}
+                          </a>
+                        </div>
+                      </>
                     ) : (
                       <Spin className="my-8 mx-auto" />
                     )}

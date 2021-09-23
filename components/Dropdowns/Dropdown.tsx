@@ -16,12 +16,12 @@ export default function Dropdown({
 }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="flex items-center">
+      <Menu.Button className="flex items-center outline-none">
         {btn ? (
           btn
         ) : (
-          <div className="">
-            <svg className="circle-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <div className="circle-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
               <path
                 fillRule="evenodd"
                 d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -40,7 +40,7 @@ export default function Dropdown({
         leaveFrom="transform opacity-100 scale-100"
         leaveTo="transform opacity-0 scale-95"
       >
-        <Menu.Items className="absolute right-0 w-max max-w-sm mt-2 origin-top-right bg-white text-gray-800 dark:bg-black dark:text-gray-100 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black dark:ring-gray-700 ring-opacity-5 focus:outline-none z-30">
+        <Menu.Items className="absolute right-0 w-max max-w-sm mt-2 origin-top-right bg-gray-50 text-gray-800 dark:bg-gray-900 dark:text-gray-100 divide-y divide-gray-200 dark:divide-gray-700 rounded-md shadow-lg ring-1 ring-black dark:ring-gray-700 ring-opacity-5 focus:outline-none z-30">
           {header && header}
           {menu && (
             <div className="p-3">

@@ -3,11 +3,13 @@ import {
   MenuIcon,
   PlusIcon,
   NewspaperIcon,
+  // TranslateIcon,
   // DocumentTextIcon,
   // QuestionMarkCircleIcon,
   // ChevronDownIcon,
-  // HomeIcon,
+  HomeIcon,
   RssIcon,
+  ArchiveIcon,
   // ViewGridIcon,
 } from "@heroicons/react/outline"
 import HeaderIcon from "./HeaderIcon"
@@ -36,19 +38,31 @@ function Header() {
 
         {/* center */}
         <div className="flex justify-center flex-grow">
-          {/* <HeaderIcon Icon={HomeIcon} onClick={() => router.push("/")} active={router.pathname == "/" ? true : false} /> */}
-
           <HeaderIcon
-            Icon={NewspaperIcon}
+            Icon={HomeIcon}
             onClick={() => router.push("/a")}
-            active={router.pathname == "/a" ? true : false}
+            active={router.pathname === "/a" && !router.query.user && !router.query.published && !router.query.category}
           />
+
+          {/* <HeaderIcon
+            Icon={DocumentTextIcon}
+            onClick={() =>
+              router.push({
+                pathname: "/a",
+                query: {
+                  category: 2,
+                },
+              })
+            }
+            active={router.pathname == "/a" && router.query?.category == "2"}
+          /> */}
+
           <HeaderIcon
             Icon={RssIcon}
             onClick={() => router.push("/rss")}
             active={router.pathname == "/rss" ? true : false}
           />
-          <HeaderIcon Icon={MenuIcon} onClick={SidebarToggle} className="md:hidden" />
+          <HeaderIcon Icon={MenuIcon} onClick={SidebarToggle} className="lg:hidden" />
         </div>
 
         {/* right */}
@@ -100,6 +114,36 @@ function Header() {
                     // {
                     //   name: t`Setting`,
                     // },
+                    {
+                      icon: <ArchiveIcon className="h-6 w-6 mr-2" />,
+                      name: t`Draft`,
+                      onClick: () =>
+                        router.push(
+                          {
+                            pathname: "/a",
+                            query: {
+                              draft: true,
+                              user: session.user.id,
+                            },
+                          },
+                          "/a?draft"
+                        ),
+                    },
+                    {
+                      icon: <NewspaperIcon className="h-6 w-6 mr-2" />,
+                      name: t`Articles`,
+                      onClick: () =>
+                        router.push(
+                          {
+                            pathname: "/a",
+                            query: {
+                              user: session.user.id,
+                            },
+                          },
+                          "/a?my-articles"
+                        ),
+                    },
+
                     {
                       name: t`Sign out`,
                       onClick: () => signOut(),
