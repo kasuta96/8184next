@@ -3,10 +3,7 @@ import { getSession } from "next-auth/client"
 import prisma from "../../../lib/db"
 
 // DELETE /api/article/:id
-export default async function handle(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const articleId = req.query.id
   const session = await getSession({ req })
 
@@ -72,7 +69,7 @@ export default async function handle(
           },
         },
         content: true,
-        stickers: true,
+        sticker: true,
         published: true,
         status: true,
         createdAt: true,
@@ -89,8 +86,6 @@ export default async function handle(
       })
     }
   } else {
-    throw new Error(
-      `The HTTP ${req.method} method is not supported at this route.`
-    )
+    throw new Error(`The HTTP ${req.method} method is not supported at this route.`)
   }
 }

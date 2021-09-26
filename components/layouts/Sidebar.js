@@ -28,7 +28,7 @@ function Sidebar() {
         {session && <SidebarRow avatar={true} image={session.user.image} title={session.user.name} />}
         <SidebarRow
           Icon={DocumentTextIcon}
-          title="Blog"
+          title={t`Blog`}
           onClick={() =>
             router.push({
               pathname: "/a",
