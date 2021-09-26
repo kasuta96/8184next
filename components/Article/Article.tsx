@@ -24,7 +24,7 @@ export type ArticleProps = {
   published: boolean
   createdAt: Date
   status: number
-  stickers: {
+  sticker: {
     copyright: any[]
   }
 }
@@ -65,9 +65,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
             <Avatar image={article.author.image} name={authorName} />
           </a>
           <div className="flex flex-col justify-between ml-4 text-sm">
-            <p className="font-bold text-gray-800 dark:text-white">
-              {authorName}
-            </p>
+            <p className="font-bold text-gray-800 dark:text-white">{authorName}</p>
             <p className="text-gray-400 dark:text-gray-300">
               <FormatDate value={article.createdAt} />
             </p>
@@ -80,7 +78,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
 
         {article.tags && <Tags tags={article.tags} />}
 
-        {article.stickers?.copyright?.map((s, i) => {
+        {article.sticker?.copyright?.map((s, i) => {
           return (
             <p key={s.id || i}>
               {s.name}: {s.data.author ? s.data.author : s.data.id}
@@ -88,11 +86,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
           )
         })}
 
-        <ArticleReact
-          authorId={article.author.id}
-          articleId={article.id}
-          published={article.published}
-        />
+        <ArticleReact authorId={article.author.id} articleId={article.id} published={article.published} />
 
         <Comment id={article.id} />
       </div>

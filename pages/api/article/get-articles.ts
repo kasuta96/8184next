@@ -50,7 +50,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         select: {
           name: true,
           role: true,
-          articles: {
+          article: {
             take: 10,
             where: {
               status: draft ? 1 : 0,
