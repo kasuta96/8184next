@@ -3,10 +3,7 @@ import prisma from "../../../lib/db"
 import { getSession } from "next-auth/client"
 import slugify from "../../../lib/slugify"
 // POST /api/article
-export default async function handle(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   interface Data {
     id?: any
     title: string
@@ -26,17 +23,13 @@ export default async function handle(
   const handleData = async (data: Data) => {
     // if hasn't description -> get first paragraph
     if (!data.description) {
-      const firstP = data.content.blocks.find(
-        (e: { type: string }) => e.type == "paragraph"
-      )
+      const firstP = data.content.blocks.find((e: { type: string }) => e.type == "paragraph")
       data.description = firstP?.data.text || ""
     }
 
     // set default thumbnail: first image on content
     if (!data.thumbnail) {
-      const firstImg = data.content.blocks.find(
-        (e: { type: string }) => e.type == ("image" || "simpleImage")
-      )
+      const firstImg = data.content.blocks.find((e: { type: string }) => e.type == ("image" || "simpleImage"))
       data.thumbnail = firstImg?.data.url || firstImg?.data.file.url || ""
     }
 
@@ -64,17 +57,7 @@ export default async function handle(
 
   if (req.method === "POST") {
     const reqData = await handleData(req.body)
-    const {
-      id,
-      title,
-      content,
-      description,
-      thumbnail,
-      tags,
-      slug,
-      source,
-      draft,
-    } = reqData
+    const { id, title, content, description, thumbnail, tags, slug, source, draft } = reqData
 
     // source
     let copyright = []
@@ -103,7 +86,7 @@ export default async function handle(
       description: description,
       thumbnail: thumbnail,
       tags: tags,
-      stickers: { copyright: copyright },
+      sticker: { copyright: copyright },
       status: status,
     }
 
@@ -125,8 +108,7 @@ export default async function handle(
     })
   } else if (req.method === "PUT") {
     const reqData = await handleData(req.body)
-    const { id, title, content, description, thumbnail, tags, slug, draft } =
-      reqData
+    const { id, title, content, description, thumbnail, tags, slug, draft } = reqData
 
     // 0: public, 1: draft
     let status = 0

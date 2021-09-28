@@ -5,10 +5,16 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
   const kw = req?.query?.kw?.toString() || ""
   // if has [published=false] request query
   const published = req?.query?.published == "false" ? false : true
-  // if has [published=false] request query
+  // if has [draft=true] get user id -> get user's draft (status = 1)
   const draft = req?.query?.draft == "true" ? true : false
   const user = req?.query?.user?.toString() || ""
+  // category
   const category = req?.query?.category?.toString() || ""
+
+  // take & skip & sort
+  const take = 5
+  // time for get more
+  const time = req?.query?.time?.toString() || ""
 
   const select = {
     id: true,
@@ -48,13 +54,21 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
           id: user,
         },
         select: {
+          _count: {
+            select: {
+              article: true,
+            },
+          },
           name: true,
           role: true,
           article: {
-            take: 10,
+            take: take,
             where: {
               status: draft ? 1 : 0,
               OR: kwSearch,
+              createdAt: {
+                lt: time ? new Date(time) : new Date(),
+              },
             },
             orderBy: {
               id: "desc",
@@ -63,7 +77,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
           },
         },
       })
-      return res.json(data)
+      return res.json({ take: take, ...data })
 
       // get catrgory's articles
     } else if (category) {
@@ -72,13 +86,21 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
           id: Number(category),
         },
         select: {
+          _count: {
+            select: {
+              article: true,
+            },
+          },
           name: true,
           description: true,
           article: {
-            take: 10,
+            take: take,
             where: {
               status: 0,
               OR: kwSearch,
+              createdAt: {
+                lt: time ? new Date(time) : new Date(),
+              },
             },
             orderBy: {
               id: "desc",
@@ -88,15 +110,18 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
         },
       })
 
-      return res.json(data)
+      return res.json({ take: take, ...data })
     } else {
       // get all article
       const article = await prisma.article.findMany({
-        take: 10,
+        take: take,
         where: {
           status: 0,
           published: published,
           OR: kwSearch,
+          createdAt: {
+            lt: time ? new Date(time) : new Date(),
+          },
         },
         orderBy: {
           id: "desc",
@@ -105,7 +130,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       })
 
       // response data like data: {articles}
-      return res.json({ article })
+      return res.json({ take: take, article })
     }
   } catch (error) {
     return res.status(500).json({
