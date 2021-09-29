@@ -42,5 +42,7 @@
   "Couldn't fetch the link data": "Couldn't fetch the link data",
   "The block cannot be displayed correctly": "The block cannot be displayed correctly",
   "Underline": "Underline",
-  "Enter for new paragraph": "Enter for new paragraph"
+  "Enter for new paragraph": "Enter for new paragraph",
+  "Access Denied": "Access Denied",
+  "You must be signed in to access this page": "You must be signed in to access this page"
 }

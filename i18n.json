@@ -4,6 +4,7 @@
   "pages": {
     "*": ["layouts", "error", "primary"],
     "/rss": ["rss"],
+    "/a": ["a"],
     "/a/create": ["editor"]
   }
 }

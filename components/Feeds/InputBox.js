@@ -4,6 +4,7 @@ import Avatar from "../Image/Avatar"
 import { PhotographIcon } from "@heroicons/react/outline"
 import { firebase, db, storage } from "../../lib/firebase"
 import { useRef, useState } from "react"
+import SigninBtn from "../Buttons/SigninBtn"
 
 function InputBox() {
   const [session] = useSession()
@@ -24,9 +25,7 @@ function InputBox() {
       })
       .then((doc) => {
         if (postImage) {
-          const uploadTask = storage
-            .ref(`posts/${doc.id}`)
-            .putString(postImage, "data_url")
+          const uploadTask = storage.ref(`posts/${doc.id}`).putString(postImage, "data_url")
           removeImage()
           uploadTask.on(
             "state_change",
@@ -71,16 +70,7 @@ function InputBox() {
     return (
       <>
         <span className="">You are not signed in </span>
-        <a
-          href={`${process.env.HOST}/api/auth/signin`}
-          className="text-50 bg-indigo-500 border-0 p-2 focus:outline-none hover:bg-indigo-600 rounded text-lg"
-          onClick={(e) => {
-            e.preventDefault()
-            signIn()
-          }}
-        >
-          Sign in
-        </a>
+        <SigninBtn />
       </>
     )
 
@@ -117,20 +107,11 @@ function InputBox() {
           >
             <PhotographIcon className="h-7 text-green-600" />
             <p className="text-xs sm:text-sm xl:text-base">Photos/Videos</p>
-            <input
-              type="file"
-              hidden
-              ref={filePickerRef}
-              onChange={addPostImage}
-            />
+            <input type="file" hidden ref={filePickerRef} onChange={addPostImage} />
           </div>
         </div>
         <div className="flex-grow"></div>
-        <button
-          type="submit"
-          className="btn text-50 bg-indigo-500 hover:bg-indigo-600"
-          onClick={sendPost}
-        >
+        <button type="submit" className="btn text-50 bg-indigo-500 hover:bg-indigo-600" onClick={sendPost}>
           Submit
         </button>
       </div>
