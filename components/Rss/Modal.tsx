@@ -5,6 +5,7 @@ import useTrans from "../../hooks/useTrans"
 import FormatDate from "../handleData/FormatDate"
 import { useRouter } from "next/router"
 import { useSession, signIn } from "next-auth/client"
+import SigninBtn from "../Buttons/SigninBtn"
 
 export default function Modal() {
   const { t, lang } = useTrans()
@@ -100,9 +101,7 @@ export default function Modal() {
                     ) : (
                       <>
                         <span className="text-600">{t("rss", "Translate this content")}</span>
-                        <button className="btn-primary" onClick={() => signIn()}>
-                          {t("primary", "Sign in")}
-                        </button>
+                        <SigninBtn />
                       </>
                     )}
 

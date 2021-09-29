@@ -42,5 +42,7 @@
   "Couldn't fetch the link data": "リンクデータを取得できませんでした",
   "The block cannot be displayed correctly": "正しく表示できません。",
   "Underline": "下線を引く",
-  "Enter for new paragraph": "新しい段落を入力してください"
+  "Enter for new paragraph": "新しい段落を入力してください",
+  "Access Denied": "アクセスが拒否されました",
+  "You must be signed in to access this page": "このページにアクセスするには、ログインする必要があります"
 }

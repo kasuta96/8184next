@@ -42,5 +42,7 @@
   "Couldn't fetch the link data": "Không thể tìm nạp dữ liệu liên kết",
   "The block cannot be displayed correctly": "Không thể được hiển thị chính xác",
   "Underline": "Gạch chân",
-  "Enter for new paragraph": "Nhập đoạn văn bản mới"
+  "Enter for new paragraph": "Nhập đoạn văn bản mới",
+  "Access Denied": "Quyền truy cập bị từ chối",
+  "You must be signed in to access this page": "Bạn phải đăng nhập để truy cập trang này"
 }

@@ -21,6 +21,7 @@ import { signIn, signOut, useSession } from "next-auth/client"
 import Avatar from "../Image/Avatar"
 import QuickSetting from "./QuickSetting"
 import useTrans from "../../hooks/useTrans"
+import SigninBtn from "../Buttons/SigninBtn"
 
 function Header() {
   const router = useRouter()
@@ -92,7 +93,7 @@ function Header() {
               <>
                 <div className="flex items-center p-4 space-x-2">
                   {!session ? (
-                    <button className="btn-primary m-4" onClick={() => signIn()}>{t`Sign in`}</button>
+                    <SigninBtn />
                   ) : (
                     <>
                       <div className="flex-none">

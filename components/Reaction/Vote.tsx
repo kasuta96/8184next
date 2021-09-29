@@ -4,6 +4,7 @@ import Btn from "../Buttons/Btn"
 import Avatar from "../Image/Avatar"
 import { Rating } from "./Rating/Rating"
 import StarIcon from "./Rating/StarIcon"
+import SigninBtn from "../Buttons/SigninBtn"
 
 function Vote({ id }: { id: number }) {
   const [rating, setRating] = useState(0)
@@ -67,18 +68,12 @@ function Vote({ id }: { id: number }) {
     <>
       <div className="flex items-center space-x-2 mb-8 mt-16">
         {loading && "loading..."}
-        {session ? (
-          <Avatar image={session.user.image} size={35} />
-        ) : (
-          <Btn onClick={() => signIn()} title="Sign in" />
-        )}
+        {session ? <Avatar image={session.user.image} size={35} /> : <SigninBtn />}
         <Rating
           onClick={session && !onRating.status ? handleRating : () => false}
           ratingValue={rating}
           size={30}
-          className={
-            (onRating.status ? "animate-pulse " : "") + "flex items-center"
-          }
+          className={(onRating.status ? "animate-pulse " : "") + "flex items-center"}
         />
 
         <span className="text-gray-500 font-semibold flex items-center">
