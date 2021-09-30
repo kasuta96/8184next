@@ -80,9 +80,16 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
 
         {article.sticker?.copyright?.map((s, i) => {
           return (
-            <p key={s.id || i}>
-              {s.name}: {s.data.author ? s.data.author : s.data.id}
-            </p>
+            <div key={s.id || i} className="text-700 my-8">
+              {s.name}:{" "}
+              {s.data.url ? (
+                <a href={s.data.url} target="_blank">
+                  {s.data.author ? s.data.author : s.data.url}
+                </a>
+              ) : (
+                <span>{s.data.author ? s.data.author : s.data.id}</span>
+              )}
+            </div>
           )
         })}
 
