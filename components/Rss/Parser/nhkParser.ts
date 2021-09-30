@@ -65,37 +65,26 @@ export default async function nhkParser(link: string) {
 
       // get meta
       // title
-      result.title = head.querySelector(
-        "meta[property='og:title']"
-      )?.attributes.content
+      result.title = head.querySelector("meta[property='og:title']")?.attributes.content
       // keywords
-      result.tags = head.querySelector(
-        "meta[name='keywords']"
-      )?.attributes.content
+      result.tags = head.querySelector("meta[name='keywords']")?.attributes.content
       // description
-      result.description = head.querySelector(
-        "meta[name='description']"
-      )?.attributes.content
+      result.description = head.querySelector("meta[name='description']")?.attributes.content
       // author
-      result.source.author = head.querySelector(
-        "meta[name='author']"
-      )?.attributes.content
+      result.source.author = head.querySelector("meta[name='author']")?.attributes.content
       // image (thumbnail)
-      result.thumbnail = head.querySelector(
-        "meta[property='og:image']"
-      )?.attributes.content
+      result.thumbnail = head.querySelector("meta[property='og:image']")?.attributes.content
       // time
       result.createdAt = main.querySelector("time")?.attributes.datetime
 
       // header iframe (video)
-      let iframe = main.querySelector("header")?.querySelector("iframe")
-        ?.attributes?.src
+      let iframe = main.querySelector("header")?.querySelector("iframe")?.attributes?.src
       iframe &&
         result.content.blocks.push({
           id: id,
           type: "embed",
           data: {
-            service: "nhk",
+            service: "youtube",
             source: host + iframe,
             embed: host + iframe,
             width: 640,
@@ -105,8 +94,7 @@ export default async function nhkParser(link: string) {
         })
 
       // header image
-      let image = main.querySelector("header")?.querySelector("img")
-        ?.attributes["data-src"]
+      let image = main.querySelector("header")?.querySelector("img")?.attributes["data-src"]
       image && pushImg(image)
 
       // summary
@@ -122,9 +110,7 @@ export default async function nhkParser(link: string) {
 
       if (detail) {
         // more summary
-        let summaryMore = detail.querySelector(
-          "p.content--summary-more"
-        )?.innerHTML
+        let summaryMore = detail.querySelector("p.content--summary-more")?.innerHTML
         if (summaryMore) {
           let arr = summaryMore.split("<br><br>")
           arr.map((p) => {
