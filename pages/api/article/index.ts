@@ -104,7 +104,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     // default return
     return res.json({
       status: "success",
-      route: "/a/" + result.id,
+      route: "/a/" + slug + "-" + result.id,
     })
   } else if (req.method === "PUT") {
     const reqData = await handleData(req.body)
@@ -133,7 +133,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
       })
       return res.json({
         status: "success",
-        route: "/a/" + id,
+        route: "/a/" + slug + "-" + id,
       })
     } else {
       return res.json({
