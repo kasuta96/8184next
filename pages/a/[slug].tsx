@@ -1,45 +1,62 @@
 import React from "react"
-import { GetServerSideProps } from "next"
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
 import Layout from "../../components/Layout"
 import ArticlePage, { ArticleProps } from "../../components/Article/Article"
+import { useRouter } from "next/router"
+import ErrorPage from "next/error"
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const res = await fetch(encodeURI(`${process.env.HOST}/api/article/slug/${params?.slug}`))
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const res = await fetch(encodeURI(`https://8184.vercel.app/api/article/slug/${params?.slug}`))
   const article = await res.json()
 
-  if (res.ok) {
-    return {
-      props: article,
-    }
-  } else {
-    return {
-      notFound: true,
-    }
+  return {
+    props: article,
+  }
+
+  // if (res.ok) {
+  //   return {
+  //     props: article,
+  //   }
+  // } else {
+  //   return {
+  //     notFound: true,
+  //   }
+  // }
+}
+
+export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
+  const res = await fetch("https://8184.vercel.app/api/article/slug")
+  const articles: ArticleProps[] = await res.json()
+
+  const paths = []
+
+  articles.map((a) =>
+    locales.map((l) => {
+      paths.push({
+        params: {
+          slug: a.slug + "-" + a.id,
+        },
+        locale: l,
+      })
+    })
+  )
+
+  return {
+    paths: paths,
+    fallback: true,
   }
 }
 
-// export const getStaticPaths: GetStaticPaths = async () => {
-//   const res = await fetch("https://8184.vercel.app/api/article/get-articles")
-//   const data = await res.json()
-//   const articles: ArticleProps[] = data.article
-
-//   return {
-//     paths: articles.map((a) => {
-//       return {
-//         params: {
-//           slug: a.slug + "-" + a.id,
-//         },
-//       }
-//     }),
-//     fallback: true,
-//   }
-// }
-
 const Article: React.FC<ArticleProps> = (props) => {
+  const router = useRouter()
+  if (!router.isFallback && !props?.slug) {
+    return <ErrorPage statusCode={404} />
+  }
+
   return (
     <Layout>
       <div className="w-full max-w-4xl mx-auto">
-        <ArticlePage article={props} />
+        {router.isFallback ? <p>loading...</p> : <ArticlePage article={props} />}
       </div>
     </Layout>
   )
