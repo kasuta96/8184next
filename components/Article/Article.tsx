@@ -7,6 +7,7 @@ import ArticleReact from "../../components/Reaction/Article"
 import BlocksRender from "./BlocksRender"
 import Comment from "../Comment"
 import FormatDate from "../handleData/FormatDate"
+import { useRouter } from "next/router"
 
 export type ArticleProps = {
   id: number
@@ -30,6 +31,7 @@ export type ArticleProps = {
 }
 
 const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
+  const { locale } = useRouter()
   let authorName = article.author ? article.author.name : "Unknown author"
   let title = article.title
   if (article.status == 1) {
@@ -42,7 +44,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <meta charSet="utf-8" />
         <title>{title}</title>
         <meta name="description" content={article.description} />
-
+        <meta name="content-language" content={locale} />
         <meta property="og:type" content="website" />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={article.description} />
