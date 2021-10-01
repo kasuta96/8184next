@@ -1,9 +1,9 @@
 import React from "react"
-import { useRouter } from "next/router"
 import Avatar from "../../Image/Avatar"
 import Thumbnail from "../../Image/Thumbnail"
 import ArticleOption from "./ArticleOption"
 import FormatDate from "../../handleData/FormatDate"
+import Link from "next/link"
 
 export type ArticleProps = {
   id: number
@@ -21,34 +21,23 @@ export type ArticleProps = {
 }
 
 const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
-  const router = useRouter()
-
   return (
     <div className="sm:flex rounded-lg">
       <div className="sm:flex-shrink-0 p-2 mr-4">
-        <div
-          onClick={() => {
-            article.slug
-              ? router.push("/a/[slug]", `/a/${article.slug}-${article.id}`)
-              : router.push("/a/preview/[id]", `/a/preview/${article.id}`)
-          }}
-          className="rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72 cursor-pointer"
-        >
-          <Thumbnail id={article.id} image={article.thumbnail} title={article.title} />
-        </div>
+        <Link href={`/a/[slug]`} as={`/a/${article.slug}-${article.id}`} scroll={false}>
+          <a className="block rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72 cursor-pointer">
+            <Thumbnail id={article.id} image={article.thumbnail} title={article.title} />
+          </a>
+        </Link>
       </div>
       <div className="p-2 w-full">
         {/* <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div> */}
-        <div
-          onClick={() => {
-            article.slug
-              ? router.push("/a/[slug]", `/a/${article.slug}-${article.id}`)
-              : router.push("/a/preview/[id]", `/a/preview/${article.id}`)
-          }}
-          className="block mt-1 text-lg leading-tight font-semibold hover:underline cursor-pointer"
-        >
-          {article.title}
-        </div>
+
+        <Link href={`/a/[slug]`} as={`/a/${article.slug}-${article.id}`} scroll={false}>
+          <a className="block mt-1 text-lg text-800 leading-tight font-semibold hover:underline cursor-pointer">
+            {article.title}
+          </a>
+        </Link>
         <p className="mt-2 text-500 line-3">{article.description}</p>
         <div className="mt-2">
           <div className="flex items-center">
