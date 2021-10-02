@@ -6,27 +6,16 @@ import Vote from "./Vote"
 import { useState } from "react"
 import Spin from "../Icons/Spin"
 
-const Article = ({
-  authorId,
-  articleId,
-  published,
-}: {
-  authorId: string
-  articleId: number
-  published: boolean
-}) => {
+const Article = ({ authorId, articleId, published }: { authorId: string; articleId: number; published: boolean }) => {
   const router = useRouter()
   const [publish, setPublish] = useState(published)
   const [publishing, setPublishing] = useState(false)
 
   async function publishArticle(id: number): Promise<void> {
     setPublishing(true)
-    const res = await fetch(
-      `${process.env.HOST}/api/publish/${id}?publish=${publish}`,
-      {
-        method: "PUT",
-      }
-    )
+    const res = await fetch(`${process.env.HOST}/api/publish/${id}?publish=${publish}`, {
+      method: "PUT",
+    })
     const json = await res.json()
     if (res.ok) {
       setPublish(json)
@@ -54,7 +43,7 @@ const Article = ({
   }
   const userHasValidSession = Boolean(session)
   const articleBelongsToUser = session?.user?.id === authorId
-  const publisher = session?.user?.role === ("ADMIN" || "MOD")
+  const publisher = session?.user?.role === "ADMIN" || "MOD"
 
   return (
     <div className="container mt-16">
@@ -63,22 +52,12 @@ const Article = ({
           <hr />
           <div className="flex items-center my-4">
             <span className="text-gray-500 font-bold mr-4">Mod</span>
-            <Btn
-              title="Delete"
-              Icon={TrashIcon}
-              onClick={() => deleteArticle(articleId)}
-            />
-            <button
-              onClick={() => publishArticle(articleId)}
-              className="btn-primary"
-              disabled={publishing}
-            >
+            <Btn title="Delete" Icon={TrashIcon} onClick={() => deleteArticle(articleId)} />
+            <button onClick={() => publishArticle(articleId)} className="btn-primary" disabled={publishing}>
               {publish ? "Unpublish" : "Publish"}
               {publishing && <Spin className="ml-3" />}
             </button>
-            {publish && (
-              <p className="ml-2 text-600">This article has been published</p>
-            )}
+            {publish && <p className="ml-2 text-600">This article has been published</p>}
           </div>
         </>
       )}
@@ -87,11 +66,7 @@ const Article = ({
           <hr />
           <div className="flex items-center my-4">
             <span className="text-gray-500 font-bold mr-4">Author</span>
-            <Btn
-              title="Delete"
-              Icon={TrashIcon}
-              onClick={() => deleteArticle(articleId)}
-            />
+            <Btn title="Delete" Icon={TrashIcon} onClick={() => deleteArticle(articleId)} />
             <Btn
               title="Edit"
               Icon={PencilAltIcon}
