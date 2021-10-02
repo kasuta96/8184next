@@ -39,22 +39,16 @@ function Card({
               aria-label="Close"
               disabled={loading}
             >
-              <XIcon
-                className={`${deleting && loading && "animate-spin "} w-4 h-4`}
-              />
+              <XIcon className={`${deleting && loading && "animate-spin "} w-4 h-4`} />
             </button>
           )}
           <div className="p-4">
             <p className="flex items-baseline">
-              <span className="text-gray-600 dark:text-gray-200 font-bold">
-                {user.name}
-              </span>
-              <span className="text-gray-500 dark:text-gray-300 ml-2 text-sm">
-                {time}
-              </span>
+              <span className="text-gray-600 dark:text-gray-200 font-bold">{user.name}</span>
+              <span className="text-gray-500 dark:text-gray-300 ml-2 text-sm">{time}</span>
             </p>
             <div className="mt-3">
-              <p className="mt-1 dark:text-white whitespace-pre-line">{text}</p>
+              <p className="mt-1 dark:text-white break-all whitespace-pre-line">{text}</p>
             </div>
           </div>
         </div>
