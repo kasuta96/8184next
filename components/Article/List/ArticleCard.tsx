@@ -23,7 +23,7 @@ export type ArticleProps = {
 const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
   return (
     <div className="sm:flex rounded-lg">
-      <div className="sm:flex-shrink-0 p-2 mr-4">
+      <div className="sm:flex-shrink-0 mt-4 sm:mr-6">
         <Link href={`/a/[slug]`} as={`/a/${article.slug}-${article.id}`} scroll={false}>
           <a className="block rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72 cursor-pointer">
             <Thumbnail id={article.id} image={article.thumbnail} title={article.title} />
