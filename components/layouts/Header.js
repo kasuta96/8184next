@@ -58,11 +58,11 @@ function Header() {
             active={router.pathname == "/a" && router.query?.category == "2"}
           /> */}
 
-          <HeaderIcon
+          {/* <HeaderIcon
             Icon={RssIcon}
             onClick={() => router.push("/rss")}
             active={router.pathname == "/rss" ? true : false}
-          />
+          /> */}
           <HeaderIcon Icon={MenuIcon} onClick={SidebarToggle} className="lg:hidden" />
         </div>
 
