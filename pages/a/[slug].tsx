@@ -1,5 +1,5 @@
 import React from "react"
-import { GetServerSideProps, GetStaticPaths, GetStaticProps } from "next"
+import { GetStaticPaths, GetStaticProps } from "next"
 import Layout from "../../components/Layout"
 import ArticlePage, { ArticleProps } from "../../components/Article/Article"
 import { useRouter } from "next/router"
@@ -11,17 +11,8 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   return {
     props: article,
+    revalidate: 10,
   }
-
-  // if (res.ok) {
-  //   return {
-  //     props: article,
-  //   }
-  // } else {
-  //   return {
-  //     notFound: true,
-  //   }
-  // }
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
