@@ -1,5 +1,5 @@
 import Head from "next/head"
-import React from "react"
+import React, { useEffect } from "react"
 import Thumbnail from "../Image/Thumbnail"
 import Avatar from "../Image/Avatar"
 import Tags from "./Tags"
@@ -8,6 +8,8 @@ import BlocksRender from "./BlocksRender"
 import Comment from "../Comment"
 import FormatDate from "../handleData/FormatDate"
 import { useRouter } from "next/router"
+import PhotoSwipeLightbox from "../../lib/PhotoSwipe/photoswipe-lightbox.esm"
+import PhotoSwipe from "../../lib/PhotoSwipe/photoswipe.esm"
 
 export type ArticleProps = {
   id: number
@@ -37,6 +39,19 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
   if (article.status == 1) {
     title = `${title} (Draft)`
   }
+  useEffect(() => {
+    const lightbox = new PhotoSwipeLightbox({
+      // may select multiple "galleries"
+      gallery: ".gallery",
+      // Elements within gallery (slides)
+      children: ".pswps",
+      // Include PhotoSwipe Core
+      // and use absolute path (that starts with http(s)://)
+      pswpModule: PhotoSwipe,
+    })
+
+    lightbox.init()
+  }, [])
 
   return (
     <>
@@ -74,7 +89,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
           </div>
         </div>
 
-        <section className="mt-10 mb-20">
+        <section className="gallery mt-10 mb-20">
           <BlocksRender data={article.content} />
         </section>
 

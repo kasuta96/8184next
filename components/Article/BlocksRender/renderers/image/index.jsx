@@ -18,20 +18,25 @@ const ImageOutput = ({ data }) => {
     img: "rounded-xl shadow-xl mx-auto max-h-96",
   }
   let url = data.url || data.file?.url
+  let w = data.file?.w
+  let h = data.file?.h
 
   if (data.withBorder) classNames.img += " ring-4 ring-blue-200"
-  if (data.withBackground)
-    classNames.ctn += " p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
+  if (data.withBackground) classNames.ctn += " p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
   if (data.stretched) classNames.img += " max-h-full"
 
   return (
     <figure className={classNames.ctn}>
-      <img src={url} alt={data.caption || ""} className={classNames.img} />
-      {data.caption && (
-        <figcaption className="text-gray-400 text-sm mt-4">
-          {HtmlReactParser(data.caption)}
-        </figcaption>
-      )}
+      <a
+        href={url}
+        className={(w > 0) & (h > 0) ? "pswps" : ""}
+        data-pswp-width={w}
+        data-pswp-height={h}
+        target="_blank"
+      >
+        <img src={url} alt={data.caption || ""} className={classNames.img} />
+      </a>
+      {data.caption && <figcaption className="text-gray-400 text-sm mt-4">{HtmlReactParser(data.caption)}</figcaption>}
     </figure>
   )
 }

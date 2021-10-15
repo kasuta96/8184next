@@ -71,7 +71,7 @@ export default function articles() {
       </Head>
 
       <Layout>
-        <div className="space-y-8 py-10 w-full max-w-4xl mx-auto">
+        <div className="space-y-2 sm:space-y-8 py-10 w-full max-w-4xl mx-auto">
           {articles?.length > 0
             ? articles.map((article: ArticleProps) => <ArticleCard key={article.id} article={article} />)
             : !loading && <p className="text-center font-bold text-xl text-600">{t("primary", "There is none")}</p>}
