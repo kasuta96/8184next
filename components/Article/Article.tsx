@@ -71,7 +71,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <meta property="twitter:image" content={article.thumbnail} />
       </Head>
       <div className="px-3 mb-8">
-        <div className="rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
+        <div className="relative rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
           <Thumbnail image={article.thumbnail} />
         </div>
 
