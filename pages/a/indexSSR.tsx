@@ -2,6 +2,7 @@ import React from "react"
 import Layout from "../../components/Layout"
 import ArticleCard, { ArticleProps } from "../../components/Article/List/ArticleCard"
 import Head from "next/head"
+import ArticleList from "../../components/Article/List/Index"
 // import { NextApiRequest, NextApiResponse } from 'next'
 const { URL, URLSearchParams } = require("url")
 
@@ -10,13 +11,15 @@ export async function getServerSideProps(context: { query: any }) {
   fetchUrl.search = new URLSearchParams(context.query).toString()
 
   const res = await fetch(fetchUrl)
-  const articles = await res.json()
+  const data = await res.json()
 
-  if (!articles || !res.ok) {
+  if (!data || !res.ok) {
     return {
       notFound: true,
     }
   }
+
+  const articles = data.article
 
   return {
     props: { articles },
@@ -36,9 +39,7 @@ const Articles: React.FC<Props> = (props) => {
 
       <Layout>
         <div className="space-y-8 py-10 w-full max-w-4xl mx-auto">
-          {props.articles.map((article) => (
-            <ArticleCard key={article.id} article={article} />
-          ))}
+          <ArticleList articles={props.articles} />
         </div>
       </Layout>
     </>

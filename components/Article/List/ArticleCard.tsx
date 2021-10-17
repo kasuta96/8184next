@@ -22,10 +22,10 @@ export type ArticleProps = {
 
 const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
   return (
-    <div className="sm:flex rounded-lg">
-      <div className="sm:flex-shrink-0 mt-4 sm:mr-6">
+    <div className="flex rounded-lg w-full">
+      <div className="flex-shrink-0 mt-4 mr-3 sm:mr-6">
         <Link href={`/a/[slug]`} as={`/a/${article.slug}-${article.id}`} scroll={false}>
-          <a className="block rounded-lg shadow-xl h-36 sm:h-40 md:h-44 xl:h-48 w-full sm:w-48 md:w-60 xl:w-72 cursor-pointer">
+          <a className="block relative rounded-lg shadow-xl h-24 sm:h-40 md:h-44 xl:h-48 w-36 sm:w-48 md:w-60 xl:w-72 cursor-pointer">
             <Thumbnail id={article.id} image={article.thumbnail} title={article.title} />
           </a>
         </Link>
@@ -34,21 +34,23 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
         {/* <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div> */}
 
         <Link href={`/a/[slug]`} as={`/a/${article.slug}-${article.id}`} scroll={false}>
-          <a className="block mt-1 text-lg text-800 leading-tight font-semibold hover:underline cursor-pointer">
+          <a className="block mt-1 sm:text-lg text-800 sm:font-semibold hover:underline cursor-pointer">
             {article.title}
           </a>
         </Link>
-        <p className="mt-2 text-500 line-3">{article.description}</p>
+        <div className="hidden sm:block">
+          <p className="mt-2 text-500 line-3">{article.description}</p>
+        </div>
         <div className="mt-2">
           <div className="flex items-center">
             <div className="flex-none">
-              <Avatar image={article.author?.image} name={article.author?.name} />
+              <Avatar image={article.author?.image} name={article.author?.name} size={30} />
             </div>
 
-            <div className="mx-2 font-semibold text-gray-700 dark:text-gray-200">
+            <div className="hidden sm:block ml-2 font-semibold text-gray-700 dark:text-gray-200">
               {article.author?.name || "Unknown"}
             </div>
-            <span className="flex-none mx-1 text-xs text-gray-600 dark:text-gray-300">
+            <span className="flex-none ml-2 text-xs text-gray-600 dark:text-gray-300">
               <FormatDate value={article.createdAt} />
             </span>
             <div className="ml-auto flex-none">

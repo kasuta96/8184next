@@ -1,4 +1,5 @@
 import "../styles/globals.css"
+import "../styles/photoswipe.css"
 import { Provider } from "next-auth/client"
 import NProgress from "nprogress"
 import { useRouter } from "next/router"

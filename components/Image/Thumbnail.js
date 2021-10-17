@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image from "next/image"
 
 const Thumbnail = ({ id = 0, image, title = "" }) => {
   // if have image url and hostname is NOT in imageHost list (next.config.js)
   if (image) {
-    const url = new URL(image);
+    const url = new URL(image)
     if (!process.env.imageHost.includes(url.hostname)) {
       return (
         <img
@@ -12,22 +12,20 @@ const Thumbnail = ({ id = 0, image, title = "" }) => {
           alt={title}
           loading="lazy"
         />
-      );
+      )
     }
   }
 
   return (
-    <div className="relative w-full h-full">
-      <Image
-        className="rounded-lg"
-        src={image || "https://picsum.photos/200/300?blur=3&random=" + id}
-        alt={title}
-        layout="fill"
-        loading="lazy"
-        objectFit="cover"
-      />
-    </div>
-  );
-};
+    <Image
+      className="rounded-lg"
+      src={image || "https://picsum.photos/200/300?blur=3&random=" + id}
+      alt={title}
+      layout="fill"
+      loading="lazy"
+      objectFit="cover"
+    />
+  )
+}
 
-export default Thumbnail;
+export default Thumbnail
