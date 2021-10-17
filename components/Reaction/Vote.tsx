@@ -76,7 +76,7 @@ function Vote({ id }: { id: number }) {
           className={(onRating.status ? "animate-pulse " : "") + "flex items-center"}
         />
 
-        <span className="text-gray-500 font-semibold flex items-center">
+        <span className="text-600 font-semibold flex items-center">
           {stars.average}
           <StarIcon size={17} />
           {" (" + stars.total + ")"}

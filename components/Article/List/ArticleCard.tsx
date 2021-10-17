@@ -25,7 +25,10 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
     <div className="flex rounded-lg w-full">
       <div className="flex-shrink-0 mt-4 mr-3 sm:mr-6">
         <Link href={`/a/[slug]`} as={`/a/${article.slug}-${article.id}`} scroll={false}>
-          <a className="block relative rounded-lg shadow-xl h-24 sm:h-40 md:h-44 xl:h-48 w-36 sm:w-48 md:w-60 xl:w-72 cursor-pointer">
+          <a
+            className="block relative rounded-lg shadow-xl h-24 sm:h-40 md:h-44 xl:h-48 w-36 sm:w-48 md:w-60 xl:w-72 cursor-pointer"
+            aria-label="Thumbnail"
+          >
             <Thumbnail id={article.id} image={article.thumbnail} title={article.title} />
           </a>
         </Link>

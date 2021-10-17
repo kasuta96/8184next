@@ -56,7 +56,6 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
   return (
     <>
       <Head>
-        <meta charSet="utf-8" />
         <title>{title}</title>
         <meta name="description" content={article.description} />
         <meta name="content-language" content={locale} />
@@ -75,10 +74,10 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
           <Thumbnail image={article.thumbnail} />
         </div>
 
-        <h3 className="font-bold pt-4">{title}</h3>
+        <h1 className="font-bold pt-4">{title}</h1>
 
         <div className="flex items-center mt-4">
-          <a href={"/user/" + article.author.id} className="block relative">
+          <a href={"/user/" + article.author.id} className="block relative" aria-label="Avatar">
             <Avatar image={article.author.image} name={authorName} />
           </a>
           <div className="flex flex-col justify-between ml-4 text-sm">

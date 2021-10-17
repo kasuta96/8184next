@@ -5,7 +5,7 @@ export default function Footer() {
     <>
       <footer className="text-500 max-w-4xl mx-auto mt-10">
         <div className="py-4 px-5 flex flex-wrap flex-col sm:flex-row text-sm">
-          <p className="text-400 text-center sm:text-left">
+          <p className="text-center sm:text-left">
             © 2021 —
             <a href={"/"} rel="noopener noreferrer" className="text-500 ml-1 font-extrabold">
               {process.env.DMNAME}
@@ -15,16 +15,16 @@ export default function Footer() {
             <nav className="text-center">
               <p className="mb-2">
                 Contact:{" "}
-                <a className="text-600" href="mailto:8184hotro@gmail.com?subject=[8184Support]">
+                <a className="text-500" href="mailto:8184hotro@gmail.com?subject=[8184Support]">
                   8184hotro@gmail.com
                 </a>
               </p>
               <Link href="/a/chinh-sach-quyen-rieng-tu-2">
-                <a className="text-600">Privacy Policy</a>
+                <a className="text-500">Privacy Policy</a>
               </Link>
               {" · "}
               <Link href="/a/dieu-khoan-dich-vu-3">
-                <a className="text-600">Terms of Service</a>
+                <a className="text-500">Terms of Service</a>
               </Link>
             </nav>
           </div>

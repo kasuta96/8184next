@@ -9,7 +9,7 @@ const SigninBtn = () => {
 
   return (
     <div>
-      <button className="btn-primary" onClick={() => setPopUp(true)}>
+      <button aria-label="Signin" className="btn-primary" onClick={() => setPopUp(true)}>
         {t("primary", "Sign in")}
       </button>
 
