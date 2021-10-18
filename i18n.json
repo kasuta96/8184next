@@ -5,7 +5,6 @@
     "*": ["layouts", "error", "primary"],
     "/rss": ["rss"],
     "/a/create": ["editor"],
-    "/a/[slug]": ["a"],
-    "/a/preview/[id]": ["a"]
+    "/a/[slug]": ["a"]
   }
 }
