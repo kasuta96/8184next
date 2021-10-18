@@ -24,6 +24,16 @@ class MyDocument extends Document {
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5833093152767771"
             crossorigin="anonymous"
           ></script>
+          {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKMMTV2JER"></script>
+          <script>
+            {`
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-CKMMTV2JER');
+`}
+          </script> */}
         </Head>
         <body className="bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-100">
           <Main />
