@@ -16,7 +16,7 @@ export default function Dropdown({
 }) {
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="flex items-center outline-none">
+      <Menu.Button aria-label="Menu" className="flex items-center outline-none">
         {btn ? (
           btn
         ) : (

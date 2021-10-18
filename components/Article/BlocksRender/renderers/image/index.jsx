@@ -33,6 +33,7 @@ const ImageOutput = ({ data }) => {
         data-pswp-width={w}
         data-pswp-height={h}
         target="_blank"
+        rel="noopener noreferrer"
       >
         <img src={url} alt={data.caption || ""} className={classNames.img} />
       </a>

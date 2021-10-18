@@ -23,7 +23,7 @@ export const tools = {
     inlineToolbar: ["link"],
     config: {
       levels: [2, 3, 4, 5, 6],
-      defaultLevel: 4,
+      defaultLevel: 2,
     },
   },
   list: {

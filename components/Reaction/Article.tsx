@@ -51,7 +51,7 @@ const Article = ({ authorId, articleId, published }: { authorId: string; article
         <>
           <hr />
           <div className="flex items-center my-4">
-            <span className="text-gray-500 font-bold mr-4">Mod</span>
+            <span className="text-600 font-bold mr-4">Mod</span>
             <Btn title="Delete" Icon={TrashIcon} onClick={() => deleteArticle(articleId)} />
             <button onClick={() => publishArticle(articleId)} className="btn-primary" disabled={publishing}>
               {publish ? "Unpublish" : "Publish"}
@@ -65,7 +65,7 @@ const Article = ({ authorId, articleId, published }: { authorId: string; article
         <>
           <hr />
           <div className="flex items-center my-4">
-            <span className="text-gray-500 font-bold mr-4">Author</span>
+            <span className="text-600 font-bold mr-4">Author</span>
             <Btn title="Delete" Icon={TrashIcon} onClick={() => deleteArticle(articleId)} />
             <Btn
               title="Edit"

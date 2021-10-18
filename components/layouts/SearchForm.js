@@ -27,7 +27,7 @@ function SearchForm() {
         value={kw}
         onChange={(e) => setKw(e.target.value)}
       />
-      <button className="px-2" type="submit">
+      <button aria-label="Search" className="px-2" type="submit">
         <SearchIcon className="h-5 opacity-50" />
       </button>
     </form>

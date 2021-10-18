@@ -28,7 +28,7 @@ function CommentForm({ text, setText, onSubmit, sending }) {
 
       <div className="mt-4 mb-8">
         {session && (
-          <button className="btn bg-blue-600 text-white" disabled={!text || sending}>
+          <button aria-label="Comment" className="btn bg-blue-600 text-white" disabled={!text || sending}>
             {t("primary", "Send")} {sending && <Spin className="ml-3" />}
           </button>
         )}
