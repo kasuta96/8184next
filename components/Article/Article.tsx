@@ -68,6 +68,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <meta property="twitter:title" content={title} />
         <meta property="twitter:description" content={article.description} />
         <meta property="twitter:image" content={article.thumbnail} />
+        <link rel="canonical" href={`${process.env.HOST}/a/${article.slug}-${article.id}`} />
       </Head>
       <div className="px-3 mb-8">
         <div className="relative rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
