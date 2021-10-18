@@ -20,6 +20,11 @@ class MyDocument extends Document {
           <meta key="theme-color-light" name="theme-color" media="(prefers-color-scheme: light)" content="#1f2937" />
           <meta key="theme-color-dark" name="theme-color" media="(prefers-color-scheme: dark)" content="#f3f4f6" />
           <meta name="google-site-verification" content="PDCUiZpQh_t3SMJES0A3BE2KO47JRB8uuUe4VR5vf-0" />
+          <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5833093152767771"
+            crossorigin="anonymous"
+          ></script>
           {/* <script async src="https://www.googletagmanager.com/gtag/js?id=G-CKMMTV2JER"></script>
           <script>
             {`
