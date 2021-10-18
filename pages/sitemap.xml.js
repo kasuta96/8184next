@@ -6,13 +6,17 @@ function generateSiteMap(posts) {
          return `
        <url>
            <loc>${`${process.env.HOST}/a/${slug}-${id}`}</loc>
-           <lastmod>${updatedAt}</lastmod>
+           <lastmod>${updatedAt.split("T")[0]}</lastmod>
        </url>
      `
        })
        .join("")}
    </urlset>
  `
+}
+
+function SiteMap() {
+  // getServerSideProps will do the heavy lifting
 }
 
 export async function getServerSideProps({ res }) {
@@ -33,4 +37,4 @@ export async function getServerSideProps({ res }) {
   }
 }
 
-export default generateSiteMap
+export default SiteMap
