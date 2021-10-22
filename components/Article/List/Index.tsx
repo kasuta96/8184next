@@ -1,8 +1,6 @@
 import ArticleCard, { ArticleProps } from "./ArticleCard"
 
 const ArticleList = ({ articles }: { articles: ArticleProps[] }) => {
-  console.log("render articles")
-
   return (
     <>
       {articles.map((article: ArticleProps) => (
