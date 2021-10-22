@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import ArticleList from "../../components/Article/List"
+import ArticleList from "../../components/Article/ArticlesList"
 import Spin from "../../components/Icons/Spin"
 import Layout from "../../components/Layout"
 import { useInView } from "react-intersection-observer"
