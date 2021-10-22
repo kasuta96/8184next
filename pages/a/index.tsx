@@ -1,104 +1,116 @@
-import Head from "next/head"
-import { useRouter } from "next/router"
-import React, { useEffect, useRef, useState } from "react"
-// import ArticleList from "../../components/Article/List/Index"
+import React, { useEffect, useState } from "react"
+import ArticleList from "../../components/Article/List"
 import Spin from "../../components/Icons/Spin"
 import Layout from "../../components/Layout"
+import { useInView } from "react-intersection-observer"
+import loadItems from "../../hooks/loadArticles"
+import { useRouter } from "next/router"
 import useTrans from "../../hooks/useTrans"
-import dynamic from "next/dynamic"
+import Head from "next/head"
 
-export default function articles() {
+function Articles() {
   const { t, lang } = useTrans()
-  const [articles, setArticles] = useState(null)
-  const [error, setError] = useState(null)
-  const [loading, setLoading] = useState(true)
   const { query } = useRouter()
-  const [more, setMore] = useState(false)
-  // const isInitialMount = useRef(true)
-  const ArticleList = dynamic(() => import("../../components/Article/List/Index"))
 
-  const getArticles = async () => {
-    // handle parameter
-    let params = ""
-    for (const [key, val] of Object.entries(query)) {
-      let c = params == "" ? "?" : "&"
-      params = params.concat(c, key, "=", val.toString())
-    }
+  const [loading, setLoading] = useState(true)
+  const [items, setItems] = useState([])
+  const [hasNextPage, setHasNextPage] = useState<boolean>(true)
 
-    // fetch request get articles with params
-    const res = await fetch(`${process.env.HOST}/api/article/get-articles${params}`)
-    const data = await res.json()
-    if (!res.ok || !data) {
-      setError("Can't get data")
-      console.log("error", error)
-      return null
-    } else {
-      // show/hide more btn
-      data.article?.length < data.take ? setMore(false) : setMore(true)
-      return data
-    }
-  }
+  const { ref, inView } = useInView({
+    /* Optional options */
+    threshold: 0,
+  })
+  const shouldLoadMore = !loading && inView && hasNextPage
 
-  const parseArticles = async () => {
-    console.log("parseArticles")
+  async function loadMore() {
     setLoading(true)
-    const data = await getArticles()
-    if (data) {
-      setArticles(data.article)
+    const lastItem = items?.at(-1)?.createdAt || ""
+    try {
+      const { data, hasNextPage: newHasNextPage } = await loadItems({ lastItem, query })
+      setItems((current) => [...current, ...data])
+      setHasNextPage(newHasNextPage)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
-  const moreArticles = async () => {
+  async function loadArticles() {
     setLoading(true)
-    // get more data from last item's time
-    query["time"] = articles.at(-1).createdAt
-
-    const data = await getArticles()
-    if (data) {
-      // add to articles array
-      setArticles([...articles, ...data.article])
+    try {
+      const { data, hasNextPage: newHasNextPage } = await loadItems({ query })
+      setItems(data)
+      setHasNextPage(newHasNextPage)
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoading(false)
     }
-    setLoading(false)
   }
 
-  // Call getArticles at first time & every route query change
+  // eslint-disable-next-line consistent-return
   useEffect(() => {
-    // if (isInitialMount.current) {
-    //   isInitialMount.current = false
-    // } else {
-    // }
-    parseArticles()
-    // return () => {
-    //   setArticles(null)
-    // }
+    if (shouldLoadMore) {
+      const timer = setTimeout(() => {
+        loadMore()
+      }, 100)
+      return () => {
+        clearTimeout(timer)
+      }
+    }
+  }, [shouldLoadMore])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      loadArticles()
+    }, 100)
+    return () => {
+      clearTimeout(timer)
+    }
   }, [query])
+
+  const meta = {
+    title: "8184 - Articles",
+    description:
+      "Website là nơi Thành viên chia sẻ, trao đổi thông tin, kiến thức về cuộc sống, công việc, học tập của cộng đồng người Việt ở Nhật, cũng như người có đam mê, quan tâm đến Nhật Bản, Tiếng Nhật",
+    thumbnail: "",
+    language: lang,
+    canonical: `${process.env.HOST}/a`,
+  }
 
   return (
     <>
       <Head>
-        <title>8184 - Articles</title>
+        <title>{meta.title}</title>
+        <meta name="description" content={meta.description} />
+        <meta property="og:title" content={meta.title} />
+        <meta property="og:description" content={meta.description} />
+        <meta property="og:image" content={meta.thumbnail} />
+        <meta property="og:type" content="website" />
+
+        <meta property="twitter:title" content={meta.title} />
+        <meta property="twitter:description" content={meta.description} />
+        <meta property="twitter:image" content={meta.thumbnail} />
+        <meta property="twitter:card" content="summary_large_image" />
+
+        <meta name="content-language" content={meta.language} />
+        <link rel="canonical" href={meta.canonical} />
       </Head>
 
       <Layout>
         <div className="space-y-2 sm:space-y-8 py-10 w-full max-w-4xl mx-auto">
           <div id="articles">
-            {loading ? (
-              <Spin className="my-8 mx-auto transition" />
-            ) : articles && articles?.length > 0 ? (
-              <ArticleList articles={articles} />
+            {!loading && items?.length > 0 ? (
+              <ArticleList articles={items} />
             ) : (
-              <p className="text-center font-bold text-xl text-600">{t("primary", "There is none")}</p>
+              !loading && <p className="text-center font-bold text-xl text-600">{t("primary", "There is none")}</p>
             )}
-          </div>
 
-          <div className="text-center">
-            {more ? (
-              <button disabled={loading} onClick={moreArticles} className="btn-primary">
-                {t("primary", "More")}
-              </button>
-            ) : (
-              !loading && <p className="text-400 text-sm font-bold">_____End_____</p>
+            {hasNextPage && (
+              <div ref={ref}>
+                <Spin className="mx-auto" />
+              </div>
             )}
           </div>
         </div>
@@ -106,3 +118,5 @@ export default function articles() {
     </>
   )
 }
+
+export default Articles

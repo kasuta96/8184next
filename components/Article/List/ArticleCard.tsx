@@ -10,14 +10,15 @@ export type ArticleProps = {
   title: string
   author: {
     name: string
-    id: number
+    id: string
     image: string
   } | null
   slug: string
   description: string
   thumbnail: string
   tags: string
-  createdAt: Date
+  createdAt: string
+  published: boolean
 }
 
 const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
