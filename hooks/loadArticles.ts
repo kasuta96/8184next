@@ -1,5 +1,5 @@
 import axios from "axios"
-import { ArticleProps } from "../components/Article/List/ArticleCard"
+import { ArticleProps } from "../components/Article/ArticlesList/ArticleCard"
 
 interface Response {
   hasNextPage: boolean

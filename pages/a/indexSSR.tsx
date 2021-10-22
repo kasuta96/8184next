@@ -1,8 +1,8 @@
 import React from "react"
 import Layout from "../../components/Layout"
-import ArticleCard, { ArticleProps } from "../../components/Article/List/ArticleCard"
+import ArticleCard, { ArticleProps } from "../../components/Article/ArticlesList/ArticleCard"
 import Head from "next/head"
-import ArticleList from "../../components/Article/List"
+import ArticleList from "../../components/Article/ArticlesList"
 // import { NextApiRequest, NextApiResponse } from 'next'
 const { URL, URLSearchParams } = require("url")
 
