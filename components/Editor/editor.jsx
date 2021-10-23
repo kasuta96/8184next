@@ -75,6 +75,8 @@ export const useEditor = (toolsList, { data, editorRef }) => {
             InlineCode: t`InlineCode`,
             Image: t`Image`,
             Underline: t`Underline`,
+            "Image URL": t`Image URL`,
+            Translate: t`Translate`,
           },
 
           /**
@@ -109,7 +111,9 @@ export const useEditor = (toolsList, { data, editorRef }) => {
               "With border": t`With border`,
               "Stretch image": t`Stretch image`,
               "With background": t`With background`,
-              "Paste an image URL": "Dán URL ảnh vào đây",
+            },
+            simpleImage: {
+              "Paste an image URL": t`Paste an image URL`,
             },
             code: {
               "Enter a code": t`Enter a code`,
@@ -129,6 +133,13 @@ export const useEditor = (toolsList, { data, editorRef }) => {
             list: {
               Ordered: t`Ordered`,
               Unordered: t`Unordered`,
+            },
+            trans: {
+              "Image URL": t`Image URL`,
+              Translate: t`Translate`,
+              "Paste an image URL": t`Paste an image URL`,
+              "Enter original": t`Enter original`,
+              "Enter translation": t`Enter translation`,
             },
           },
 

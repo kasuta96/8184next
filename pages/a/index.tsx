@@ -99,8 +99,8 @@ function Articles() {
       </Head>
 
       <Layout>
-        <div className="space-y-2 sm:space-y-8 py-10 w-full max-w-4xl mx-auto">
-          <div id="articles">
+        <div className="py-10 w-full max-w-4xl mx-auto">
+          <div id="articles" className="space-y-2 sm:space-y-6">
             {!loading && items?.length > 0 ? (
               <ArticleList articles={items} />
             ) : (

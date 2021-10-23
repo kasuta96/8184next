@@ -44,5 +44,10 @@
   "Underline": "下線を引く",
   "Enter for new paragraph": "新しい段落を入力してください",
   "Access Denied": "アクセスが拒否されました",
-  "You must be signed in to access this page": "このページにアクセスするには、ログインする必要があります"
+  "You must be signed in to access this page": "このページにアクセスするには、ログインする必要があります",
+  "Image URL": "写真のURL",
+  "Translate": "翻訳",
+  "Paste an image URL": "ここに写真URLを貼り付けてください",
+  "Enter original": "オリジナルを入力してください",
+  "Enter translation": "翻訳を入力してください"
 }
