@@ -75,6 +75,8 @@ export const useEditor = (toolsList, { data, editorRef }) => {
             InlineCode: t`InlineCode`,
             Image: t`Image`,
             Underline: t`Underline`,
+            "Image URL": t`Image URL`,
+            Translate: t`Translate`,
           },
 
           /**
@@ -109,7 +111,9 @@ export const useEditor = (toolsList, { data, editorRef }) => {
               "With border": t`With border`,
               "Stretch image": t`Stretch image`,
               "With background": t`With background`,
-              "Paste an image URL": "Dán URL ảnh vào đây",
+            },
+            simpleImage: {
+              "Paste an image URL": t`Paste an image URL`,
             },
             code: {
               "Enter a code": t`Enter a code`,
@@ -129,6 +133,13 @@ export const useEditor = (toolsList, { data, editorRef }) => {
             list: {
               Ordered: t`Ordered`,
               Unordered: t`Unordered`,
+            },
+            trans: {
+              "Image URL": t`Image URL`,
+              Translate: t`Translate`,
+              "Paste an image URL": t`Paste an image URL`,
+              "Enter original": t`Enter original`,
+              "Enter translation": t`Enter translation`,
             },
           },
 
@@ -174,6 +185,7 @@ export const useEditor = (toolsList, { data, editorRef }) => {
         })
         .catch((e) => console.error("ERROR editor cleanup", e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toolsList])
 
   // set reference
@@ -197,7 +209,7 @@ export const EditorContainer = ({ editorRef, children, data, options }) => {
     <React.Fragment>
       {!children && (
         <div
-          className="py-2 px-4 text-700 bg-50 dark:border-gray-600 rounded-xl focus:outline-none"
+          className="py-2 px-4 text-700 bg-50 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none"
           id="editor-js"
         ></div>
       )}

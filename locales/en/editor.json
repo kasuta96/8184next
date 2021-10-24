@@ -44,5 +44,10 @@
   "Underline": "Underline",
   "Enter for new paragraph": "Enter for new paragraph",
   "Access Denied": "Access Denied",
-  "You must be signed in to access this page": "You must be signed in to access this page"
+  "You must be signed in to access this page": "You must be signed in to access this page",
+  "Image URL": "Image URL",
+  "Translate": "Translate",
+  "Paste an image URL": "Paste an image URL",
+  "Enter original": "Enter original",
+  "Enter translation": "Enter translation"
 }

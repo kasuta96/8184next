@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react"
-import Layout from "../../components/Layout"
-import Router from "next/router"
+import { useRouter } from "next/router"
 import dynamic from "next/dynamic"
 import { useClearDataCallback, useSetData } from "../../components/Editor"
 import { useSession } from "next-auth/client"
 import AccessDenied from "../../components/Error/AccessDenied"
 import More from "../../components/Article/Create/More"
 import useTrans from "../../hooks/useTrans"
+import Footer from "../../components/layouts/Footer"
+import Header from "../../components/layouts/Header"
+import Spin from "../../components/Icons/Spin"
 
 // get data if has id query
 export const getServerSideProps = async ({ query }) => {
@@ -39,6 +41,7 @@ const Editor = dynamic(() => import("../../components/Editor/editor").then((mod)
 
 const Create = (props) => {
   const { t, lang } = useTrans()
+  const router = useRouter()
 
   const [session] = useSession()
   const [title, setTitle] = useState(props?.body?.title || "")
@@ -52,18 +55,16 @@ const Create = (props) => {
     url: `${process.env.HOST}/api/article`,
   })
 
-  if (props?.status) {
-    useSetData(editor, props.body.content)
-    useEffect(() => {
-      if (props.body.author.id === session?.user?.id) {
-        console.log("edit")
-        setFetchType({
-          method: "PUT",
-          url: `${process.env.HOST}/api/article`,
-        })
-      }
-    }, [session])
-  }
+  useSetData(editor, props?.body?.content)
+  useEffect(() => {
+    if (props?.body?.author.id === session?.user?.id) {
+      console.log("edit")
+      setFetchType({
+        method: "PUT",
+        url: `${process.env.HOST}/api/article`,
+      })
+    }
+  }, [props?.body?.author.id, session])
 
   // save handler
   // const onSave = useSaveCallback(title, editor);
@@ -92,7 +93,7 @@ const Create = (props) => {
       })
       const result = await res.json()
       if (result.route) {
-        Router.push(result.route)
+        router.push(result.route)
       }
     } catch (error) {
       console.log(error)
@@ -102,19 +103,23 @@ const Create = (props) => {
 
   if (!session) {
     return (
-      <Layout>
+      <>
+        <Header />
         <AccessDenied />
-      </Layout>
+        <Footer />
+      </>
     )
   }
   return (
-    <Layout>
+    <>
+      <Header />
+
       <section className="flex-grow min-h-screen p-5 mx-auto">
         <div className="lg:max-w-3xl mx-auto">
           <div className="items-center md:flex md:space-x-4">
             <div className="w-full">
               <input
-                className="block w-full px-4 py-2 text-800 text-lg font-semibold bg-50 rounded-xl focus:outline-none"
+                className="block w-full px-4 py-2 text-800 text-lg font-semibold bg-100 rounded-xl focus:outline-none"
                 autoFocus
                 onChange={(e) => setTitle(e.target.value)}
                 placeholder={t("primary", "Title")}
@@ -125,9 +130,8 @@ const Create = (props) => {
           </div>
 
           <div className="w-full mt-4">
-            <div className="editorContainer">
-              <Editor reInit editorRef={setEditor} />
-            </div>
+            <Editor reInit editorRef={setEditor} />
+
             <div className="text-right text-600">
               <button className="btn-text" onClick={clearData}>
                 {t("primary", "Clear")}
@@ -150,7 +154,7 @@ const Create = (props) => {
               onClick={() => submitData(false)}
               className="btn bg-blue-600 text-gray-50"
             >
-              {t("primary", "Save")}
+              {t("primary", "Save")} {loadding && <Spin className="ml-3" />}
             </button>
             <button
               disabled={!editor || !title || loadding}
@@ -160,13 +164,15 @@ const Create = (props) => {
               {t("primary", "Draft")}
             </button>
 
-            <div className="btn bg-600 text-50" onClick={() => Router.push("/a")}>
+            <div className="btn bg-600 text-50" onClick={() => router.back()}>
               {t("primary", "Back")}
             </div>
           </div>
         </div>
       </section>
-    </Layout>
+
+      <Footer />
+    </>
   )
 }
 

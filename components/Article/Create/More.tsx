@@ -1,14 +1,7 @@
 import { Accordion } from "../../Tailwind/Accordion"
 import useTrans from "../../../hooks/useTrans"
 
-export default function More({
-  description,
-  setDescription,
-  thumbnail,
-  setThumbnail,
-  tags,
-  setTags,
-}) {
+export default function More({ description, setDescription, thumbnail, setThumbnail, tags, setTags }) {
   const { t, lang } = useTrans("primary")
 
   return (
@@ -18,10 +11,7 @@ export default function More({
         content={
           <div className="p-4">
             <div className="w-full mb-8">
-              <label
-                className="block mb-2 text-sm font-medium text-600"
-                htmlFor="description"
-              >
+              <label className="block mb-2 text-sm font-medium text-600" htmlFor="description">
                 {t`Description`}
               </label>
               <textarea
@@ -34,10 +24,7 @@ export default function More({
               ></textarea>
             </div>
             <div className="w-full mb-8">
-              <label
-                className="block mb-2 text-sm font-medium text-600"
-                htmlFor="thumbnail"
-              >
+              <label className="block mb-2 text-sm font-medium text-600" htmlFor="thumbnail">
                 {t`Thumbnail`}
               </label>
               <input
@@ -49,14 +36,10 @@ export default function More({
               />
             </div>
             <div className="w-full mb-8">
-              <label
-                className="block mb-2 text-sm font-medium text-600"
-                htmlFor="tags"
-              >
+              <label className="block mb-2 text-sm font-medium text-600" htmlFor="tags">
                 {t`Tags`}
                 <span className="text-muted">
-                  {" "}
-                  ({t`Separate by comma`} ',')
+                  {t`Separate by comma`} {"' , '"}
                 </span>
               </label>
               <input

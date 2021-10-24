@@ -78,9 +78,13 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <h1 className="font-bold pt-4">{title}</h1>
 
         <div className="flex items-center mt-4">
-          <a href={"/user/" + article.author.id} className="block relative" aria-label="Avatar">
+          <div
+            // href={"/user/" + article.author.id}
+            className="block relative"
+            aria-label="Avatar"
+          >
             <Avatar image={article.author.image} name={authorName} />
-          </a>
+          </div>
           <div className="flex flex-col justify-between ml-4 text-sm">
             <p className="font-bold text-gray-800 dark:text-white">{authorName}</p>
             <p className="text-gray-400 dark:text-gray-300">
@@ -100,7 +104,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
             <div key={s.id || i} className="text-700 my-8">
               {s.name}:{" "}
               {s.data.url ? (
-                <a href={s.data.url} target="_blank">
+                <a href={s.data.url} target="_blank" rel="noreferrer">
                   {s.data.author ? s.data.author : s.data.url}
                 </a>
               ) : (

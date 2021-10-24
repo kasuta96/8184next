@@ -54,7 +54,7 @@ export default function Feed() {
     } else {
       setFeedSearch(feed)
     }
-  }, [search])
+  }, [feed, search])
 
   return (
     <div className="px-2">

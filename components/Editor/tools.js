@@ -26,15 +26,15 @@ export const tools = {
       defaultLevel: 2,
     },
   },
-  list: {
-    class: List,
-    inlineToolbar: true,
-  },
   paragraph: {
     class: Paragraph,
     inlineToolbar: true,
   },
-  embed: Embed,
+  list: {
+    class: List,
+    inlineToolbar: true,
+  },
+  checklist: CheckList,
   table: {
     class: Table,
     inlineToolbar: true,
@@ -43,16 +43,15 @@ export const tools = {
       cols: 3,
     },
   },
-  // warning: Warning,
-  code: Code,
-  // linkTool: LinkTool,
-  raw: Raw,
+  trans: {
+    class: Trans,
+    inlineToolbar: true,
+    config: {
+      originalPlaceholder: "Enter a original",
+      translationPlaceholder: "Enter a translation",
+    },
+  },
   quote: Quote,
-  marker: Marker,
-  checklist: CheckList,
-  delimiter: Delimiter,
-  inlineCode: InlineCode,
-  simpleImage: SimpleImage,
   image: {
     class: EImage,
     config: {
@@ -73,6 +72,7 @@ export const tools = {
           return {
             success: 1,
             file: {
+              type: "upload",
               url: imageUrl,
               w: width,
               h: height,
@@ -90,6 +90,7 @@ export const tools = {
           return {
             success: 1,
             file: {
+              type: "link",
               url: url,
               w: width,
               h: height,
@@ -99,12 +100,12 @@ export const tools = {
       },
     },
   },
-  trans: {
-    class: Trans,
-    inlineToolbar: true,
-    config: {
-      originalPlaceholder: "Enter a original",
-      translationPlaceholder: "Enter a translation",
-    },
-  },
+  simpleImage: SimpleImage,
+  delimiter: Delimiter,
+  code: Code,
+  // linkTool: LinkTool,
+  raw: Raw,
+  embed: Embed,
+  marker: Marker,
+  inlineCode: InlineCode,
 }

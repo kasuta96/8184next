@@ -5,12 +5,13 @@ import NProgress from "nprogress"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
 import { ThemeProvider } from "next-themes"
+import type { AppProps /*, AppContext */ } from "next/app"
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter()
 
   useEffect(() => {
-    const handleStart = (url) => {
+    const handleStart = (url: string) => {
       console.log(`Loading: ${url}`)
       NProgress.start()
     }

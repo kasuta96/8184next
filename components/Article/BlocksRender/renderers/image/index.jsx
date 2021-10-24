@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /** ImageOutput
  *
  * @version 1.0.0
@@ -8,6 +9,7 @@
 //#region imports
 import React from "react"
 import HtmlReactParser from "html-react-parser"
+
 //#endregion
 
 const ImageOutput = ({ data }) => {
@@ -23,13 +25,14 @@ const ImageOutput = ({ data }) => {
 
   if (data.withBorder) classNames.img += " ring-4 ring-blue-200"
   if (data.withBackground) classNames.ctn += " p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
-  if (data.stretched) classNames.img += " max-h-full"
+  if (data.stretched) classNames.img = "rounded-xl shadow-xl mx-auto max-h-full"
 
   return (
     <figure className={classNames.ctn}>
       <a
         href={url}
-        className={(w > 0) & (h > 0) ? "pswps" : ""}
+        className={`${(w > 0) & (h > 0) && "pswps"}`}
+        data-pswp-src={url}
         data-pswp-width={w}
         data-pswp-height={h}
         target="_blank"
