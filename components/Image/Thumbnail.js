@@ -6,12 +6,8 @@ const Thumbnail = ({ id = 0, image, title = "" }) => {
     const url = new URL(image)
     if (!process.env.imageHost.includes(url.hostname)) {
       return (
-        <img
-          className="rounded-lg object-cover h-full w-full"
-          src={image || "https://picsum.photos/200/300?blur=3&random=" + id}
-          alt={title}
-          loading="lazy"
-        />
+        // eslint-disable-next-line @next/next/no-img-element
+        <img className="rounded-lg object-cover h-full w-full" src={image} alt={title} loading="lazy" />
       )
     }
   }

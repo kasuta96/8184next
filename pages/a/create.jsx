@@ -8,6 +8,7 @@ import More from "../../components/Article/Create/More"
 import useTrans from "../../hooks/useTrans"
 import Footer from "../../components/layouts/Footer"
 import Header from "../../components/layouts/Header"
+import Spin from "../../components/Icons/Spin"
 
 // get data if has id query
 export const getServerSideProps = async ({ query }) => {
@@ -54,18 +55,16 @@ const Create = (props) => {
     url: `${process.env.HOST}/api/article`,
   })
 
-  if (props?.status) {
-    useSetData(editor, props.body.content)
-    useEffect(() => {
-      if (props.body.author.id === session?.user?.id) {
-        console.log("edit")
-        setFetchType({
-          method: "PUT",
-          url: `${process.env.HOST}/api/article`,
-        })
-      }
-    }, [session])
-  }
+  useSetData(editor, props?.body?.content)
+  useEffect(() => {
+    if (props?.body?.author.id === session?.user?.id) {
+      console.log("edit")
+      setFetchType({
+        method: "PUT",
+        url: `${process.env.HOST}/api/article`,
+      })
+    }
+  }, [props?.body?.author.id, session])
 
   // save handler
   // const onSave = useSaveCallback(title, editor);
@@ -155,7 +154,7 @@ const Create = (props) => {
               onClick={() => submitData(false)}
               className="btn bg-blue-600 text-gray-50"
             >
-              {t("primary", "Save")}
+              {t("primary", "Save")} {loadding && <Spin className="ml-3" />}
             </button>
             <button
               disabled={!editor || !title || loadding}

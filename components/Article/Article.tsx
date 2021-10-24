@@ -104,7 +104,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
             <div key={s.id || i} className="text-700 my-8">
               {s.name}:{" "}
               {s.data.url ? (
-                <a href={s.data.url} target="_blank">
+                <a href={s.data.url} target="_blank" rel="noreferrer">
                   {s.data.author ? s.data.author : s.data.url}
                 </a>
               ) : (

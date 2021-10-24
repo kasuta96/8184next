@@ -20,6 +20,8 @@ function Vote({ id }: { id: number }) {
 
   // fetch all votes data
   const fetchVote = async (id: Number) => {
+    console.log("fetch vote")
+
     const res = await fetch(`${process.env.HOST}/api/Reaction/Vote?id=${id}`)
     const data = await res.json()
     if (res.ok) {
@@ -35,7 +37,7 @@ function Vote({ id }: { id: number }) {
 
   useEffect(() => {
     fetchVote(id)
-  }, [])
+  }, [id])
 
   const handleRating = async (rate: number) => {
     if (rate == rating) return false

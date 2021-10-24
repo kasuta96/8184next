@@ -72,6 +72,7 @@ export const tools = {
           return {
             success: 1,
             file: {
+              type: "upload",
               url: imageUrl,
               w: width,
               h: height,
@@ -89,6 +90,7 @@ export const tools = {
           return {
             success: 1,
             file: {
+              type: "link",
               url: url,
               w: width,
               h: height,

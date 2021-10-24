@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useSession, signIn } from "next-auth/client"
 // import Image from "next/image";
 import Avatar from "../Image/Avatar"
@@ -89,13 +90,15 @@ function InputBox() {
       </div>
 
       {postImage && (
-        <div onClick={removeImage} className="">
+        <div className="">
           <img
             className="h-20 object-contain duration-150 transform hover:scale-105 cursor-pointer rounded-md"
             src={postImage}
             alt=""
           />
-          <p className="cursor-pointer">Remove</p>
+          <p onClick={removeImage} className="cursor-pointer">
+            Remove
+          </p>
         </div>
       )}
 

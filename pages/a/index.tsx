@@ -22,48 +22,45 @@ function Articles() {
   })
   const shouldLoadMore = !loading && inView && hasNextPage
 
-  async function loadMore() {
-    setLoading(true)
-    const lastItem = items?.at(-1)?.createdAt || ""
-    try {
-      const { data, hasNextPage: newHasNextPage } = await loadItems({ lastItem, query })
-      setItems((current) => [...current, ...data])
-      setHasNextPage(newHasNextPage)
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  async function loadArticles() {
-    setLoading(true)
-    try {
-      const { data, hasNextPage: newHasNextPage } = await loadItems({ query })
-      setItems(data)
-      setHasNextPage(newHasNextPage)
-    } catch (err) {
-      console.log(err)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  // eslint-disable-next-line consistent-return
+  // get more articles
   useEffect(() => {
     if (shouldLoadMore) {
-      const timer = setTimeout(() => {
-        loadMore()
+      const timer = setTimeout(async () => {
+        console.log("⭐ get more articles")
+
+        setLoading(true)
+        const lastItem = items?.at(-1)?.createdAt || ""
+        try {
+          const { data, hasNextPage: newHasNextPage } = await loadItems({ lastItem, query })
+          setItems((current) => [...current, ...data])
+          setHasNextPage(newHasNextPage)
+        } catch (err) {
+          console.log(err)
+        } finally {
+          setLoading(false)
+        }
       }, 100)
       return () => {
         clearTimeout(timer)
       }
     }
-  }, [shouldLoadMore])
+  }, [items, query, shouldLoadMore])
 
+  // get new articles
   useEffect(() => {
-    const timer = setTimeout(() => {
-      loadArticles()
+    const timer = setTimeout(async () => {
+      console.log("🏹 get new articles")
+
+      setLoading(true)
+      try {
+        const { data, hasNextPage: newHasNextPage } = await loadItems({ query })
+        setItems(data)
+        setHasNextPage(newHasNextPage)
+      } catch (err) {
+        console.log(err)
+      } finally {
+        setLoading(false)
+      }
     }, 100)
     return () => {
       clearTimeout(timer)

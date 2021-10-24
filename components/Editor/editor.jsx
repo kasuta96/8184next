@@ -185,6 +185,7 @@ export const useEditor = (toolsList, { data, editorRef }) => {
         })
         .catch((e) => console.error("ERROR editor cleanup", e))
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [toolsList])
 
   // set reference
@@ -208,7 +209,7 @@ export const EditorContainer = ({ editorRef, children, data, options }) => {
     <React.Fragment>
       {!children && (
         <div
-          className="py-2 px-4 text-700 bg-50 dark:border-gray-600 rounded-xl focus:outline-none"
+          className="py-2 px-4 text-700 bg-50 dark:border-gray-600 rounded-xl shadow-lg focus:outline-none"
           id="editor-js"
         ></div>
       )}

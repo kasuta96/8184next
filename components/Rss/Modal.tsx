@@ -78,7 +78,7 @@ export default function Modal() {
                         <Render data={modalContent.content} />
                         <div className="text-700 my-8">
                           {t("rss", "Source")}:{" "}
-                          <a href={modalContent.source.url} target="_blank">
+                          <a href={modalContent.source.url} target="_blank" rel="noreferrer">
                             {modalContent.source.url}
                           </a>
                         </div>
