@@ -1,9 +1,2 @@
-# Block crawlers
 User-agent: *
-Disallow: /dashboard
-
-# Allow crawlers
-User-agent: *
-Allow: /
-
 Sitemap: https://8184.vercel.app/sitemap.xml
