@@ -43,7 +43,7 @@ const Article = ({ authorId, articleId, published }: { authorId: string; article
   }
   const userHasValidSession = Boolean(session)
   const articleBelongsToUser = session?.user?.id === authorId
-  const publisher = session?.user?.role === "ADMIN" || "MOD"
+  const publisher = session?.user?.role === "ADMIN" || session?.user?.role === "MOD"
 
   return (
     <div className="container mt-16">
@@ -51,7 +51,7 @@ const Article = ({ authorId, articleId, published }: { authorId: string; article
         <>
           <hr />
           <div className="flex items-center my-4">
-            <span className="text-600 font-bold mr-4">Mod</span>
+            <span className="text-600 font-bold mr-4">Mod {session?.user?.role}</span>
             <Btn title="Delete" Icon={TrashIcon} onClick={() => deleteArticle(articleId)} />
             <button onClick={() => publishArticle(articleId)} className="btn-primary" disabled={publishing}>
               {publish ? "Unpublish" : "Publish"}

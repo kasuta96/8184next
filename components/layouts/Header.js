@@ -99,7 +99,12 @@ function Header() {
                       <div className="flex-none">
                         <Avatar image={session?.user?.image} size={50} />
                       </div>
-                      <div className="font-semibold">{session?.user?.name}</div>
+                      <div className="flex flex-col justify-between ml-4 text-sm">
+                        <div className="font-semibold">{session?.user?.name}</div>
+                        {session?.user?.role !== "USER" && (
+                          <span className="text-500 text-xs text">🚀 {session?.user?.role}</span>
+                        )}
+                      </div>
                     </>
                   )}
                 </div>

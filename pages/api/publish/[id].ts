@@ -3,18 +3,12 @@ import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../lib/db"
 
 // PUT /api/publish/:id
-export default async function handle(
-  req: NextApiRequest,
-  res: NextApiResponse
-) {
+export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const session = await getSession({ req })
 
   console.log(session?.user?.role)
 
-  if (
-    !session ||
-    (session?.user?.role !== "ADMIN" && session?.user?.role !== "MOD")
-  ) {
+  if (session?.user?.role !== "ADMIN" && session?.user?.role !== "MOD") {
     return res.status(400).json({
       message: "This is protected request",
     })

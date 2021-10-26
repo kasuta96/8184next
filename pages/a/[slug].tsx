@@ -4,6 +4,7 @@ import Layout from "../../components/Layout"
 import ArticlePage, { ArticleProps } from "../../components/Article/Article"
 import { useRouter } from "next/router"
 import ErrorPage from "next/error"
+import Spin from "../../components/Icons/Spin"
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
   const res = await fetch(encodeURI(`https://8184.vercel.app/api/article/slug/${params?.slug}`))
@@ -47,7 +48,7 @@ const Article: React.FC<ArticleProps> = (props) => {
   return (
     <Layout>
       <div className="w-full max-w-4xl mx-auto">
-        {router.isFallback ? <p>loading...</p> : <ArticlePage article={props} />}
+        {router.isFallback ? <Spin className="mx-auto" /> : <ArticlePage article={props} />}
       </div>
     </Layout>
   )

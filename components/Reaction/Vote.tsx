@@ -5,6 +5,7 @@ import Avatar from "../Image/Avatar"
 import { Rating } from "./Rating/Rating"
 import StarIcon from "./Rating/StarIcon"
 import SigninBtn from "../Buttons/SigninBtn"
+import Spin from "../Icons/Spin"
 
 function Vote({ id }: { id: number }) {
   const [rating, setRating] = useState(0)
@@ -14,7 +15,7 @@ function Vote({ id }: { id: number }) {
   })
   const [onRating, setOnRating] = useState({
     status: false,
-    text: "",
+    text: null,
   })
   const [session, loading] = useSession()
 
@@ -44,7 +45,7 @@ function Vote({ id }: { id: number }) {
     setRating(rate)
     setOnRating({
       status: true,
-      text: "Loading...",
+      text: <Spin />,
     })
     const res = await fetch(`${process.env.HOST}/api/Reaction/Vote`, {
       method: "POST",
@@ -62,14 +63,14 @@ function Vote({ id }: { id: number }) {
     }
     setOnRating({
       status: false,
-      text: "Thank for your rating",
+      text: "✔️",
     })
   }
 
   return (
     <>
       <div className="flex items-center space-x-2 mb-8 mt-16">
-        {loading && "loading..."}
+        {loading && <Spin className="my-8 mx-auto" />}
         {session ? <Avatar image={session.user.image} size={35} /> : <SigninBtn />}
         <Rating
           onClick={session && !onRating.status ? handleRating : () => false}
