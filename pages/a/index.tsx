@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react"
-import ArticleList from "../../components/Article/ArticlesList"
+import React, { useEffect, useMemo, useState } from "react"
+import ArticlesList from "../../components/Article/ArticlesList"
 import Spin from "../../components/Icons/Spin"
 import Layout from "../../components/Layout"
 import { useInView } from "react-intersection-observer"
@@ -76,6 +76,9 @@ function Articles() {
     canonical: `${process.env.HOST}/a`,
   }
 
+  // useMemo also lets you skip an expensive re-render of a child
+  const ArticlesMemo = useMemo(() => <ArticlesList articles={items} />, [items])
+
   return (
     <>
       <Head>
@@ -98,10 +101,10 @@ function Articles() {
       <Layout>
         <div className="py-10 w-full max-w-4xl mx-auto">
           <div id="articles" className="space-y-2 sm:space-y-6">
-            {!loading && items?.length > 0 ? (
-              <ArticleList articles={items} />
-            ) : (
-              !loading && <p className="text-center font-bold text-xl text-600">{t("primary", "There is none")}</p>
+            {ArticlesMemo}
+
+            {!loading && items.length < 1 && (
+              <p className="text-center font-bold text-xl text-600">{t("primary", "There is none")}</p>
             )}
 
             {hasNextPage && (
