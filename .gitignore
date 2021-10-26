@@ -37,3 +37,6 @@ yarn-error.log*
 
 # db infomation
 package-lock.json
+
+# sitemap
+/public/sitemap.xml
