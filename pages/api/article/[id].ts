@@ -21,7 +21,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
   }
 
   const belongsToUser = await checkAuthor()
-  const modOrAdmin = session?.user?.role !== ("MOD" || "ADMIN")
+  const modOrAdmin = session?.user?.role === "ADMIN" || session?.user?.role === "MOD"
 
   if (req.method === "DELETE") {
     if (belongsToUser || modOrAdmin) {
