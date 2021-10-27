@@ -38,7 +38,7 @@ const ArticleCard: React.FC<{ article: ArticleProps }> = ({ article }) => {
         {/* <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Case study</div> */}
 
         <Link href={`/a/[slug]`} as={`/a/${article.slug}-${article.id}`} scroll={false}>
-          <a className="block mt-1 sm:text-lg text-800 sm:font-semibold hover:underline cursor-pointer">
+          <a className="block mt-1 sm:text-lg text-700 sm:font-semibold hover:underline cursor-pointer">
             {article.title}
           </a>
         </Link>

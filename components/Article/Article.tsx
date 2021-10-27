@@ -70,10 +70,10 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
         <meta property="twitter:image" content={article.thumbnail} />
         <link rel="canonical" href={`${process.env.HOST}/a/${article.slug}-${article.id}`} />
       </Head>
-      <div className="px-3 mb-8">
-        <div className="relative rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
+      <div className="px-3 my-8">
+        {/* <div className="relative rounded-lg shadow-xl h-60 sm:h-64 md:h-72 xl:h-80 w-full">
           <Thumbnail image={article.thumbnail} />
-        </div>
+        </div> */}
 
         <h1 className="font-bold pt-4">{title}</h1>
 
@@ -86,7 +86,7 @@ const ArticlePage: React.FC<{ article: ArticleProps }> = ({ article }) => {
             <Avatar image={article.author.image} name={authorName} />
           </div>
           <div className="flex flex-col justify-between ml-4 text-sm">
-            <p className="font-bold text-gray-800 dark:text-white">{authorName}</p>
+            <p className="font-bold text-700">{authorName}</p>
             <p className="text-gray-400 dark:text-gray-300">
               <FormatDate value={article.createdAt} />
             </p>
