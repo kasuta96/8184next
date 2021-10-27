@@ -12,8 +12,7 @@
     "db-up": "prisma migrate up --experimental",
     "db-dev": "prisma migrate dev",
     "generate": "prisma generate",
-    "lint": "next lint",
-    "postbuild": "node ./generate-sitemap.mjs"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^1.2.0",

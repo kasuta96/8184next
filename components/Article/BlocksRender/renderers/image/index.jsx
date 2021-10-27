@@ -24,7 +24,7 @@ const ImageOutput = ({ data }) => {
   let h = data.file?.h
 
   if (data.withBorder) classNames.img += " ring-4 ring-blue-200"
-  if (data.withBackground) classNames.ctn += " p-2 bg-gray-200 dark:bg-gray-700 rounded-lg"
+  if (data.withBackground) classNames.ctn += " p-4 bg-gray-200 dark:bg-gray-700 rounded-lg"
   if (data.stretched) classNames.img = "rounded-xl shadow-xl mx-auto max-h-full"
 
   return (
