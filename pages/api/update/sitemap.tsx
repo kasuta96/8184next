@@ -27,7 +27,7 @@ export default async function Sitemap(req: NextApiRequest, res: NextApiResponse)
       })
       .join("")}</urlset>`
 
-    writeFileSync("./public/sitemap.xml", sitemap)
+    writeFileSync("../../../public/sitemap.xml", sitemap)
 
     return res.status(200).json({ message: "sitemap generated" })
   } catch (e) {
