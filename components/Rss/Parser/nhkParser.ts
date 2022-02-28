@@ -43,7 +43,9 @@ export default async function nhkParser(link: string) {
       id: id,
       type: "simpleImage",
       data: {
-        url: host + url,
+        file: {
+          url: host + url,
+        },
         caption: "source: NHK News",
         withBorder: false,
         withBackground: false,

@@ -1,57 +1,57 @@
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect } from "react"
 
-export const dataKey = "editorData";
+export const dataKey = "editorData"
 
 export const useSaveCallback = (editor) => {
   return useCallback(async () => {
-    if (!editor) return;
+    if (!editor) return
     try {
-      const out = await editor.save();
-      console.group("EDITOR onSave");
-      console.dir(out);
-      localStorage.setItem(dataKey, JSON.stringify(out));
-      console.info("Saved in localStorage");
-      console.groupEnd();
+      const out = await editor.save()
+      console.group("EDITOR onSave")
+      console.dir(out)
+      localStorage.setItem(dataKey, JSON.stringify(out))
+      console.info("Saved in localStorage")
+      console.groupEnd()
     } catch (e) {
-      console.error("SAVE RESULT failed", e);
+      console.error("SAVE RESULT failed", e)
     }
-  }, [editor]);
-};
+  }, [editor])
+}
 
 // Set editor data after initializing
 export const useSetData = (editor, data) => {
   useEffect(() => {
-    console.log("setdata");
+    console.log("setdata", data)
     if (!editor || !data || data.blocks.length == 0) {
-      return;
+      return
     }
 
     editor.isReady.then(() => {
       // fixing an annoying warning in Chrome `addRange(): The given range isn't in document.`
       setTimeout(() => {
-        editor.render(data);
-      }, 100);
-    });
-  }, [editor, data]);
-};
+        editor.render(data)
+      }, 100)
+    })
+  }, [editor, data])
+}
 
 export const useClearDataCallback = (editor) => {
   return useCallback(
     (ev) => {
-      ev.preventDefault();
+      ev.preventDefault()
       if (!editor) {
-        return;
+        return
       }
       editor.isReady.then(() => {
         // fixing an annoying warning in Chrome `addRange(): The given range isn't in document.`
         setTimeout(() => {
-          editor.clear();
-        }, 100);
-      });
+          editor.clear()
+        }, 100)
+      })
     },
     [editor]
-  );
-};
+  )
+}
 
 // load saved data from localStorage
 // export const useLoadLocalData = () => {
