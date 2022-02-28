@@ -22,7 +22,9 @@ module.exports = nextTranslate({
       },
     ]
   },
+  swcMinify: true,
   images: {
+    formats: ["image/avif", "image/webp"],
     domains: imageHost,
   },
   env: {
