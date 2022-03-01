@@ -8,7 +8,7 @@ export default function Footer() {
           <p className="text-center sm:text-left">
             © 2021 —
             <a href={"/"} rel="noopener noreferrer" className="text-500 ml-1 font-extrabold">
-              {process.env.DMNAME}
+              {process.env.NEXT_PUBLIC_NAME}
             </a>
           </p>
           <div className="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
