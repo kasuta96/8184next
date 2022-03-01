@@ -7,7 +7,7 @@ import ErrorPage from "next/error"
 import Spin from "../../components/Icons/Spin"
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const res = await fetch(encodeURI(`${process.env.HOST}/api/article/slug/${params?.slug}`))
+  const res = await fetch(encodeURI(`${process.env.BEFETCH}/api/article/slug/${params?.slug}`))
   const article = await res.json()
 
   return {
@@ -17,8 +17,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 }
 
 export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
-  const res = await fetch(`${process.env.HOST}/api/article/slug`)
-  const articles: ArticleProps[] = await res.json()
+  const befetch = process.env.BEFETCH
+  let articles: ArticleProps[] = []
+
+  if (befetch) {
+    const res = await fetch(`${process.env.BEFETCH}/api/article/slug`)
+    articles = await res.json()
+  }
 
   const paths = []
 
