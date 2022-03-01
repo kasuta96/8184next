@@ -1,5 +1,5 @@
 import { useState } from "react"
-import NewWindow from "react-new-window"
+import NewWindow from "../../pages/auth/NewWindow"
 import useTrans from "../../hooks/useTrans"
 
 const SigninBtn = () => {
