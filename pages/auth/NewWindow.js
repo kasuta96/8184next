@@ -1,11 +1,6 @@
-/**
- * Component dependencies.
- * @private
- */
-
-import React from 'react'
-import ReactDOM from 'react-dom'
-import PropTypes from 'prop-types'
+import React from "react"
+import ReactDOM from "react-dom"
+import PropTypes from "prop-types"
 
 /**
  * The NewWindow class object.
@@ -17,14 +12,14 @@ class NewWindow extends React.PureComponent {
    * NewWindow default props.
    */
   static defaultProps = {
-    url: '',
-    name: '',
-    title: '',
-    features: { width: '600px', height: '640px' },
+    url: "",
+    name: "",
+    title: "",
+    features: { width: "600px", height: "640px" },
     onBlock: null,
     onOpen: null,
     onUnload: null,
-    center: 'parent',
+    center: "parent",
     copyStyles: true,
     closeOnUnmount: true,
   }
@@ -64,23 +59,14 @@ class NewWindow extends React.PureComponent {
     const { url, title, name, features, onBlock, onOpen, center } = this.props
 
     // Prepare position of the new window to be centered against the 'parent' window or 'screen'.
-    if (
-      typeof center === 'string' &&
-      (features.width === undefined || features.height === undefined)
-    ) {
-      console.warn(
-        'width and height window features must be present when a center prop is provided'
-      )
-    } else if (center === 'parent') {
-      features.left =
-        window.top.outerWidth / 2 + window.top.screenX - features.width / 2
-      features.top =
-        window.top.outerHeight / 2 + window.top.screenY - features.height / 2
-    } else if (center === 'screen') {
-      const screenLeft =
-        window.screenLeft !== undefined ? window.screenLeft : window.screen.left
-      const screenTop =
-        window.screenTop !== undefined ? window.screenTop : window.screen.top
+    if (typeof center === "string" && (features.width === undefined || features.height === undefined)) {
+      console.warn("width and height window features must be present when a center prop is provided")
+    } else if (center === "parent") {
+      features.left = window.top.outerWidth / 2 + window.top.screenX - features.width / 2
+      features.top = window.top.outerHeight / 2 + window.top.screenY - features.height / 2
+    } else if (center === "screen") {
+      const screenLeft = window.screenLeft !== undefined ? window.screenLeft : window.screen.left
+      const screenTop = window.screenTop !== undefined ? window.screenTop : window.screen.top
 
       const width = window.innerWidth
         ? window.innerWidth
@@ -99,7 +85,7 @@ class NewWindow extends React.PureComponent {
 
     // Open a new window.
     this.window = window.open(url, name, toWindowFeatures(features))
-    this.container = this.window.document.createElement('div')
+    this.container = this.window.document.createElement("div")
     // When a new window use content from a cross-origin there's no way we can attach event
     // to it. Therefore, we need to detect in a interval when the new window was destroyed
     // or was closed.
@@ -114,18 +100,14 @@ class NewWindow extends React.PureComponent {
       this.window.document.title = title
 
       // Check if the container already exists as the window may have been already open
-      this.container = this.window.document.getElementById(
-        'new-window-container'
-      )
+      this.container = this.window.document.getElementById("new-window-container")
       if (this.container === null) {
-        this.container = this.window.document.createElement('div')
-        this.container.setAttribute('id', 'new-window-container')
+        this.container = this.window.document.createElement("div")
+        this.container.setAttribute("id", "new-window-container")
         this.window.document.body.appendChild(this.container)
       } else {
         // Remove any existing content
-        const staticContainer = this.window.document.getElementById(
-          'new-window-container-static'
-        )
+        const staticContainer = this.window.document.getElementById("new-window-container-static")
         this.window.document.body.removeChild(staticContainer)
       }
 
@@ -134,18 +116,18 @@ class NewWindow extends React.PureComponent {
         setTimeout(() => copyStyles(document, this.window.document), 0)
       }
 
-      if (typeof onOpen === 'function') {
+      if (typeof onOpen === "function") {
         onOpen(this.window)
       }
 
       // Release anything bound to this component before the new window unload.
-      this.window.addEventListener('beforeunload', () => this.release())
+      this.window.addEventListener("beforeunload", () => this.release())
     } else {
       // Handle error on opening of new window.
-      if (typeof onBlock === 'function') {
+      if (typeof onBlock === "function") {
         onBlock(null)
       } else {
-        console.warn('A new window could not be opened. Maybe it was blocked.')
+        console.warn("A new window could not be opened. Maybe it was blocked.")
       }
     }
   }
@@ -161,7 +143,7 @@ class NewWindow extends React.PureComponent {
       } else if (this.props.children) {
         // Clone any children so they aren't removed when react stops rendering
         const clone = this.container.cloneNode(true)
-        clone.setAttribute('id', 'new-window-container-static')
+        clone.setAttribute("id", "new-window-container-static")
         this.window.document.body.appendChild(clone)
       }
     }
@@ -183,7 +165,7 @@ class NewWindow extends React.PureComponent {
     // Call any function bound to the `onUnload` prop.
     const { onUnload } = this.props
 
-    if (typeof onUnload === 'function') {
+    if (typeof onUnload === "function") {
       onUnload(null)
     }
   }
@@ -198,7 +180,7 @@ NewWindow.propTypes = {
   onUnload: PropTypes.func,
   onBlock: PropTypes.func,
   onOpen: PropTypes.func,
-  center: PropTypes.oneOf(['parent', 'screen']),
+  center: PropTypes.oneOf(["parent", "screen"]),
   copyStyles: PropTypes.bool,
   closeOnUnmount: PropTypes.bool,
 }
@@ -240,15 +222,13 @@ function copyStyles(source, target) {
           return
         }
 
-        let returnText = ''
+        let returnText = ""
 
         if (type === CSSRule.KEYFRAMES_RULE) {
           // IE11 will throw error when trying to access cssText property, so we
           // need to assemble them
           returnText = getKeyFrameText(cssRule)
-        } else if (
-          [CSSRule.IMPORT_RULE, CSSRule.FONT_FACE_RULE].includes(type)
-        ) {
+        } else if ([CSSRule.IMPORT_RULE, CSSRule.FONT_FACE_RULE].includes(type)) {
           // Check if the cssRule type is CSSImportRule (3) or CSSFontFaceRule (5)
           // to handle local imports on a about:blank page
           // '/custom.css' turns to 'http://my-site.com/custom.css'
@@ -259,14 +239,14 @@ function copyStyles(source, target) {
         ruleText.push(returnText)
       })
 
-      const newStyleEl = target.createElement('style')
-      newStyleEl.textContent = ruleText.join('\n')
+      const newStyleEl = target.createElement("style")
+      newStyleEl.textContent = ruleText.join("\n")
       headFrag.appendChild(newStyleEl)
     } else if (styleSheet.href) {
       // for <link> elements loading CSS from a URL
-      const newLinkEl = target.createElement('link')
+      const newLinkEl = target.createElement("link")
 
-      newLinkEl.rel = 'stylesheet'
+      newLinkEl.rel = "stylesheet"
       newLinkEl.href = styleSheet.href
       headFrag.appendChild(newLinkEl)
     }
@@ -283,13 +263,13 @@ function copyStyles(source, target) {
  */
 
 function getKeyFrameText(cssRule) {
-  const tokens = ['@keyframes', cssRule.name, '{']
+  const tokens = ["@keyframes", cssRule.name, "{"]
   Array.from(cssRule.cssRules).forEach((cssRule) => {
     // type === CSSRule.KEYFRAME_RULE should always be true
-    tokens.push(cssRule.keyText, '{', cssRule.style.cssText, '}')
+    tokens.push(cssRule.keyText, "{", cssRule.style.cssText, "}")
   })
-  tokens.push('}')
-  return tokens.join(' ')
+  tokens.push("}")
+  return tokens.join(" ")
 }
 
 /**
@@ -301,14 +281,14 @@ function getKeyFrameText(cssRule) {
 
 function fixUrlForRule(cssRule) {
   return cssRule.cssText
-    .split('url(')
+    .split("url(")
     .map((line) => {
-      if (line[1] === '/') {
+      if (line[1] === "/") {
         return `${line.slice(0, 1)}${window.location.origin}${line.slice(1)}`
       }
       return line
     })
-    .join('url(')
+    .join("url(")
 }
 
 /**
@@ -322,14 +302,14 @@ function toWindowFeatures(obj) {
   return Object.keys(obj)
     .reduce((features, name) => {
       const value = obj[name]
-      if (typeof value === 'boolean') {
-        features.push(`${name}=${value ? 'yes' : 'no'}`)
+      if (typeof value === "boolean") {
+        features.push(`${name}=${value ? "yes" : "no"}`)
       } else {
         features.push(`${name}=${value}`)
       }
       return features
     }, [])
-    .join(',')
+    .join(",")
 }
 
 /**
