@@ -1,4 +1,4 @@
-import { useState } from "react"
+import React, { useState } from "react"
 import NewWindow from "../../pages/auth/NewWindow"
 import useTrans from "../../hooks/useTrans"
 
