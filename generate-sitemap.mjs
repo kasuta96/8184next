@@ -1,6 +1,6 @@
 import { writeFileSync } from "fs"
 import axios from "axios"
-const homeURL = "https://8184.vercel.app"
+const homeURL = "https://9hito.com"
 
 async function Sitemap() {
   try {

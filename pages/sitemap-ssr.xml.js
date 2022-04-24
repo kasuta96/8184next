@@ -1,4 +1,4 @@
-const homeURL = "https://8184.vercel.app"
+const homeURL = "https://9hito.com"
 
 function generateSiteMap(pages) {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?><urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${pages
