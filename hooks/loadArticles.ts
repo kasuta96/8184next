@@ -14,8 +14,8 @@ function loadItems({ lastItem = "", query }): Promise<Response> {
       params: { time: lastItem, ...query },
     })
       .then((res) => {
-        let data: ArticleProps[] = res.data.article
-        resolve({ hasNextPage: res.data.article.length === res.data.take, data: data })
+        let data: ArticleProps[] = res.data?.article
+        resolve({ hasNextPage: res.data?.article?.length === res.data?.take, data: data })
       })
       .catch((e) => {
         console.error(e)

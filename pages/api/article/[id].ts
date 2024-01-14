@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getSession } from "next-auth/client"
 import prisma from "../../../lib/db"
+import { auth } from "../../../lib/auth"
 
 // DELETE /api/article/:id
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   const articleId = req.query.id
-  const session = await getSession({ req })
+  const session = await auth(req, res)
 
   const checkAuthor = async () => {
     const article = await prisma.article.findUnique({

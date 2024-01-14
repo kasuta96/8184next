@@ -1,4 +1,4 @@
-import { signIn, useSession } from "next-auth/client"
+import { signIn, useSession } from "next-auth/react"
 import React, { useEffect, useState } from "react"
 import Btn from "../Buttons/Btn"
 import Avatar from "../Image/Avatar"
@@ -17,7 +17,8 @@ function Vote({ id }: { id: number }) {
     status: false,
     text: null,
   })
-  const [session, loading] = useSession()
+  const { data: session, status } = useSession()
+  const loading = status === "loading"
 
   // fetch all votes data
   const fetchVote = async (id: Number) => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import dynamic from "next/dynamic"
 import { useClearDataCallback, useSetData } from "../../components/Editor"
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
 import AccessDenied from "../../components/Error/AccessDenied"
 import More from "../../components/Article/Create/More"
 import useTrans from "../../hooks/useTrans"
@@ -42,8 +42,7 @@ const Editor = dynamic(() => import("../../components/Editor/editor").then((mod)
 const Create = (props) => {
   const { t, lang } = useTrans()
   const router = useRouter()
-
-  const [session] = useSession()
+  const { data: session } = useSession()
   const [title, setTitle] = useState(props?.body?.title || "")
   const [editor, setEditor] = useState(null)
   const [thumbnail, setThumbnail] = useState(props?.body?.thumbnail || "")

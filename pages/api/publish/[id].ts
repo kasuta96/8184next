@@ -1,10 +1,10 @@
-import { getSession } from "next-auth/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../lib/db"
+import { auth } from "../../../lib/auth"
 
 // PUT /api/publish/:id
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
-  const session = await getSession({ req })
+  const session = await auth(req, res)
 
   console.log(session?.user?.role)
 

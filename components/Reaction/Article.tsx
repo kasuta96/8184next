@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
 import { useRouter } from "next/router"
 import { TrashIcon, PencilAltIcon } from "@heroicons/react/outline"
 import Btn from "../Buttons/Btn"
@@ -37,7 +37,9 @@ const Article = ({ authorId, articleId, published }: { authorId: string; article
     }
   }
 
-  const [session, loading] = useSession()
+  const { data: session, status } = useSession()
+  const loading = status === "loading"
+
   if (loading) {
     return <div>Authenticating ...</div>
   }

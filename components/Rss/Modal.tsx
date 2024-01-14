@@ -4,12 +4,12 @@ import Render from "../Article/BlocksRender/rssRender"
 import useTrans from "../../hooks/useTrans"
 import FormatDate from "../handleData/FormatDate"
 import { useRouter } from "next/router"
-import { useSession, signIn } from "next-auth/client"
+import { useSession, signIn } from "next-auth/react"
 import SigninBtn from "../Buttons/SigninBtn"
 
 export default function Modal() {
   const { t, lang } = useTrans()
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   const [showModal, setShowModal] = useState(false)

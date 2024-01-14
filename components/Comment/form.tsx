@@ -1,10 +1,10 @@
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
 import Spin from "../Icons/Spin"
 import useTrans from "../../hooks/useTrans"
 
 function CommentForm({ text, setText, onSubmit, sending }) {
   const { t } = useTrans()
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
 
   // autogrow textarea
   function autoGrow(e: any) {

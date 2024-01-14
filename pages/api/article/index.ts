@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../lib/db"
-import { getSession } from "next-auth/client"
 import slugify from "../../../lib/slugify"
+import { auth } from "../../../lib/auth"
 // POST /api/article
 export default async function handle(req: NextApiRequest, res: NextApiResponse) {
   interface Data {
@@ -40,7 +40,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     return data
   }
 
-  const session = await getSession({ req })
+  const session = await auth(req, res)
 
   const checkAuthor = async (articleId: any) => {
     const article = await prisma.article.findUnique({

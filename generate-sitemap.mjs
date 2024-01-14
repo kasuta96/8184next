@@ -1,10 +1,10 @@
 import { writeFileSync } from "fs"
 import axios from "axios"
-const homeURL = "https://9hito.com"
+const homeURL = "https://8184.9hito.com"
 
 async function Sitemap() {
   try {
-    console.log("generating sitemap..")
+    console.log(`generating sitemap from ${homeURL}`)
 
     const request = await axios(`${homeURL}/api/article/sitemap`)
     const pages = await request.data
@@ -20,8 +20,7 @@ async function Sitemap() {
 
     console.log("sitemap generated")
   } catch (e) {
-    console.log(e)
-    process.exit(1)
+    console.log("Sitemap generate failed!", e.code)
   }
 }
 

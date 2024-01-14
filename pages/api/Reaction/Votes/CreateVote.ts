@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import { getSession } from "next-auth/client"
 import prisma from "../../../../lib/db"
+import { auth } from "../../../../lib/auth"
 
 export default async function CreateVote(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const session = await getSession({ req })
+  const session = await auth(req, res)
 
   if (!session) {
     return res.status(400).json({

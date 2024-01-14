@@ -21,8 +21,12 @@ export const getStaticPaths: GetStaticPaths = async ({ locales }) => {
   let articles: ArticleProps[] = []
 
   if (befetch) {
-    const res = await fetch(`${process.env.BEFETCH}/api/article/slug`)
-    articles = await res.json()
+    try {
+      const res = await fetch(`${befetch}/api/article/slug`)
+      articles = await res.json()
+    } catch (error) {
+      console.log('No fetch data!');
+    }
   }
 
   const paths = []

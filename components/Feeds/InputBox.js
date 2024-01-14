@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { useSession, signIn } from "next-auth/client"
+import { useSession, signIn } from "next-auth/react"
 // import Image from "next/image";
 import Avatar from "../Image/Avatar"
 import { PhotographIcon } from "@heroicons/react/outline"
@@ -8,7 +8,7 @@ import { useRef, useState } from "react"
 import SigninBtn from "../Buttons/SigninBtn"
 
 function InputBox() {
-  const [session] = useSession()
+  const { data: session } = useSession()
   const inputRef = useRef(null)
   const filePickerRef = useRef(null)
   const [postImage, setPostImage] = useState(null)

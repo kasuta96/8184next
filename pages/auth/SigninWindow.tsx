@@ -1,8 +1,9 @@
-import { signIn, useSession } from "next-auth/client"
+import { useSession, signIn, signOut } from "next-auth/react"
 import { useEffect } from "react"
 
 const SigninWindow = () => {
-  const [session, loading] = useSession()
+  const { data: session, status } = useSession()
+  const loading = status === "loading"
 
   useEffect(() => {
     if (!loading && !session) void signIn()

@@ -7,7 +7,7 @@ import {
   TranslateIcon,
   PencilAltIcon,
 } from "@heroicons/react/outline"
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
 import SidebarRow from "./SidebarRow"
 import { navWrapperToggle } from "./SidebarToogle"
 import { useRouter } from "next/router"
@@ -15,7 +15,7 @@ import useTrans from "../../hooks/useTrans"
 
 function Sidebar() {
   const { t, lang } = useTrans("layouts")
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   return (

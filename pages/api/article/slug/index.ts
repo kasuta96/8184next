@@ -26,6 +26,7 @@ export default async function handle(req: NextApiRequest, res: NextApiResponse) 
     // response data like data: {articles}
     return res.status(200).json(article)
   } catch (error) {
+    console.error(error);
     return res.status(500).json({
       message: error,
     })

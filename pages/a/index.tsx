@@ -54,8 +54,8 @@ function Articles() {
       setLoading(true)
       try {
         const { data, hasNextPage: newHasNextPage } = await loadItems({ query })
-        setItems(data)
-        setHasNextPage(newHasNextPage)
+        setItems(data ?? [])
+        setHasNextPage(newHasNextPage ?? false)
       } catch (err) {
         console.log(err)
       } finally {

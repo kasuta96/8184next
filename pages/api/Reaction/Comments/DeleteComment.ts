@@ -1,6 +1,6 @@
-import { getSession } from "next-auth/client"
 import type { NextApiRequest, NextApiResponse } from "next"
 import prisma from "../../../../lib/db"
+import { auth } from "../../../../lib/auth"
 
 export default async function DeleteComments(
   req: NextApiRequest,
@@ -8,7 +8,7 @@ export default async function DeleteComments(
 ) {
   const { id, comment } = req.body
 
-  const session = await getSession({ req })
+  const session = await auth(req, res)
 
   if (!id || !comment || !session) {
     return res.status(400).json({ message: "Missing parameter." })

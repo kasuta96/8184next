@@ -1,5 +1,5 @@
 import { RssIcon, UserGroupIcon, DocumentTextIcon, ClipboardCheckIcon, TranslateIcon } from "@heroicons/react/outline"
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
 import { navWrapperToggle } from "./SidebarToogle"
 import { useRouter } from "next/router"
 import useTrans from "../../hooks/useTrans"
@@ -8,7 +8,7 @@ import Link from "next/link"
 
 const SidebarLink = () => {
   const { t } = useTrans("layouts")
-  const [session] = useSession()
+  const { data: session } = useSession()
   const router = useRouter()
 
   const Row: React.FC<{ url: string; title: string; active: boolean; Icon?: any }> = ({ url, title, active, Icon }) => {

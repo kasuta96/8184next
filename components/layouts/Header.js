@@ -17,7 +17,7 @@ import SearchForm from "./SearchForm"
 import { SidebarToggle } from "./SidebarToogle"
 import Dropdown from "../Dropdowns/Dropdown"
 import { useRouter } from "next/router"
-import { signIn, signOut, useSession } from "next-auth/client"
+import { signIn, signOut, useSession } from "next-auth/react"
 import Avatar from "../Image/Avatar"
 import QuickSetting from "./QuickSetting"
 import useTrans from "../../hooks/useTrans"
@@ -25,7 +25,7 @@ import SigninBtn from "../Buttons/SigninBtn"
 
 function Header() {
   const router = useRouter()
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
   const { t, lang } = useTrans("layouts")
 
   return (

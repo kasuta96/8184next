@@ -1,9 +1,9 @@
-import { useSession } from "next-auth/client"
+import { useSession } from "next-auth/react"
 import FormatDate from "../handleData/FormatDate"
 import Card from "./Card"
 
 function CommentList({ comments, onDelete, deleting }) {
-  const [session, loading] = useSession()
+  const { data: session } = useSession()
 
   return (
     <div className="space-y-6 my-8">
